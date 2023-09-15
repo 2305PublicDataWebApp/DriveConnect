@@ -30,6 +30,7 @@
 			</thead>
 			<tbody>
 				<tr>
+				
 					<td>${i.count }</td>
 					<c:url var="detailUrl" value="/review/redetail">
 						<c:param name="rNo" value="${review.rNo }"></c:param>
