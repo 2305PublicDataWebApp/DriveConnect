@@ -9,7 +9,7 @@
 	<body>
 	<h1>환영합니다!</h1>
 		<h2>메인 인덱스</h2>
-		<a href="/review/rewrite.kh">게시판</a>
+		<a href="/review/rewrite">게시판</a>
 <P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>
