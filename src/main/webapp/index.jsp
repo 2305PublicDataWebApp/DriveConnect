@@ -14,17 +14,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/include/nav.jsp"></jsp:include>
 <main>
-
-
-
-
-
-
-
-
-
-
-
+	<jsp:include page="/WEB-INF/views/include/middle.jsp"></jsp:include>
 </main>
 	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </body>

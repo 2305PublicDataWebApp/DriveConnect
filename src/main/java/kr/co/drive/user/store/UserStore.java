@@ -8,4 +8,6 @@ public interface UserStore {
 
 	int insertMember(SqlSession session, User user);
 
+	User checkUserLogin(SqlSession session, User user);
+
 }

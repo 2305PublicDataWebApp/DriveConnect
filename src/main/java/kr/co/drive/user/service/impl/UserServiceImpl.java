@@ -24,4 +24,11 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	@Override
+	public User checkUserLogin(User user) {
+		// TODO Auto-generated method stub
+		User uOne = uStore.checkUserLogin(session, user);
+		return uOne;
+	}
+
 }

@@ -6,8 +6,10 @@
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
-<!-- 	<typeAliases> -->
-<!-- 	</typeAliases> -->
-<!-- 	<mappers> -->
-<!-- 	</mappers> -->
+	<typeAliases>
+		<typeAlias type="kr.co.drive.user.domain.User" alias="User" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mappers/user-mapper.xml"></mapper>
+	</mappers>
 </configuration>

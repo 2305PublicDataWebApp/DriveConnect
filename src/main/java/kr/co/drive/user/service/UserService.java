@@ -14,4 +14,11 @@ public interface UserService {
 	 */
 	int insertUser(User user);
 
+	/**
+	 * 로그인 Service
+	 * @param user
+	 * @return
+	 */
+	User checkUserLogin(User user);
+
 }

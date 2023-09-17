@@ -1,5 +1,6 @@
 package kr.co.drive.user.controller;
 
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,14 +23,8 @@ public class UserController {
 		return "user/register";
 	}
 	
-	@RequestMapping(value="user/register", method=RequestMethod.POST)
+	@RequestMapping(value="/user/register", method=RequestMethod.POST)
 	public String registerUser(
-//			@RequestParam("userId") String userId
-//			, @RequestParam("userPw") String userPw
-//			, @RequestParam("userName") String userName
-//			, @RequestParam("userEmail") String userEmail
-//			, @RequestParam("userPhone") String userPhone
-//			, @RequestParam("dLicense") String dLicense
 			@ModelAttribute User user
 			, Model model) {
 		try {
@@ -50,5 +45,64 @@ public class UserController {
 			return "common/serviceFailed";
 			} 
 		}
-	
+
+	@RequestMapping(value="/user/login", method=RequestMethod.GET)
+	public String showLoginView() {
+		return "user/login";
 	}
+	
+	@RequestMapping(value="/user/login", method=RequestMethod.POST)
+	public String userLoginCheck(
+			@ModelAttribute User user
+			, HttpSession session
+			, Model model) {
+		try {
+			User uOne = service.checkUserLogin(user);
+			if(uOne != null) {
+				// 성공하면 메인페이지로 이동
+				session.setAttribute("userId", uOne.getUserId());
+				session.setAttribute("userName", uOne.getUserName());
+				session.setAttribute("adminYn", uOne.getAdminYn());
+				return "redirect:/index.jsp";
+			}else {
+				// 실패하면 에러페이지로 이동
+				model.addAttribute("msg", "로그인이 완료되지 않았습니다.");
+				model.addAttribute("error", "로그인 실패");
+				model.addAttribute("url", "/index.jsp");
+				return "common/serviceFailed";
+			}			
+		} catch (Exception e) {
+			// TODO: handle exception
+			model.addAttribute("msg", "관리자에게 문의바랍니다.");
+			model.addAttribute("error", e.getMessage());
+			model.addAttribute("url", "/index.jsp");
+			return "common/serviceFailed";
+		}
+	}
+	
+	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
+	public String userLogout(HttpSession session, Model model) {
+		if(session != null) {
+			session.invalidate();
+			return "redirect:/index.jsp";
+		}else {
+			model.addAttribute("error", "로그아웃을 완료하지 못하였습니다.");
+			model.addAttribute("msg", "로그아웃 실패");
+			model.addAttribute("url", "/index.jsp");
+			return "common/serviceFailed";
+		}
+	}
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

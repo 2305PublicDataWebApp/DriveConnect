@@ -16,4 +16,11 @@ public class UserStoreLogic implements UserStore {
 		return result;
 	}
 
+	@Override
+	public User checkUserLogin(SqlSession session, User user) {
+		// TODO Auto-generated method stub
+		User uOne = session.selectOne("UserMapper.checkUserLogin", user);
+		return uOne;
+	}
+
 }
