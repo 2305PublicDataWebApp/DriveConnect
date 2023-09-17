@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>DriveConnect</title>
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Noto+Sans+KR&family=Roboto&display=swap');
 	</style>
@@ -37,7 +37,7 @@
 	                        <input type="email" name="userEmail" placeholder="이메일">
 	                    </div>
        	                <div>
-	                        <input type="tel" name="userPhone" placeholder="전화번호">
+	                        <input type="tel" name="userPhone" maxlength="11" placeholder="전화번호">
 	                    </div>
 	                    <div>
 	                    	<input type="text" name="dLicense" placeholder="운전면허번호" required>
