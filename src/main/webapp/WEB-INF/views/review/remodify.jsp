@@ -9,43 +9,45 @@
 	</head>
 	<body>
 		<h1>게시글 수정</h1>
-		<form action="/board/modify.kh" method="post" enctype="multipart/form-data">
+		<form action="/reply/modify" method="post" enctype="multipart/form-data">
 <!-- 		수정할 때, 리다이렉트 될 때 사용 -->
-		<input type="hidden" name="boardNo" value="${board.boardNo }" >
+		<input type="hidden" name="rNo" value="${reply.rNo }" >
 <!-- 		기존 업로드 파일 체크할 때 사용 -->
-		<input type="hidden" name="boardFilename" value="${board.boardFilename }" >
-		<input type="hidden" name="boardFileRename" value="${board.boardFileRename }" >
-		<input type="hidden" name="boardFilepath" value="${board.boardFilepath }" >
-		<input type="hidden" name="boardFileLength" value="${board.boardFileLength }" >
+		<input type="hidden" name="fileName" value="${reply.fileName }" >
+		<input type="hidden" name="fileRename" value="${reply.fileRename }" >
+		<input type="hidden" name="filePath" value="${reply.filePath }" >
+		<input type="hidden" name="fileLength" value="${reply.fileLength }" >
 			<ul>
 				<li>
-					<label>제목</label>
-					<input type="text" name="boardTitle" value="${board.boardTitle }" >
+					<label>작성자</label>
+					<input type="text" name="userId" value="${reply.userId }">
 				</li>
 				<li>
-					<label>작성자</label>
-					<input type="text" name="boardWriter" value="${board.boardWriter }">
+					<label>차량명</label>
+					<input type="text" name="sc_Name" value="${reply.scName }" >
+				</li>
+				<li>
+					<label>제목</label>
+					<input type="text" name="rSubject" value="${reply.rSubject }" >
 				</li>
 				<li>
 					<label>내용</label>
-					<textarea rows="4" cols="50" name="boardContent">${board.boardContent}</textarea>
+					<textarea rows="4" cols="50" name="rContent">${reply.rContent}</textarea>
 				</li>
 				<li>
 					<label>첨부파일</label>
-<!-- 					String으로 받을 수 없고 변환작업이 필요함 -->
-					<a href="../resources/buploadFiles/${board.boardFilename }"download>${board.boardFilename }</a>
-					<input type="file" name="uploadFile">
+						<img alt="첨부파일" src="${rFilepath }">
 				</li>
 			</ul>
 			<div>
 				<input type="submit" value="수정완료">
-				<button type="button" onclick="showboardList();">목록으로</button>
+				<button type="button" onclick="showreplyList();">목록으로</button>
 				<button type="button" onclick="javascript:history.go(-1);">뒤로가기</button>
 			</div>
 		</form>
 		<script>
-			function showboardList() {
-				location.href="/board/list.kh";
+			function showreplyList() {
+				location.href="/reply/list";
 			}
 		</script>
 	</body>

@@ -6,8 +6,20 @@
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
-<!-- 	<typeAliases> -->
-<!-- 	</typeAliases> -->
-<!-- 	<mappers> -->
-<!-- 	</mappers> -->
+	<typeAliases>
+		<typeAlias type="kr.co.drive.review.domain.Review" alias="Review"/>
+		<typeAlias type="kr.co.drive.review.domain.ReReply" alias="ReReply"/>
+		<typeAlias type="kr.co.drive.qna.domain.Qna" alias="QNA"/>
+		<typeAlias type="kr.co.drive.qna.domain.QReply" alias="QReply"/>
+		<typeAlias type="kr.co.drive.notice.domain.Notice" alias="Notice"/>
+		<typeAlias type="kr.co.drive.user.domain.User" alias="User"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="mappers/review/review-mapper.xml"/>
+		<mapper resource="mappers/review/rereply-mapper.xml"/>
+		<mapper resource="mappers/qna/qna-mapper.xml"/>
+		<mapper resource="mappers/qna/qreply-mapper.xml"/>
+		<mapper resource="mappers/notice/notice-mapper.xml"/>
+		<mapper resource="mappers/user/user-mapper.xml"/>
+	</mappers>
 </configuration>

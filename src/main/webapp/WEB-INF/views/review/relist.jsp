@@ -9,7 +9,6 @@
 		<title>후기 목록</title>
 	</head>
 	<body>
-		<h1><a href="/index.jsp">HOME</a></h1>
 		<h1>후기 목록</h1>
 		<table>
 			<colgroup>
@@ -35,38 +34,31 @@
 					<c:url var="detailUrl" value="/review/redetail">
 						<c:param name="rNo" value="${review.rNo }"></c:param>
 					</c:url>
+					<td>${review.scName }</td>
 					<td><a href="${detailUrl }">${review.rSubject }</a></td>
 					<td>${review.userId }</td>
-<!-- 					<td> -->
-<%-- 						<fmt:formatDate pattern="yyyy-MM-dd" value="${review.rCreate }"/> --%>
-<!-- 					</td> -->
 					<td>
 						<fmt:formatDate pattern="yyyy-MM-dd" value="${review.rCreate }"/>
 					</td>
-					<td>
-						<c:if test="${!empty review.rFilename }">0</c:if>
-						<c:if test="${empty review.rFilename }">X</c:if>
-					</td>
 				</tr>
-<%-- 				</c:forEach> --%>
 			</tbody>
 			<tfoot>
 				<tr align="center">
 					<td colspan="5">
 					<c:if test="${rpInfo.startNavi != 1 }">
-					<c:url var="prevUrl" value="/review/relist.kh">
+					<c:url var="prevUrl" value="/review/relist">
 						<c:param name="page" value="${rpInfo.startNavi - 1 }"></c:param>
 					</c:url>
 					<a href="${prevUrl }">[이전]</a>
 					</c:if>
 						<c:forEach begin="${rpInfo.startNavi }" end="${rpInfo.endNavi }" var="p">
-							<c:url var="pageUrl" value="/review/relist.kh">
+							<c:url var="pageUrl" value="/review/relist">
 								<c:param name="page" value="${p }"></c:param>
 							</c:url>
 							<a href="${pageUrl }">${p }</a>&nbsp;
 						</c:forEach>
 					<c:if test="${rpInfo.endNavi != rpInfo.naviTotalCount }">
-						<c:url var="nextUrl" value="/review/relist.kh">
+						<c:url var="nextUrl" value="/review/relist">
 							<c:param name="page" value="${rpInfo.endNavi + 1 }"></c:param>
 						</c:url>
 					<a href="${nextUrl }">[다음]</a>
@@ -76,7 +68,7 @@
 				</tr>
 				<tr>
 					<td colspan="4">
-					<form action="/review/research.kh" method="get">
+					<form action="/review/research" method="get">
 						<select name="searchCondition">
 							<option value="all"<c:if test="${searchCondition == 'all' }">selected</c:if>>전체</option>
 							<option value="writer" <c:if test="${searchCondition == 'writer' }">selected</c:if>>작성자</option>
@@ -95,7 +87,7 @@
 		</table>
 		<script>
 			const showRegisterForm = () => {
-				location.href = "/review/insert.kh";
+				location.href = "/review/insert";
 			}
 		</script>
 	</body>

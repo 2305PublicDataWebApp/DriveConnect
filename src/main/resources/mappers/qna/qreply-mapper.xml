@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="QReplyMapper">
+	<resultMap type="QReply" id="qreplyResultMap">
+		<id 	property="qnaReplyNo" 		column="Q_REPLY_NO"/>
+		<result property="userId" 	column="USER_ID"/>
+ 		<result property="qnaReplyContent" column="Q_REPLY_CONTENT"/> 
+ 		<result property="rUpdate" column="R_UPDATE"/> 
+		<result property="qnaNo" 	column="Q_NO"/>
+	</resultMap>
+	<insert id="insertQReply">
+		INSERT INTO REPLY_QNA VALUES(SEQ_Q_REPLY_NO.NEXTVAL, #{qnaReplyNo }, #{userId}, #{qnaReplyContent}, #{rUpdate}, #{qnaNO})
+	</insert>
+	
+	<select id="selectQReplyList" resultMap="qreplyResultMap">
+		SELECT * FROM REPLY_QNA WHERE Q_NO = #{qNo } 
+	</select>
+	
+	<update id="updateQReply">
+		UPDATE REPLY_QNA SET Q_REPLY_CONTENT = #{qnaReplyContent}  WHERE Q_REPLY_NO = #{qnaReplyNo}
+	</update>
+	
+	<update id="deleteQReply">
+		UPDATE REPLY_QNA SET WHERE Q_REPLY_NO = #{qnaReplyNo} AND USER_ID = #{userId}
+	</update>
+</mapper>

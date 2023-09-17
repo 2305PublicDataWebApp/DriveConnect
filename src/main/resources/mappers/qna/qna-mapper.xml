@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="QnaMapper">
+	<resultMap type="Qna" id="qnaResultMap">
+		<id property="qNo" column="Q_NO"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="qSubject" column="Q_SUBJECT"/>
+		<result property="qContent" column="Q_CONTENT"/>
+		<result property="qCreate" column="Q_CREATE"/>
+		<result property="rCreate" column="R_CREATE"/>
+		<result property="rYn" column="R_YN"/>
+		<result property="userNo" column="USER_NO"/>
+	</resultMap>
+	<insert id="insertQna">
+		INSERT INTO QNA VALUES(SEQ_Q_NO.NEXTVAL, #{userId }, #{userName }, #{qSubject}, #{qContent})
+	</insert>
+
+	
+	<select id="selectQnaList" resultMap="qnaResultMap">
+		SELECT * FROM QNA WHERE  ORDER BY Q_CREATE DESC
+	</select>
+
+	<select id="selectQnaByNo" resultMap="qnaResultMap">
+		SELECT * FROM QNA WHERE Q_NO = #{qNo } 
+	</select>
+	
+	<update id="deleteQna">
+		UPDATE QNA SET WHERE Q_NO = #{qNo} AND USER_ID = #{userId}
+	</update>
+	
+	<update id="updateQna">
+		UPDATE QNA SET Q_SUBJECT = #{qSubject}, Q_CONTENT = #{qContent}
+	</update>
+</mapper>

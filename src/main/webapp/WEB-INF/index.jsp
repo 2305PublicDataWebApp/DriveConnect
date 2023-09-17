@@ -4,9 +4,18 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>메인 인덱스</title>
-	</head>
-	<body>
-	<jsp:forward page="/home.kh"></jsp:forward>
-	</body>
+	<title>DriveConnect</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Noto+Sans+KR&family=Roboto&display=swap');
+	</style>
+	   <link rel="stylesheet" href="/resources/css/header.css?after">
+	   <link rel="stylesheet" href="/resources/css/footer.css?after">
+</head>
+<body>
+	<jsp:include page="/WEB-INF/views/include/nav.jsp"></jsp:include>
+<main>
+	<jsp:include page="/WEB-INF/views/include/middle.jsp"></jsp:include>
+</main>
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+</body>
 </html>

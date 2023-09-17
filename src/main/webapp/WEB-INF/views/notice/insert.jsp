@@ -9,11 +9,11 @@
 	</head>
 	<body>
 		<h1>공지 등록</h1>
-		<form action="/notice/insert.kh" method="post" enctype="multipart/form-data">
+		<form action="/notice/insert" method="post">
 			<ul>
 				<li>
 					<label>제목</label>
-					<input type="text" name="noticeSubject">
+					<input type="text" name="nubject">
 				</li>
 				<li>
 					<label>작성자</label>
@@ -21,12 +21,7 @@
 				</li>
 				<li>
 					<label>내용</label>
-					<textarea rows="4" cols="50" name="noticeContent"></textarea>
-				</li>
-				<li>
-					<label>첨부파일</label>
-<!-- 					String으로 받을 수 없고 변환작업이 필요함 -->
-					<input type="file" name="uploadFile">
+					<textarea rows="4" cols="50" name="nContent"></textarea>
 				</li>
 			</ul>
 			<div>

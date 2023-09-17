@@ -15,4 +15,10 @@ public interface ReviewStore {
 
 	List<Review> selectReviewList(SqlSession sqlSession, RePageInfo rpInfo);
 
+	Review selectReviewByNo(SqlSession sqlSession, Integer rNo);
+
+	int deleteReview(SqlSession sqlSession, Review review);
+
+	int updateReview(SqlSession sqlSession, Review review);
+
 }

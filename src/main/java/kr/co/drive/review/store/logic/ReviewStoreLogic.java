@@ -35,4 +35,22 @@ public class ReviewStoreLogic implements ReviewStore{
 		return rList;
 	}
 
+	@Override
+	public Review selectReviewByNo(SqlSession sqlSession, Integer rNo) {
+		Review review = sqlSession.selectOne("ReviewMapper.selectReviewByNo", rNo);
+		return review;
+	}
+
+	@Override
+	public int deleteReview(SqlSession sqlSession, Review review) {
+		int result = sqlSession.delete("ReviewMapper.deleteReview", review);
+		return result;
+	}
+
+	@Override
+	public int updateReview(SqlSession sqlSession, Review review) {
+		int result = sqlSession.update("ReviewMapper.updateReview", review);
+		return result;
+	}
+
 }

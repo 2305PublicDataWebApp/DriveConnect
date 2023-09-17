@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.drive.review.domain.RePageInfo;
+import kr.co.drive.review.domain.ReReply;
 import kr.co.drive.review.domain.Review;
 import kr.co.drive.review.service.ReviewService;
 import kr.co.drive.review.store.ReviewStore;
@@ -36,5 +37,27 @@ public class ReviewServiceImpl implements ReviewService{
 		List<Review> rList = rStore.selectReviewList(sqlSession, rpInfo);
 		return rList;
 	}
+
+
+	@Override
+	public Review selectReviewByNo(Integer rNo) {
+		Review review = rStore.selectReviewByNo(sqlSession, rNo);
+		return review;
+	}
+
+
+	@Override
+	public int deleteReview(Review review) {
+		int result = rStore.deleteReview(sqlSession, review);
+		return result;
+	}
+
+
+	@Override
+	public int updateReview(Review review) {
+		int result = rStore.updateReview(sqlSession, review);
+		return result;
+	}
+
 
 }

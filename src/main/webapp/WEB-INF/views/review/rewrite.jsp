@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<h1>게시글 등록</h1>
-		<form action="/review/rewrite.kh" method="post" enctype="multipart/form-data">
+		<form action="/review/rewrite" method="post" enctype="multipart/form-data">
 			<ul>
 				<li>
 					<label>작성자</label>

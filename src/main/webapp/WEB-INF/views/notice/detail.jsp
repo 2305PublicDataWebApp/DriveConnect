@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,7 +14,7 @@
 			<ul>
 				<li>
 					<label>제목</label>
-					<input type="text" name="noticeSubject" value="${notice.noticeSubject }" readonly>
+					<input type="text" name="noticeSubject" value="${notice.nSubject }" readonly>
 				</li>
 				<li>
 					<label>작성자</label>
@@ -23,10 +25,10 @@
 					<p>${notice.noticeContent }</p>
 				</li>
 				<li>
-					<label>첨부파일</label>
-<!-- 					String으로 받을 수 없고 변환작업이 필요함 -->
-<%-- 						<img alt="첨부파일" src="${noticeFilepath }"> --%>
-						<a href="../resources/nuploadFiles/${notice.noticeFileRename }"download>${notice.noticeFilename }</a>
+					<label>작성날짜</label>
+					<td>
+						<fmt:formatDate pattern="yyyy-MM-dd" value="${notice.nDate }"/>
+					</td>
 				</li>
 			</ul>
 			<div>
@@ -36,11 +38,11 @@
 			</div>
 			<script>
 				function showModifyPage() {
-					const noticeNo = "${notice.noticeNo }";
-					location.href="/notice/modify.kh?noticeNo="+noticeNo;
+					const noticeNo = "${notice.nNo }";
+					location.href="/notice/modify?nNo="+nNo;
 				}
 				function showNoticeList() {
-					location.href="/notice/list.kh";
+					location.href="/notice/list";
 				}
 			</script>
 	</body>

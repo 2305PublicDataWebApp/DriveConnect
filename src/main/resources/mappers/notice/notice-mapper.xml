@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="NoticeMapper">
+	<resultMap type="Notice" id="noticeResultMap">
+		<id property="nNo" column="N_NO"/>
+		<result property="nSubject" column="N_SUBJECT"/>
+		<result property="nContent" column="N_CONTENT"/>
+		<result property="nDate" column="N_DATE"/>
+		<result property="userNo" column="USER_NO"/>
+	</resultMap>
+	<insert id="insertNotice">
+		INSERT INTO NOTICE VALUES(SEQ_N_NO.NEXTVAL, #{nSubject }, #{nContent }, #{userNo}, DEFAULT )
+	</insert>
+	
+	<select id="selectNoticeList" resultMap="noticeResultMap">
+		SELECT * FROM NOTICE ORDER BY N_NO DESC
+	</select>
+	
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT (*) FROM NOTICE
+	</select>
+	
+	
+	<update id="updateNotice">
+		UPDATE NOTICE SET N_SUBJECT = #{nSubject}, N_CONTENT = #{nContent} WHERE N_NO = #{nNo}
+	</update>
+
+</mapper>

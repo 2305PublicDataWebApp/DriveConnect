@@ -4,9 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
+<title>에러페이지</title>
+	</head>
+	<body>
+		<h1>${error }</h1>
+		<a href="${url }">페이지 이동</a>
+		<script>
+			const msg ="${msg }";
+			if(msg != "") alert(msg);
+		</script>
 </body>
 </html>
