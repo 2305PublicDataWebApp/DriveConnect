@@ -10,6 +10,8 @@ public class Subs {
 	private String scSpec;
 	private int resNo;
 	
+    private SubsFiles subsFiles;
+	
 	public int getScNo() {
 		return scNo;
 	}
@@ -52,6 +54,14 @@ public class Subs {
 	public void setResNo(int resNo) {
 		this.resNo = resNo;
 	}
+	
+    public SubsFiles getSubsFiles() {
+        return subsFiles;
+    }
+
+    public void setSubsFiles(SubsFiles subsFiles) {
+        this.subsFiles = subsFiles;
+    }
 	
 	
 }

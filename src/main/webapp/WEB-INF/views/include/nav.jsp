@@ -18,7 +18,7 @@
             <div class="list right">
                 <c:if test="${sessionScope.userId eq null }">         
                 <div class="list__item">
-                    <a href="">Line:up</a>
+                    <a href="/subs/subslist">Line:up</a>
                 </div>
                 <div class="list__item" id="search">
                     <a href="/user/register">회원가입</a>
@@ -38,7 +38,7 @@
                 </c:if>
                 <c:if test="${sessionScope.userId ne null && String.valueOf(sessionScope.adminYn) eq 'N'}">
                 <div class="list__item">
-                    <a href="">Line:up</a>
+                    <a href="/subs/subslist">Line:up</a>
                 </div>
                 <div class="list__item">
                     <a href="/company/company">커넥트드라이브란?</a>
@@ -74,7 +74,7 @@
                     <a href="">회원 관리</a>
                 </div>
                 <div class="list__item">
-                    <a href="">차량 관리</a>
+                    <a href="/subs/subslist">차량 관리</a>
                 </div>
                 <div class="list__item">
                     <a href="">구독 관리</a>

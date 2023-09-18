@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,16 +18,75 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import kr.co.drive.reserve.domain.Reserve;
+import kr.co.drive.subs.domain.PageInfo;
 import kr.co.drive.subs.domain.Subs;
 import kr.co.drive.subs.domain.SubsFiles;
 import kr.co.drive.subs.service.SubsService;
+import kr.co.drive.user.domain.User;
 
 @Controller
 public class SubsController {
 
 	@Autowired
 	private SubsService sService;
+	
+	
+	@RequestMapping(value="/subs/subslist", method=RequestMethod.GET)
+	public ModelAndView showSubsList(
+			@RequestParam(value="page", required=false, defaultValue="1") Integer currentPage
+			,HttpSession session
+			, ModelAndView mv) {
+		try {
+	        String userName = (String) session.getAttribute("userName");
+	        
+			int totalCount = sService.getListCount();
+			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
+			List<Subs> sList = sService.selectBoardList(pInfo);
+			
+			if(!sList.isEmpty()) {
+				mv.addObject("sList", sList)
+					.addObject("pInfo", pInfo)
+					.setViewName("/subs/subslist");			
+			}else {
+				mv.addObject("msg", "게시글 조회가 완료되지 않았습니다.");
+				mv.addObject("error", "게시글 상세 조회 실패");
+				mv.addObject("url", "/subs/subslist");
+				mv.setViewName("common/serviceFailed");
+			}
+			
+			mv.addObject("user", new User(userName));
+		} catch (Exception e) {
+			// TODO: handle exception
+			mv.addObject("msg", "게시글 조회가 완료되지 않았습니다.");
+			mv.addObject("error", e.getMessage());
+			mv.addObject("url", "/subs/subslist");
+			mv.setViewName("common/serviceFailed");
+		}
+		return mv;
+	} 
+	
+	private PageInfo getPageInfo(Integer currentPage, int totalCount) {
+		// TODO Auto-generated method stub
+		
+		int recordCountPerPage = 10;
+		int naviCountPerPage = 10;
+		int naviTotalCount;
+		
+		naviTotalCount = (int)Math.ceil((double)totalCount/recordCountPerPage);
+		int startNavi = ((int)((double)currentPage/naviCountPerPage+0.9)-1)*naviCountPerPage+1;
+		int endNavi = startNavi + naviCountPerPage - 1;
+		if(endNavi >  naviTotalCount) {
+			endNavi = naviTotalCount;
+		}
+		
+		PageInfo pInfo = new PageInfo(currentPage, totalCount, naviTotalCount, recordCountPerPage, naviCountPerPage, startNavi, endNavi);
+		
+		return pInfo;
+	}
+	
+	
 	
 	@RequestMapping(value="/subs/admin_s_write", method=RequestMethod.GET)
 	public ModelAndView showWriteForm(ModelAndView mv) {

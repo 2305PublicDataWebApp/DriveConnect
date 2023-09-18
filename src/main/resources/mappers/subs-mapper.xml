@@ -13,9 +13,10 @@
 		<result property="resNo" 		column="RES_NO" />
 	</resultMap>
 
+
+
 	<insert id="insertSubs" useGeneratedKeys="true" keyProperty="scNo">
         
-        <!-- 시퀀스 사용 대신 MyBatis의 기능을 사용하여 자동 생성된 키를 가져옵니다. -->
         <selectKey keyProperty="scNo" resultType="int" order="AFTER">
             SELECT SEQ_SUBS_NO.CURRVAL FROM DUAL
         </selectKey>
@@ -23,6 +24,14 @@
  		INSERT INTO SUBS_CAR (SC_NO, SC_NAME, SC_BRAND, SC_COLOR, SC_GRADE, SC_SPEC, RES_NO)
  		VALUES (SEQ_SUBS_NO.NEXTVAL, #{scName }, #{scBrand }, #{scColor }, #{scGrade }, #{scSpec }, #{resNo })
 	</insert>
+	
+	<select id="selectListCount" resultType="_int">   <!-- COUNT(*)이 쓰이면 ResultType이 쓰였구나 를 알수 있다. -->
+		SELECT COUNT(*) FROM SUBS_CAR
+	</select>
+	
+	<select id="selectBoardList" resultMap="subsResultMap">
+		SELECT * FROM SUBS_CAR ORDER BY SC_NO DESC
+	</select>
 	
 	
 </mapper>
