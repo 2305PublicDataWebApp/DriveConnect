@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>DriveConnect</title>
-<style>
+	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Noto+Sans+KR&family=Roboto&display=swap');
 	</style>
 	<link rel="stylesheet" href="/resources/css/register.css?after">

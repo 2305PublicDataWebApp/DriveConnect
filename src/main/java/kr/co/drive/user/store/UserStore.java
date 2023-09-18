@@ -10,4 +10,12 @@ public interface UserStore {
 
 	User checkUserLogin(SqlSession session, User user);
 
+	User getUserById(SqlSession session, String userId);
+
+	int deleteUser(SqlSession session, String userId);
+
+	int updateUser(SqlSession session, User user);
+
+
+
 }

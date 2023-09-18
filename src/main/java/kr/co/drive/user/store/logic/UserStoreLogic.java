@@ -23,4 +23,26 @@ public class UserStoreLogic implements UserStore {
 		return uOne;
 	}
 
+	@Override
+	public User getUserById(SqlSession session, String userId) {
+		// TODO Auto-generated method stub
+		User user = session.selectOne("UserMapper.getUserById", userId);
+		return user;
+	}
+
+	@Override
+	public int deleteUser(SqlSession session, String userId) {
+		// TODO Auto-generated method stub
+		int result = session.delete("UserMapper.deleteUser", userId);
+		return result;
+	}
+
+	@Override
+	public int updateUser(SqlSession session, User user) {
+		// TODO Auto-generated method stub
+		int result = session.update("UserMapper.updateUser", user);
+		return result;
+	}
+
+
 }

@@ -31,4 +31,28 @@ public class UserServiceImpl implements UserService {
 		return uOne;
 	}
 
+	@Override
+	public User getUserById(String userId) {
+		// TODO Auto-generated method stub
+		User user = uStore.getUserById(session, userId);
+		return user;
+	}
+
+	@Override
+	public int deleteUser(String userId) {
+		// TODO Auto-generated method stub
+		int result = uStore.deleteUser(session, userId);
+		return result;
+	}
+
+	@Override
+	public int updateUser(User user) {
+		// TODO Auto-generated method stub
+		int result = uStore.updateUser(session, user);
+		return result;
+	}
+
+
+
+
 }

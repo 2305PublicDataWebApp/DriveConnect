@@ -20,6 +20,14 @@ public class User {
 	public User() {}
 	
 	
+	
+	public User(String userId) {
+		super();
+		this.userId = userId;
+	}
+
+
+
 	public User(String userId, String userPw, String userName, String userEmail, String userPhone, String dLicense) {
 		super();
 		this.userId = userId;

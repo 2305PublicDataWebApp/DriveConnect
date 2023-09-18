@@ -60,7 +60,7 @@
                 </div>
                 	<ul class="submenu" id="dropdown-content">
 		                <div class="list__item" id="search">
-		                    <a href="">마이페이지</a>
+		                    <a href="/user/mypage">마이페이지</a>
 		                </div>
 		                <div class="list__item">
 		                    <a href="/user/logout">로그아웃</a>

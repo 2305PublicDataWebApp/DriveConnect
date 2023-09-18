@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SubsMapper">
+	<resultMap type="Subs" id="subsResultMap">
+		<id 	property="scNo" 		column="SC_NO" />
+		<result property="scName" 		column="SC_NAME" />
+		<result property="scBrand" 		column="SC_BRAND" />
+		<result property="scColor" 		column="SC_COLOR" />
+		<result property="scGrade" 		column="SC_GRADE" />
+		<result property="scSpec" 		column="SC_SPEC" />
+		<result property="resNo" 		column="RES_NO" />
+	</resultMap>
+
+	<insert id="insertSubs" useGeneratedKeys="true" keyProperty="scNo">
+        
+        <!-- 시퀀스 사용 대신 MyBatis의 기능을 사용하여 자동 생성된 키를 가져옵니다. -->
+        <selectKey keyProperty="scNo" resultType="int" order="AFTER">
+            SELECT SEQ_SUBS_NO.CURRVAL FROM DUAL
+        </selectKey>
+        	
+ 		INSERT INTO SUBS_CAR (SC_NO, SC_NAME, SC_BRAND, SC_COLOR, SC_GRADE, SC_SPEC, RES_NO)
+ 		VALUES (SEQ_SUBS_NO.NEXTVAL, #{scName }, #{scBrand }, #{scColor }, #{scGrade }, #{scSpec }, #{resNo })
+	</insert>
+	
+	
+</mapper>

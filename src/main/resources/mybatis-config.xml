@@ -8,8 +8,10 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="kr.co.drive.user.domain.User" alias="User" />
+		<typeAlias type="kr.co.drive.subs.domain.Subs" alias="Subs" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/user-mapper.xml"></mapper>
+		<mapper resource="mappers/subs-mapper.xml"></mapper>
 	</mappers>
 </configuration>

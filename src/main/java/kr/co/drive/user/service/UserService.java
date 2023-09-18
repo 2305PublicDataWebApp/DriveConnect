@@ -21,4 +21,27 @@ public interface UserService {
 	 */
 	User checkUserLogin(User user);
 
+	/**
+	 * 마이페이지 Service
+	 * @param userId
+	 * @return
+	 */
+	User getUserById(String userId);
+
+	/**
+	 * 회원탈퇴 Service
+	 * @param userId
+	 * @return
+	 */
+	int deleteUser(String userId);
+
+	/**
+	 * 회원 정보 수정 Service
+	 * @param user
+	 * @return
+	 */
+	int updateUser(User user);
+
+
+
 }
