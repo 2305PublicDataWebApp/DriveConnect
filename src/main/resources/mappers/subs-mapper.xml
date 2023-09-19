@@ -16,8 +16,7 @@
 	</resultMap>
 
 	
-	<insert id="insertSubs" useGeneratedKeys="true" keyProperty="scNo">
-        
+	<insert id="insertSubs" useGeneratedKeys="true" keyProperty="scNo" parameterType="Subs">     
         <selectKey keyProperty="scNo" resultType="int" order="AFTER">
             SELECT SEQ_SUBS_NO.CURRVAL FROM DUAL
         </selectKey>
@@ -26,9 +25,12 @@
  		VALUES (SEQ_SUBS_NO.NEXTVAL, #{scName }, #{scBrand }, #{scColor }, #{scGrade }, #{scSpec }, #{resNo }, SYSDATE)
 	</insert>
 	
-	<insert id="insertSubs">
-		INSERT INTO SUBS_CAR_FILES (FILENAME, FILERENAME, FILEPATH, FILELENGTH, SC_NO) 
-		VALUES(#{fileName }, #{fileRename }, #{filePath }, #{fileLength })
+	<insert id="insertSubsFiles" parameterType="SubsFiles">
+	  <selectKey keyProperty="scNo" resultType="int" order="BEFORE">
+	    SELECT SEQ_SUBSFILES_NO.NEXTVAL FROM DUAL
+	  </selectKey>
+	  INSERT INTO SUBS_CAR_FILES (FILENAME, FILERENAME, FILEPATH, FILELENGTH, SC_NO) 
+	  VALUES(#{fileName}, #{fileRename}, #{filePath}, #{fileLength}, #{scNo})
 	</insert>
 	
 	<select id="selectListCount" resultType="_int">   <!-- COUNT(*)이 쓰이면 ResultType이 쓰였구나 를 알수 있다. -->

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.drive.subs.domain.PageInfo;
 import kr.co.drive.subs.domain.Subs;
+import kr.co.drive.subs.domain.SubsFiles;
 import kr.co.drive.subs.store.SubsStore;
 
 @Repository
@@ -54,9 +55,9 @@ public class SubsStoreLogic implements SubsStore {
 	}
 
 	@Override
-	public int insertSubs(SqlSession sqlsession, Subs subs) {
+	public int insertSubs(SqlSession sqlsession, SubsFiles SubsFiles) {
 		// TODO Auto-generated method stub
-		int result = sqlsession.insert("SubsMapper.insertSubs", subs);
+		int result = sqlsession.insert("SubsMapper.insertSubsFiles", SubsFiles);
 		return result;
 	}
 

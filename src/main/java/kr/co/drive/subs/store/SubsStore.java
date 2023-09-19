@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import kr.co.drive.subs.domain.PageInfo;
 import kr.co.drive.subs.domain.Subs;
+import kr.co.drive.subs.domain.SubsFiles;
 
 public interface SubsStore {
 
@@ -51,9 +52,9 @@ public interface SubsStore {
 	/**
 	 * 게시글 파일첨부 Store
 	 * @param sqlsession
-	 * @param subs
+	 * @param subsFiles
 	 * @return
 	 */
-	int insertSubs(SqlSession sqlsession, Subs subs);
+	int insertSubs(SqlSession sqlsession, SubsFiles subsFiles);
 
 }

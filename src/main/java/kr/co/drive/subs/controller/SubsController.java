@@ -3,6 +3,8 @@ package kr.co.drive.subs.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -143,7 +145,15 @@ public class SubsController {
 					subsFiles.setFilePath((String)bMap.get("filePath"));
 					subsFiles.setFileLength((long)bMap.get("fileLength"));					
 				}
+		        // 게시판 글 정보를 먼저 데이터베이스에 저장
 				int result = sService.insertBoard(subs);
+				
+				// 파일 정보와 게시판 글 정보를 함께 데이터베이스에 저장
+				if (result > 0 && uploadFile != null && !uploadFile.getOriginalFilename().equals("")) {
+				    // 파일 정보를 데이터베이스에 저장하는 메서드 호출
+				    insertSubsFiles(uploadFile, subs);
+				}
+		        
 				mv.setViewName("redirect:/subs/subslist");
 			}else {
 				mv.addObject("msg", "로그인 정보가 존재하지 않습니다.");
@@ -203,52 +213,68 @@ public class SubsController {
 	}
 	
 	
-    // 파일 업로드 및 데이터베이스 저장 처리
-    @RequestMapping(value = "/insertSubsFiles", method = RequestMethod.POST)
-    public String insertSubsFiles(@RequestParam("file") MultipartFile file, 
-                                  @ModelAttribute Subs subs, 
-                                  RedirectAttributes redirectAttributes) {
-        if (!file.isEmpty()) {
-            try {
-                // 파일 업로드 처리
-                byte[] bytes = file.getBytes();
-                String rootPath = System.getProperty("catalina.home");
-                File dir = new File(rootPath + File.separator + "uploads");
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
-                File serverFile = new File(dir.getAbsolutePath() + File.separator + file.getOriginalFilename());
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-                stream.write(bytes);
-                stream.close();
-                
-                // 파일 정보 저장
-                SubsFiles subsFiles = new SubsFiles();
-                subsFiles.setFileName(file.getOriginalFilename());
-                subsFiles.setFileRename(file.getOriginalFilename()); // 원래 파일명 사용
-                subsFiles.setFilePath(serverFile.getAbsolutePath());
-                subsFiles.setFileLength(file.getSize());
-                
-                // Subs 객체와 연관된 SubsFiles 객체 설정
-                subs.setSubsFiles(subsFiles);
-                
-                // 데이터베이스에 저장
-                sService.insertSubs(subs); // subsService에서 데이터베이스 저장 처리
-                
-                // 업로드 성공 메시지
-                redirectAttributes.addFlashAttribute("message", "파일 업로드 및 데이터베이스 저장 성공: " + file.getOriginalFilename());
-            } catch (Exception e) {
-                // 업로드 또는 데이터베이스 저장 실패 메시지
-                redirectAttributes.addFlashAttribute("message", "파일 업로드 또는 데이터베이스 저장 실패: " + file.getOriginalFilename());
-            }
-        } else {
-            // 빈 파일 업로드 시 메시지
-            redirectAttributes.addFlashAttribute("message", "업로드할 파일을 선택하세요.");
-        }
-        return "redirect:/subs/uploadForm";
-    }
-
-    // 기타 컨트롤러 메서드
+	// 파일 업로드 및 데이터베이스 저장 처리
+	@RequestMapping(value = "/insertSubsFiles", method = RequestMethod.POST)
+	public String insertSubsFiles(@RequestParam("file") MultipartFile file, 
+	                              @ModelAttribute Subs subs) {
+	    String message = ""; // 메시지 초기화
+	    
+	    if (!file.isEmpty()) {
+	        try {
+	            // 파일 업로드 처리
+	            byte[] bytes = file.getBytes();
+	            String rootPath = System.getProperty("catalina.home");
+	            File dir = new File(rootPath + File.separator + "uploads");
+	            if (!dir.exists()) {
+	                dir.mkdirs();
+	            }
+	            File serverFile = new File(dir.getAbsolutePath() + File.separator + file.getOriginalFilename());
+	            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+	            stream.write(bytes);
+	            stream.close();
+	            
+	            // 파일 정보 저장
+	            SubsFiles subsFiles = new SubsFiles();
+	            subsFiles.setFileName(file.getOriginalFilename());
+	            subsFiles.setFileRename(file.getOriginalFilename()); // 원래 파일명 사용
+	            subsFiles.setFilePath(serverFile.getAbsolutePath());
+	            subsFiles.setFileLength(file.getSize());
+	            
+	            // SubsFiles 객체를 데이터베이스에 저장
+	            sService.insertSubs(subsFiles);
+	            
+	            // 데이터베이스에 저장된 SubsFiles의 scNo를 Subs 객체에 설정
+	            subs.setScNo(subsFiles.getScNo());
+	            
+	            // 데이터베이스에 저장
+	            int result = sService.insertBoard(subs); // subsService에서 데이터베이스 저장 처리
+	            
+	            if (result > 0) {
+	                // 업로드 성공 메시지
+	                message = "파일 업로드 및 데이터베이스 저장 성공: " + file.getOriginalFilename();
+	            } else {
+	                // 업로드 또는 데이터베이스 저장 실패 메시지
+	                message = "파일 업로드 또는 데이터베이스 저장 실패: " + file.getOriginalFilename();
+	            }
+	        } catch (Exception e) {
+	            // 예외 처리 코드
+	            e.printStackTrace();
+	            message = "파일 업로드 또는 데이터베이스 저장 실패: " + file.getOriginalFilename();
+	        }
+	    } else {
+	        // 빈 파일 업로드 시 메시지
+	        message = "업로드할 파일을 선택하세요.";
+	    }
+	    
+	    try {
+	        // 리다이렉트 URL에 메시지를 추가하여 리다이렉트
+	        return "redirect:/subs/admin_s_write?message=" + URLEncoder.encode(message, "UTF-8");
+	    } catch (UnsupportedEncodingException e) {
+	        // 예외 처리 코드
+	        e.printStackTrace();
+	        return "redirect:/subs/admin_s_write"; // 오류 처리 리다이렉트
+	    }
+	}
 	
 	
 	

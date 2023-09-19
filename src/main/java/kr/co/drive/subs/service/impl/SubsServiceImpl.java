@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.drive.subs.domain.PageInfo;
 import kr.co.drive.subs.domain.Subs;
+import kr.co.drive.subs.domain.SubsFiles;
 import kr.co.drive.subs.service.SubsService;
 import kr.co.drive.subs.store.SubsStore;
 
@@ -58,9 +59,9 @@ public class SubsServiceImpl implements SubsService {
 
 
 	@Override
-	public int insertSubs(Subs subs) {
+	public int insertSubs(SubsFiles SubsFiles) {
 		// TODO Auto-generated method stub
-		int result = sStore.insertSubs(sqlsession, subs);
+		int result = sStore.insertSubs(sqlsession, SubsFiles);
 		return result;
 	}
 

@@ -45,8 +45,8 @@ public interface SubsService {
 
 	/**
 	 * 첨부파일 삽입 Service
-	 * @param subs
+	 * @param subsFiles
 	 */
-	int insertSubs(Subs subs);
+	int insertSubs(SubsFiles subsFiles);
 
 }
