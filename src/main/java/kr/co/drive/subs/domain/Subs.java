@@ -1,5 +1,7 @@
 package kr.co.drive.subs.domain;
 
+import java.sql.Date;
+
 public class Subs {
 	
 	private int scNo;
@@ -9,6 +11,8 @@ public class Subs {
 	private char scGrade;
 	private String scSpec;
 	private int resNo;
+	private Date sCreateDate;
+	private Date sUpdateDate;
 	
     private SubsFiles subsFiles;
 	
@@ -55,7 +59,19 @@ public class Subs {
 		this.resNo = resNo;
 	}
 	
-    public SubsFiles getSubsFiles() {
+    public Date getsCreateDate() {
+		return sCreateDate;
+	}
+	public void setsCreateDate(Date sCreateDate) {
+		this.sCreateDate = sCreateDate;
+	}
+	public Date getsUpdateDate() {
+		return sUpdateDate;
+	}
+	public void setsUpdateDate(Date sUpdateDate) {
+		this.sUpdateDate = sUpdateDate;
+	}
+	public SubsFiles getSubsFiles() {
         return subsFiles;
     }
 

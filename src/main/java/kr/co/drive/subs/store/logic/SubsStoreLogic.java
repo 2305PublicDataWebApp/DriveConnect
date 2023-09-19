@@ -19,6 +19,8 @@ public class SubsStoreLogic implements SubsStore {
 		int result = sqlsession.insert("SubsMapper.insertSubs", subs);
 		return result;
 	}
+	
+
 
 	@Override
 	public List<Subs> selectBoardList(SqlSession sqlsession, PageInfo pInfo) {
@@ -34,6 +36,27 @@ public class SubsStoreLogic implements SubsStore {
 	public int selectListCount(SqlSession sqlsession) {
 		// TODO Auto-generated method stub
 		int result = sqlsession.selectOne("SubsMapper.selectListCount");
+		return result;
+	}
+
+	@Override
+	public Subs selectBoardByNo(SqlSession sqlsession, Integer scNo) {
+		// TODO Auto-generated method stub
+		Subs subs = sqlsession.selectOne("SubsMapper.selectBoardByNo", scNo);
+		return subs;
+	}
+
+	@Override
+	public int deleteBoard(SqlSession sqlsession, Integer scNo) {
+		// TODO Auto-generated method stub
+		int result = sqlsession.delete("SubsMapper.deleteBoard", scNo);
+		return result;
+	}
+
+	@Override
+	public int insertSubs(SqlSession sqlsession, Subs subs) {
+		// TODO Auto-generated method stub
+		int result = sqlsession.insert("SubsMapper.insertSubs", subs);
 		return result;
 	}
 

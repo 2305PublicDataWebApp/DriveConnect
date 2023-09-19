@@ -40,13 +40,22 @@
 				<c:forEach var="subs" items="${sList }" varStatus="i">
 				<tr>
 					<td>${i.count }</td>
-					<c:url var="detailUrl" value="/subs/subslist">
+					<c:url var="detailUrl" value="/subs/subsdetail">
 						<c:param name="scNo" value="${subs.scNo }"></c:param>
 					</c:url>
 					<td><a href="${detailUrl }">${subs.scName }</a></td>
-					<td>${sessionScope.userName }</td>
+						<td>
+							<c:choose>
+        						<c:when test="${sessionScope.userId != 'admin'}">
+        						관리자
+   						        </c:when>
+   						        <c:otherwise>
+            						${sessionScope.userName}
+       	 						</c:otherwise>
+							</c:choose>
+						</td>
 					<td>
-						<fmt:formatDate pattern="yyyy-MM-dd" value="${subsFiles.sCreateDate }"/>
+						<fmt:formatDate pattern="yyyy-MM-dd" value="${subs.sCreateDate }"/>
 					</td>
 					<td>
 						<c:if test="${!empty subsFiles.fileName }">O</c:if>
@@ -93,15 +102,21 @@
 						</form>
 					</td>
 					<td>
-						<button type="button" onclick="showWriteForm();">글쓰기</button>
+						<c:choose>
+        					<c:when test="${sessionScope.userId eq 'admin'}">
+           						 <button type="button" onclick="showWriteForm();">글쓰기</button>
+					        </c:when>
+					        <c:otherwise>
+            					<!-- 관리자가 아닌 경우 버튼을 숨깁니다. -->
+   	 						</c:otherwise>
+						</c:choose>
 					</td>
 				</tr>
 			</tfoot>
 		</table>
 		<script>
 			const showWriteForm = () => {
-// 				location.href="/board/insert.kh;"
-				location.href="subs/admin_s_write;"
+				location.href="/subs/admin_s_write;"
 			}
 		</script>
 		</main>

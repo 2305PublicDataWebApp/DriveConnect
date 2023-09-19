@@ -11,18 +11,24 @@
 		<result property="scGrade" 		column="SC_GRADE" />
 		<result property="scSpec" 		column="SC_SPEC" />
 		<result property="resNo" 		column="RES_NO" />
+		<result property="sCreateDate" 		column="SCREATEDATE" />
+		<result property="sUpdateDate" 		column="SUPDATEDATE" />
 	</resultMap>
 
-
-
+	
 	<insert id="insertSubs" useGeneratedKeys="true" keyProperty="scNo">
         
         <selectKey keyProperty="scNo" resultType="int" order="AFTER">
             SELECT SEQ_SUBS_NO.CURRVAL FROM DUAL
         </selectKey>
         	
- 		INSERT INTO SUBS_CAR (SC_NO, SC_NAME, SC_BRAND, SC_COLOR, SC_GRADE, SC_SPEC, RES_NO)
- 		VALUES (SEQ_SUBS_NO.NEXTVAL, #{scName }, #{scBrand }, #{scColor }, #{scGrade }, #{scSpec }, #{resNo })
+ 		INSERT INTO SUBS_CAR (SC_NO, SC_NAME, SC_BRAND, SC_COLOR, SC_GRADE, SC_SPEC, RES_NO, SCREATEDATE)
+ 		VALUES (SEQ_SUBS_NO.NEXTVAL, #{scName }, #{scBrand }, #{scColor }, #{scGrade }, #{scSpec }, #{resNo }, SYSDATE)
+	</insert>
+	
+	<insert id="insertSubs">
+		INSERT INTO SUBS_CAR_FILES (FILENAME, FILERENAME, FILEPATH, FILELENGTH, SC_NO) 
+		VALUES(#{fileName }, #{fileRename }, #{filePath }, #{fileLength })
 	</insert>
 	
 	<select id="selectListCount" resultType="_int">   <!-- COUNT(*)이 쓰이면 ResultType이 쓰였구나 를 알수 있다. -->
@@ -33,5 +39,14 @@
 		SELECT * FROM SUBS_CAR ORDER BY SC_NO DESC
 	</select>
 	
+	<select id="selectBoardByNo" resultMap="subsResultMap">
+		SELECT * FROM SUBS_CAR WHERE SC_NO = #{scNo }
+	</select>
+	
+	<delete id="deleteBoard">
+	    DELETE FROM SUBS_CAR WHERE SC_NO = #{scNo}
+	</delete>
+	
+
 	
 </mapper>

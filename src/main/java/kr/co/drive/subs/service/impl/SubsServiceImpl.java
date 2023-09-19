@@ -42,6 +42,28 @@ public class SubsServiceImpl implements SubsService {
 		return result;
 	}
 
+	@Override
+	public Subs selectBoardByNo(Integer scNo) {
+		// TODO Auto-generated method stub
+		Subs subs = sStore.selectBoardByNo(sqlsession, scNo);
+		return subs;
+	}
+
+	@Override
+	public int deleteBoard(Integer scNo) {
+		// TODO Auto-generated method stub
+		int result = sStore.deleteBoard(sqlsession, scNo);
+		return result;
+	}
+
+
+	@Override
+	public int insertSubs(Subs subs) {
+		// TODO Auto-generated method stub
+		int result = sStore.insertSubs(sqlsession, subs);
+		return result;
+	}
+
 
 }
 

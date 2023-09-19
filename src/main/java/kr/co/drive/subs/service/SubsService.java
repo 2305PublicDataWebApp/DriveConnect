@@ -29,4 +29,24 @@ public interface SubsService {
 	 */
 	int getListCount();
 
+	/**
+	 * 게시글 상세 조회 Service
+	 * @param scNo
+	 * @return
+	 */
+	Subs selectBoardByNo(Integer scNo);
+
+	/**
+	 * 게시글 삭제 Service
+	 * @param scNo
+	 * @return
+	 */
+	int deleteBoard(Integer scNo);
+
+	/**
+	 * 첨부파일 삽입 Service
+	 * @param subs
+	 */
+	int insertSubs(Subs subs);
+
 }

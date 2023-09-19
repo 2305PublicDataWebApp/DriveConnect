@@ -32,4 +32,28 @@ public interface SubsStore {
 	 */
 	int selectListCount(SqlSession sqlsession);
 
+	/**
+	 * 게시글 상세 조회 Store
+	 * @param sqlsession
+	 * @param scNo
+	 * @return
+	 */
+	Subs selectBoardByNo(SqlSession sqlsession, Integer scNo);
+
+	/**
+	 * 게시글 삭제 Store
+	 * @param sqlsession
+	 * @param scNo
+	 * @return
+	 */
+	int deleteBoard(SqlSession sqlsession, Integer scNo);
+
+	/**
+	 * 게시글 파일첨부 Store
+	 * @param sqlsession
+	 * @param subs
+	 * @return
+	 */
+	int insertSubs(SqlSession sqlsession, Subs subs);
+
 }

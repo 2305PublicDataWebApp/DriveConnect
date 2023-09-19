@@ -9,6 +9,7 @@
 	<typeAliases>
 		<typeAlias type="kr.co.drive.user.domain.User" alias="User" />
 		<typeAlias type="kr.co.drive.subs.domain.Subs" alias="Subs" />
+		<typeAlias type="kr.co.drive.subs.domain.SubsFiles" alias="SubsFiles" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/user-mapper.xml"></mapper>
