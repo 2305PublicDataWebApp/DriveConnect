@@ -65,6 +65,20 @@ public class SubsServiceImpl implements SubsService {
 		return result;
 	}
 
+	@Override
+	public int updateBoard(Subs subs) {
+		// TODO Auto-generated method stub
+		int result = sStore.updateBoard(sqlsession, subs);
+		return result;
+	}
+
+	@Override
+	public int updateBoardFiles(SubsFiles subsFiles) {
+		// TODO Auto-generated method stub
+		int result = sStore.updateBoardFiles(sqlsession, subsFiles);
+		return result;
+	}
+
 
 }
 

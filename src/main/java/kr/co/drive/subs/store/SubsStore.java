@@ -57,4 +57,20 @@ public interface SubsStore {
 	 */
 	int insertSubs(SqlSession sqlsession, SubsFiles subsFiles);
 
+	/**
+	 * 게시글 수정(SUBS_CAR) Store
+	 * @param sqlsession
+	 * @param subs
+	 * @return
+	 */
+	int updateBoard(SqlSession sqlsession, Subs subs);
+
+	/**
+	 * 게시글 수정(SUBS_CAR_FILES) Store
+	 * @param sqlsession
+	 * @param subsFiles
+	 * @return
+	 */
+	int updateBoardFiles(SqlSession sqlsession, SubsFiles subsFiles);
+
 }

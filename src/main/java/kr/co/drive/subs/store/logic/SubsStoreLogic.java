@@ -17,8 +17,8 @@ public class SubsStoreLogic implements SubsStore {
 	@Override
 	public int insertBoard(SqlSession sqlsession, Subs subs) {
 		// TODO Auto-generated method stub
-		int result = sqlsession.insert("SubsMapper.insertSubs", subs);
-		return result;
+		sqlsession.insert("SubsMapper.insertSubs", subs);
+		return subs.getScNo();
 	}
 	
 
@@ -58,6 +58,22 @@ public class SubsStoreLogic implements SubsStore {
 	public int insertSubs(SqlSession sqlsession, SubsFiles SubsFiles) {
 		// TODO Auto-generated method stub
 		int result = sqlsession.insert("SubsMapper.insertSubsFiles", SubsFiles);
+		return result;
+	}
+
+
+
+	@Override
+	public int updateBoard(SqlSession sqlsession, Subs subs) {
+		// TODO Auto-generated method stub
+		int result = sqlsession.update("SubsMapper.updateBoard", subs);
+		return result;
+	}
+	
+	@Override
+	public int updateBoardFiles(SqlSession sqlsession, SubsFiles SubsFiles) {
+		// TODO Auto-generated method stub
+		int result = sqlsession.update("SubsMapper.updateBoardFiles", SubsFiles);
 		return result;
 	}
 

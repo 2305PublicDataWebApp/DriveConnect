@@ -15,7 +15,6 @@
 	<body>
 		<jsp:include page="/WEB-INF/views/include/nav.jsp"></jsp:include>
 	<main>
-		<h3><a href="/index.jsp">Home</a></h3>
 		<h1>Line:up - 구독차량 리스트</h1>
 		<table>
 			<colgroup>
@@ -58,8 +57,8 @@
 						<fmt:formatDate pattern="yyyy-MM-dd" value="${subs.sCreateDate }"/>
 					</td>
 					<td>
-						<c:if test="${!empty subsFiles.fileName }">O</c:if>
-						<c:if test="${empty subsFiles.fileName }">X</c:if>
+						<c:if test="${!empty subs.subsFiles.fileName }">O</c:if>
+						<c:if test="${empty subs.subsFiles.fileName }">X</c:if>
 					</td>
 				</tr>
 				</c:forEach>

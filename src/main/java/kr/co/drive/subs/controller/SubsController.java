@@ -1,10 +1,6 @@
 package kr.co.drive.subs.controller;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -22,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.drive.reserve.domain.Reserve;
 import kr.co.drive.subs.domain.PageInfo;
@@ -45,7 +40,7 @@ public class SubsController {
 			Subs sOne = sService.selectBoardByNo(scNo);
 			if(sOne != null) {
 				mv.addObject("subs", sOne);
-				mv.setViewName("/subs/subsdetail");
+				mv.setViewName("subs/subsdetail");
 			}else {
 				mv.addObject("msg", "게시글 조회가 완료되지 않았습니다.");
 				mv.addObject("error", "게시글 상세 조회 실패");
@@ -150,10 +145,10 @@ public class SubsController {
 				
 				// 파일 정보와 게시판 글 정보를 함께 데이터베이스에 저장
 				if (result > 0 && uploadFile != null && !uploadFile.getOriginalFilename().equals("")) {
+					subsFiles.setScNo(result);
 				    // 파일 정보를 데이터베이스에 저장하는 메서드 호출
-				    insertSubsFiles(uploadFile, subs);
+				    result = sService.insertSubs(subsFiles);
 				}
-		        
 				mv.setViewName("redirect:/subs/subslist");
 			}else {
 				mv.addObject("msg", "로그인 정보가 존재하지 않습니다.");
@@ -213,69 +208,6 @@ public class SubsController {
 	}
 	
 	
-	// 파일 업로드 및 데이터베이스 저장 처리
-	@RequestMapping(value = "/insertSubsFiles", method = RequestMethod.POST)
-	public String insertSubsFiles(@RequestParam("file") MultipartFile file, 
-	                              @ModelAttribute Subs subs) {
-	    String message = ""; // 메시지 초기화
-	    
-	    if (!file.isEmpty()) {
-	        try {
-	            // 파일 업로드 처리
-	            byte[] bytes = file.getBytes();
-	            String rootPath = System.getProperty("catalina.home");
-	            File dir = new File(rootPath + File.separator + "uploads");
-	            if (!dir.exists()) {
-	                dir.mkdirs();
-	            }
-	            File serverFile = new File(dir.getAbsolutePath() + File.separator + file.getOriginalFilename());
-	            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-	            stream.write(bytes);
-	            stream.close();
-	            
-	            // 파일 정보 저장
-	            SubsFiles subsFiles = new SubsFiles();
-	            subsFiles.setFileName(file.getOriginalFilename());
-	            subsFiles.setFileRename(file.getOriginalFilename()); // 원래 파일명 사용
-	            subsFiles.setFilePath(serverFile.getAbsolutePath());
-	            subsFiles.setFileLength(file.getSize());
-	            
-	            // SubsFiles 객체를 데이터베이스에 저장
-	            sService.insertSubs(subsFiles);
-	            
-	            // 데이터베이스에 저장된 SubsFiles의 scNo를 Subs 객체에 설정
-	            subs.setScNo(subsFiles.getScNo());
-	            
-	            // 데이터베이스에 저장
-	            int result = sService.insertBoard(subs); // subsService에서 데이터베이스 저장 처리
-	            
-	            if (result > 0) {
-	                // 업로드 성공 메시지
-	                message = "파일 업로드 및 데이터베이스 저장 성공: " + file.getOriginalFilename();
-	            } else {
-	                // 업로드 또는 데이터베이스 저장 실패 메시지
-	                message = "파일 업로드 또는 데이터베이스 저장 실패: " + file.getOriginalFilename();
-	            }
-	        } catch (Exception e) {
-	            // 예외 처리 코드
-	            e.printStackTrace();
-	            message = "파일 업로드 또는 데이터베이스 저장 실패: " + file.getOriginalFilename();
-	        }
-	    } else {
-	        // 빈 파일 업로드 시 메시지
-	        message = "업로드할 파일을 선택하세요.";
-	    }
-	    
-	    try {
-	        // 리다이렉트 URL에 메시지를 추가하여 리다이렉트
-	        return "redirect:/subs/admin_s_write?message=" + URLEncoder.encode(message, "UTF-8");
-	    } catch (UnsupportedEncodingException e) {
-	        // 예외 처리 코드
-	        e.printStackTrace();
-	        return "redirect:/subs/admin_s_write"; // 오류 처리 리다이렉트
-	    }
-	}
-	
 	
 	
 	@RequestMapping(value="/subs/delete", method=RequestMethod.POST)
@@ -312,6 +244,77 @@ public class SubsController {
 	}
 
 	
+	
+	@RequestMapping(value="/subs/admin_s_modify", method=RequestMethod.GET)
+	public ModelAndView showModifyForm(ModelAndView mv, @RequestParam("scNo") Integer scNo) {
+	    try {
+	        Subs subs = sService.selectBoardByNo(scNo);
+	        mv.addObject("subs", subs);
+	        mv.setViewName("subs/admin_s_modify");
+	    } catch (Exception e) {
+	        mv.addObject("msg", "게시글 정보를 불러오는 데 실패했습니다.");
+	        mv.addObject("error", e.getMessage());
+	        mv.addObject("url", "/subs/subslist"); // 실패 시 리다이렉트할 URL 설정
+	        mv.setViewName("common/serviceFailed");
+	    }
+	    return mv;
+	}
+	
+	
+	@RequestMapping(value="/subs/admin_s_modify", method=RequestMethod.POST)
+	public ModelAndView boardModify(ModelAndView mv
+	        , @ModelAttribute Subs subs
+	        , @ModelAttribute SubsFiles subsFiles
+	        , @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile
+	        , HttpSession session
+	        , HttpServletRequest request) {
+	    try {
+	        String userId = (String)session.getAttribute("userId");
+
+	        int result = 0; // result 변수 초기화
+
+	        // 파일 업로드 처리 부분
+	        if (uploadFile != null && !uploadFile.getOriginalFilename().equals("")) {
+	            String fileRename = subsFiles.getFileRename();
+	            if (fileRename != null) {
+	                this.deleteFile(fileRename, request);
+	            }
+	            Map<String, Object> bMap = this.saveFile(request, uploadFile);
+	            subsFiles.setFileName((String)bMap.get("fileName"));
+	            subsFiles.setFileRename((String)bMap.get("fileRename"));
+	            subsFiles.setFilePath((String)bMap.get("filePath"));
+	            subsFiles.setFileLength((long)bMap.get("fileLength"));
+
+	            // 첨부 파일이 있으면 업데이트
+	            result = sService.updateBoard(subs);
+	            if (result > 0) {
+	                // 첨부 파일 업데이트
+	                result = sService.updateBoardFiles(subsFiles);
+	            }
+	        } else {
+	            // 첨부 파일이 없으면 게시글 정보만 업데이트
+	            result = sService.updateBoard(subs);
+	        }
+
+	        if (result > 0) {
+	            mv.setViewName("redirect:/subs/subsdetail?scNo="+subs.getScNo());
+	        } else {
+	            mv.addObject("msg", "게시글 수정 미완료!");
+	            mv.addObject("error", "게시글 수정 실패");
+	            mv.addObject("url", "/subs/admin_s_modify");
+	            mv.setViewName("common/serviceFailed");
+	        }
+	    } catch (Exception e) {
+	        mv.addObject("msg", "관리자에게 문의 바랍니다!");
+	        mv.addObject("error", e.getMessage());
+	        mv.addObject("url", "/subs/admin_s_modify?scNo="+subs.getScNo());
+	        mv.setViewName("common/serviceFailed");
+	    }
+	    return mv;
+	}
+	
+	
+	
 //	@RequestMapping(value="/subs/admin_s_modify", method=RequestMethod.POST)
 //	public ModelAndView boardModify(ModelAndView mv
 //			, @ModelAttribute Subs subs
@@ -321,29 +324,29 @@ public class SubsController {
 //			, HttpServletRequest request) {
 //		try {
 //			String userId = (String)session.getAttribute("userId");
-//	       
+//			
 //			// 파일 업로드 처리 부분
 //			if(uploadFile != null && !uploadFile.getOriginalFilename().equals("")) {
-//	            String fileRename = subsFiles.getFileRename();
-//	            if(fileRename != null) {
-//	                this.deleteFile(fileRename, request);                                    
-//	            }
-//	            Map<String, Object> bFileMap = this.saveFile(request, uploadFile);
-//	            subsFiles.setFileName((String)bFileMap.get("fileName"));
-//	            subsFiles.setFileRename((String)bFileMap.get("fileRename"));
-//	            subsFiles.setFilePath((String)bFileMap.get("filePath"));
-//	            subsFiles.setFileLength((long)bFileMap.get("fileLength"));    
-//	        }
-//	        
-//	        int result = sService.updateBoard(subs);
-//	        if(result > 0) {
-//	            mv.setViewName("redirect:/subs/subsdetail?scNo="+subs.getScNo());
-//	        } else {
-//	            mv.addObject("msg", "게시글 수정 미완료!");
-//	            mv.addObject("error", "게시글 수정 실패");
-//	            mv.addObject("url", "/subs/admin_s_modify");
-//	            mv.setViewName("common/serviceFailed");
-//	        }
+//				String fileRename = subsFiles.getFileRename();
+//				if(fileRename != null) {
+//					this.deleteFile(fileRename, request);                                    
+//				}
+//				Map<String, Object> bMap = this.saveFile(request, uploadFile);
+//				subsFiles.setFileName((String)bMap.get("fileName"));
+//				subsFiles.setFileRename((String)bMap.get("fileRename"));
+//				subsFiles.setFilePath((String)bMap.get("filePath"));
+//				subsFiles.setFileLength((long)bMap.get("fileLength"));    
+//			}
+//			
+//			int result = sService.updateBoard(subs);
+//			if(result > 0) {
+//				mv.setViewName("redirect:/subs/subsdetail?scNo="+subs.getScNo());
+//			} else {
+//				mv.addObject("msg", "게시글 수정 미완료!");
+//				mv.addObject("error", "게시글 수정 실패");
+//				mv.addObject("url", "/subs/admin_s_modify");
+//				mv.setViewName("common/serviceFailed");
+//			}
 //		} catch (Exception e) {
 //			// TODO: handle exception
 //			mv.addObject("msg", "관리자에게 문의 바랍니다!");
@@ -355,15 +358,15 @@ public class SubsController {
 //	}
 
 
-//	private void deleteFile(String fileRename, HttpServletRequest request) {
-//		// TODO Auto-generated method stub
-//		String root = request.getSession().getServletContext().getRealPath("resources");
-//		String delPath= root + "\\buploadFiles\\" + fileRename;
-//		File delFile = new File(delPath);
-//		if(delFile.exists()) {
-//			delFile.delete();
-//		}
-//	}
+	private void deleteFile(String fileRename, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String delPath= root + "\\buploadFiles\\" + fileRename;
+		File delFile = new File(delPath);
+		if(delFile.exists()) {
+			delFile.delete();
+		}
+	}
 	
 	
 	

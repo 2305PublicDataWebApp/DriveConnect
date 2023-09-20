@@ -49,4 +49,19 @@ public interface SubsService {
 	 */
 	int insertSubs(SubsFiles subsFiles);
 
+	/**
+	 * 게시글 수정 Services
+	 * @param subs
+	 * @return
+	 */
+	int updateBoard(Subs subs);
+
+	/**
+	 * 게시글 수정 (SUB_CAR_FILES) Services
+	 * @param subsFiles
+	 * @return
+	 */
+	int updateBoardFiles(SubsFiles subsFiles);
+
+
 }
