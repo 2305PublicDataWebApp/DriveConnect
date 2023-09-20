@@ -13,10 +13,7 @@ public class Subs {
 	private int resNo;
 	private Date sCreateDate;
 	private Date sUpdateDate;
-	
     private SubsFiles subsFiles;
-	
-
 
 	public int getScNo() {
 		return scNo;

@@ -8,6 +8,10 @@
 <title>DriveConnect</title>
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Noto+Sans+KR&family=Roboto&display=swap');
+    img {
+        max-width: 100%;
+        max-height: 100px;
+    }
 	</style>
 	<link rel="stylesheet" href="/resources/css/register.css?after">
 </head>
@@ -42,9 +46,9 @@
 			<li>
 				<lable>첨부파일</lable>
 				<!-- spring으로 받을 수 없고 변환작업이 필요함 -->
-<%-- 				<img art="첨부파일" src="../resources/nuploadFiles/${board.boardFileRename }"> --%>
-				<a href="../resources/nuploadFiles/${subsFiles.fileRename }" download>${subsFiles.fileName }</a>
-				<c:if test="${not empty subsFiles.fileName }">
+				<img art="첨부파일" src="../resources/buploadFiles/${subs.subsFiles.fileRename }">
+<%-- 				<a href="../resources/nuploadFiles/${subs.subsFiles.fileRename }" download>${subs.subsFiles.fileName }</a> --%>
+				<c:if test="${not empty subs.subsFiles.fileName }">
 				<a href="#">삭제하기</a>
 				</c:if>
 			</li>
@@ -53,12 +57,13 @@
 		<c:url var="boardDelUrl" value="/subs/delete">
 			<c:param name="scNo" value="${subs.scNo }"></c:param>
 		</c:url>
-		<c:url var="modifyUrl" value="/board/modify.kh">
+		<c:url var="modifyUrl" value="/subs/admin_s_modify">
   			  <c:param name="scNo" value="${subs.scNo }"></c:param>
 		</c:url>
 		<div>
 			<c:if test="${userId eq 'admin'}">
-			<button type="button" onclick="showModifyPage('${modifyUrl }');">수정하기</button>
+<%-- 			<button type="button" onclick="showModifyPage('${modifyUrl }');">수정하기</button> --%>
+			<button type="button" onclick="window.location.href='${modifyUrl}';">수정하기</button>
 			<form action="/subs/delete" method="post">
 			    <input type="hidden" name="_method" value="delete"> <!-- HTTP DELETE 메서드 설정 -->
 			    <input type="hidden" name="scNo" value="${subs.scNo}">
@@ -70,6 +75,11 @@
 			<button type="button" onclick="showNoticeList();">목록으로</button>
 			<button type="button" onclick="javascript:history.go(-1);">뒤로가기</button>			
 		</div>
+		<script>
+			function showNoticeList() {
+				window.location.href = '/subs/subslist';
+			}
+		</script>
 
 	</main>
 			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
