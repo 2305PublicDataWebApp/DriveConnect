@@ -19,7 +19,6 @@
 		<typeAlias type="kr.co.drive.subs.domain.SubsFiles" alias="SubsFiles"/>
 	</typeAliases>
 	<mappers>
-		<mapper resource="mappers/user-mapper.xml"></mapper>
 		<mapper resource="mappers/subs-mapper.xml"></mapper>
 		<mapper resource="mappers/review/review-mapper.xml"/>
 		<mapper resource="mappers/review/rereply-mapper.xml"/>
@@ -29,6 +28,5 @@
 		<mapper resource="mappers/user/user-mapper.xml"/>
 		<mapper resource="mappers/often/often-mapper.xml"/>
 		<mapper resource="mappers/reserve/reserve-mapper.xml"/>
-		<mapper resource="mappers/subs/subsFiles-mapper.xml"/>
 	</mappers>
 </configuration>
