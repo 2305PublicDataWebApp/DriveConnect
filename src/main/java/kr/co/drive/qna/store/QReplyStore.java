@@ -12,8 +12,8 @@ public interface QReplyStore {
 
 	int insertQReply(SqlSession sqlSession, QReply qreply);
 
-	int updateReply(SqlSession sqlSession, QReply qreply);
+	int updateQReply(SqlSession sqlSession, QReply qreply);
 
-	int deleteReply(SqlSession sqlSession, QReply qreply);
+	int deleteQReply(SqlSession sqlSession, QReply qreply);
 
 }

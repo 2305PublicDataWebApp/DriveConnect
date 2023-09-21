@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import kr.co.drive.qna.domain.QReply;
 import kr.co.drive.qna.domain.Qna;
@@ -41,11 +43,13 @@ public class QnaController {
 			, HttpSession session
 			, HttpServletRequest request) {
 		try {
-			String userId = (String)session.getAttribute("userId");
-			if(userId != null && !userId.equals("")) {
-				qna.setUserId(userId);
-				int result = qService.insertqna(qna);
-				mv.setViewName("redirect:/qna/qnalist");
+			 String userId = (String)session.getAttribute("userId");
+		        if(userId != null && !userId.equals("")) {
+		            qna.setUserId(userId);
+		            int result = qService.insertQna(qna);
+		            if (result > 0) {
+		                mv.setViewName("redirect:/qna/qnalist");
+		            }
 			} else {
 				mv.addObject("msg", "로그인이 필요합니다.");
 				mv.addObject("error", "로그인이 필요합니다.");
@@ -55,7 +59,7 @@ public class QnaController {
 		} catch (Exception e) {
 			mv.addObject("msg", "댓글 등록이 완료되지 않았습니다.");
 			mv.addObject("error", e.getMessage());
-			mv.addObject("url", "/qna/qnawrite");
+			mv.addObject("url", "/qna/qnareplyWriter");
 			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
@@ -80,18 +84,46 @@ public class QnaController {
 		}
 		return mv;
 	}
+//	@RequestMapping(value="/qna/qnadetail", method=RequestMethod.GET)
+//	public ModelAndView showQnaDetail(ModelAndView mv, @RequestParam("qNo") Integer qNo, HttpSession session) {
+//	    try {
+//	        String userId = (String) session.getAttribute("userId");
+//	        Qna qnaOne = qService.selectQnaByNo(qNo);
+//
+//	        if (qnaOne != null) {
+//	            List<QReply> qnareplyList = qrService.selectQnaReplyList(qNo);
+//	            if (qnareplyList.size() > 0) {
+//	                mv.addObject("qrList", qnareplyList); 
+//	            }
+//	            mv.addObject("qna", qnaOne);
+//	            mv.setViewName("qna/qnadetail");
+//	        } else {
+//	            mv.addObject("msg", "게시글 조회가 완료되지 않았습니다.");
+//	            mv.addObject("error", "게시글 상세 조회 실패");
+//	            mv.addObject("url", "/qna/qnalist");
+//	            mv.setViewName("common/serviceFailed");
+//	        }
+//	    } catch (Exception e) {
+//	        mv.addObject("msg", "게시글 조회가 완료되지 않았습니다.");
+//	        mv.addObject("error", e.getMessage());
+//	        mv.addObject("url", "/qna/qnalist");
+//	        mv.setViewName("common/serviceFailed");
+//	    }
+//	    return mv;
+//	}
+	
 	@RequestMapping(value="/qna/qnadetail", method=RequestMethod.GET)
-	public ModelAndView showqnaDetail(ModelAndView mv
+	public ModelAndView showQnaDetail(ModelAndView mv
 			, @RequestParam("qNo") Integer qNo) {
 		try {
 			Qna qnaOne = qService.selectQnaByNo(qNo);
 			if(qnaOne != null) {
-				List<QReply> qnareplyList = qrService.selectQnaReplyList(qNo);
-				if(qnareplyList.size() > 0) {
-					mv.addObject("rList", qnareplyList);
+				List<QReply> qrList = qrService.selectQReplyList(qNo);
+				if(qrList.size() > 0) {
+					mv.addObject("qrList", qrList);
 				}
-					mv.addObject("qna", qnaOne);
-					mv.setViewName("qna/qnadetail");
+				mv.addObject("qna", qnaOne);
+				mv.setViewName("qna/qnadetail");
 			} else {
 				mv.addObject("msg", "게시글 조회가 완료되지 않았습니다.");
 				mv.addObject("error", "게시글 상세 조회 실패");
@@ -106,6 +138,7 @@ public class QnaController {
 		}
 		return mv;
 	}
+
 	@RequestMapping(value="/qna/delete", method=RequestMethod.GET)
 	public ModelAndView deleteQna(ModelAndView mv
 			, @RequestParam("qNo") Integer qNo
@@ -143,22 +176,36 @@ public class QnaController {
 	
 	@RequestMapping(value="/qna/qnamodify", method=RequestMethod.GET)
 	public ModelAndView showModifyForm(ModelAndView mv
-			, @RequestParam("qNo") Integer qNo) {
+			, @RequestParam("qNo") Integer qNo
+			, HttpSession session) {
 		try {
-			Qna qna = qService.selectQnaByNo(qNo);
-			mv.addObject("qna", qna);
-			mv.setViewName("qna/qnamodify");
-		} catch (Exception e) {
-			mv.addObject("msg", "게시글 조회가 완료되지 않았습니다.");
-			mv.addObject("error", e.getMessage());
-			mv.addObject("url", "/qna/qnadetail?qNo="+qNo);
-			mv.setViewName("common/serviceFailed");
-		}
-		return mv;
+	        String userId = (String) session.getAttribute("userId");
+	        Qna qna = qService.selectQnaByNo(qNo);
+	        
+	        if (userId != null && userId.equals(qna.getUserId())) {
+	            mv.addObject("qna", qna);
+	            mv.setViewName("qna/qnamodify");
+	        } else {
+	            // 디버깅 메시지 추가
+	            System.out.println("userId: " + userId);
+	            System.out.println("qna.getUserId(): " + qna.getUserId());
+	            
+	            mv.addObject("msg", "게시글 수정 권한이 없습니다.");
+	            mv.addObject("error", "게시글 수정 실패");
+	            mv.addObject("url", "/qna/qnadetail?qNo=" + qNo);
+	            mv.setViewName("common/serviceFailed");
+	        }
+	    } catch (Exception e) {
+	        mv.addObject("msg", "게시글 조회가 완료되지 않았습니다.");
+	        mv.addObject("error", e.getMessage());
+	        mv.addObject("url", "/qna/qnalist");
+	        mv.setViewName("common/serviceFailed");
+	    }
+	    return mv;
 	}
 	
 	@RequestMapping(value="/qna/qnamodify", method=RequestMethod.POST)
-	public ModelAndView ReviewModify(ModelAndView mv
+	public ModelAndView QnaModify(ModelAndView mv
 			, @ModelAttribute Qna qna
 			, HttpSession session
 			, HttpServletRequest request) {

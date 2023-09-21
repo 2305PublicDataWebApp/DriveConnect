@@ -1,10 +1,12 @@
 package kr.co.drive.review.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import kr.co.drive.review.domain.RePageInfo;
 import kr.co.drive.review.domain.ReReply;
@@ -57,6 +59,12 @@ public class ReviewServiceImpl implements ReviewService{
 	public int updateReview(Review review) {
 		int result = rStore.updateReview(sqlSession, review);
 		return result;
+	}
+
+	@Override
+	public List<Review> searchReviewByKeyword(RePageInfo pInfo, Map<String, String> paramMap) {
+		List<Review> searchList = rStore.selectReviewByKeyword(sqlSession, pInfo, paramMap);
+		return searchList;
 	}
 
 

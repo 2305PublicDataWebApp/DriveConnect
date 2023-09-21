@@ -14,4 +14,8 @@ public interface NoticeService {
 
 	int updateNotice(Notice notice);
 
+	List<Notice> getAllNotices();
+
+	int deleteNotice(Integer nNo);
+
 }

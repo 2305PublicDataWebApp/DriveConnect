@@ -8,7 +8,7 @@ import kr.co.drive.qna.domain.Qna;
 
 public interface QnaStore {
 
-	int insertqna(SqlSession sqlSession, Qna qna);
+	int insertQna(SqlSession sqlSession, Qna qna);
 
 
 	List<Qna> selectQnaList(SqlSession sqlSession);

@@ -2,30 +2,31 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>문의 등록</title>
-	</head>
-	<body>
-		<h1>문의 등록</h1>
-		<form action="/qna/qnawrite" method="post">
-			<ul>
-				<li>
-					<label>작성자</label>
-							<input type="text" name="qSubject" value="${userId }">
-				</li>
-				<li>
-					<label>제목</label>
-							<input type="text" name="qSubject" value="${qSubject }">
-				</li>
-				<li>
-					<label>후기 내용</label>
-					<textarea rows="4" cols="50" name="r_Content"></textarea>
-				</li>
-			</ul>
-			<div>
-				<input type="submit" value="제출하기">
-			</div>
-		</form>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>문의 등록</title>
+    <link rel="stylesheet" href="/resources/css/board/qnawrite.css?after">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">문의 등록</h1>
+        <form action="/qna/qnawrite" method="post" class="qna-form">
+            <div class="form-group">
+                <label for="userId">작성자</label>
+                <input type="text" id="userId" name="userId" value="${userId}">
+            </div>
+            <div class="form-group">
+                <label for="qSubject">제목</label>
+                <input type="text" id="qSubject" name="qSubject" value="${qSubject}">
+            </div>
+            <div class="form-group">
+                <label for="qContent">문의 내용</label>
+                <textarea id="qContent" rows="4" cols="50" name="qContent">${qContent}</textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="submit-button" value="제출하기">
+            </div>
+        </form>
+    </div>
+</body>
 </html>

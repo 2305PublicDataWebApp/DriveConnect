@@ -8,7 +8,7 @@ public class QReply {
 	private String userId;
 	private String qnaReplyContent;
 	private Timestamp rUpdate;
-	private int qnaNo;
+	private int qNo;
 	
 	public int getQnaReplyNo() {
 		return qnaReplyNo;
@@ -34,16 +34,16 @@ public class QReply {
 	public void setrUpdate(Timestamp rUpdate) {
 		this.rUpdate = rUpdate;
 	}
-	public int getQnaNo() {
-		return qnaNo;
+	public int getQNo() {
+		return qNo;
 	}
-	public void setQnaNo(int qnaNo) {
-		this.qnaNo = qnaNo;
+	public void setQNo(int qNo) {
+		this.qNo = qNo;
 	}
 	@Override
 	public String toString() {
 		return "문의답변 [문의글 답변=" + qnaReplyNo + ", 회원아이디=" + userId + ", 답변 내용=" + qnaReplyContent
-				+ ", 답변수정=" + rUpdate + ", 후기글 번호=" + qnaNo + "]";
+				+ ", 답변수정=" + rUpdate + ", 후기글 번호=" + qNo + "]";
 	}
 	
 }

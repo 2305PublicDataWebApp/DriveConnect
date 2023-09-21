@@ -7,7 +7,7 @@ import kr.co.drive.qna.domain.Qna;
 
 public interface QnaService {
 
-	int insertqna(Qna qna);
+	int insertQna(Qna qna);
 
 	List<Qna> selectQnaList();
 
@@ -17,5 +17,7 @@ public interface QnaService {
 	int deleteQna(Qna qna);
 
 	int updateQna(Qna qna);
+
+
 
 }

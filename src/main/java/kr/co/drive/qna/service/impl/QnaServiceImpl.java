@@ -22,8 +22,8 @@ public class QnaServiceImpl implements QnaService{
 	
 	
 	@Override
-	public int insertqna(Qna qna) {
-		int result = qStore.insertqna(sqlSession, qna);
+	public int insertQna(Qna qna) {
+		int result = qStore.insertQna(sqlSession, qna);
 		return result;
 	}
 
@@ -55,6 +55,10 @@ public class QnaServiceImpl implements QnaService{
 		int result = qStore.updateQna(sqlSession, qna);
 		return result;
 	}
+
+
+
+
 
 
 	

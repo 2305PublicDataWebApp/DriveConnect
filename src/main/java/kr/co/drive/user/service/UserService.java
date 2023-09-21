@@ -1,5 +1,7 @@
 package kr.co.drive.user.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import kr.co.drive.user.domain.User;
@@ -20,5 +22,14 @@ public interface UserService {
 	 * @return
 	 */
 	User checkUserLogin(User user);
+
+	List<User> selectUserList(User user);
+
+	User selectUserByNo(Integer userNo);
+
+	int updateUser(User user);
+
+
+	int deleteUser(User user);
 
 }

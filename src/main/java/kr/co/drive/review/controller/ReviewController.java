@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -54,11 +55,11 @@ public class ReviewController {
 				review.setUserId(userId);
 				if(uploadFile != null && !uploadFile.getOriginalFilename().equals("")) {
 					// 파일정보(이름, 리네임, 경로, 크기) 및 파일저장
-					Map<String, Object> bMap = this.saveFile(request, uploadFile);
-					review.setFileName((String)bMap.get("fileName"));
-					review.setFileRename((String)bMap.get("fileRename"));
-					review.setFilePath((String)bMap.get("filePath"));
-					review.setFileLength((long)bMap.get("fileLength"));
+					Map<String, Object> rMap = this.saveFile(request, uploadFile);
+					review.setFileName((String)rMap.get("fileName"));
+					review.setFileRename((String)rMap.get("fileRename"));
+					review.setFilePath((String)rMap.get("filePath"));
+					review.setFileLength((long)rMap.get("fileLength"));
 				}
 				int result = rService.insertReview(review);
 				mv.setViewName("redirect:/review/relist");
@@ -138,9 +139,9 @@ public class ReviewController {
 		try {
 			Review reviewOne = rService.selectReviewByNo(rNo);
 			if(reviewOne != null) {
-				List<ReReply> rereplyList = rrService.selectReReplyList(rNo);
-				if(rereplyList.size() > 0) {
-					mv.addObject("rList", rereplyList);
+				List<ReReply> rrList = rrService.selectReReplyList(rNo);
+				if(rrList.size() > 0) {
+					mv.addObject("rrList", rrList);
 				}
 					mv.addObject("review", reviewOne);
 					mv.setViewName("review/redetail");
@@ -177,14 +178,13 @@ public class ReviewController {
 	@RequestMapping(value="/review/delete", method=RequestMethod.GET)
 	public ModelAndView deleteReview(ModelAndView mv
 			, @RequestParam("rNo") Integer rNo
-			, @RequestParam("userId") String userId
 			, HttpSession session) {
 		try {
-			String writeuserId = (String)session.getAttribute("userId");
+			String userId = (String)session.getAttribute("userId");
 			Review review = new Review();
 			review.setrNo(rNo);
-			review.setUserId(writeuserId);
-			if(writeuserId != null && writeuserId.equals(userId)) {
+			review.setUserId(userId);
+			if(userId != null && userId.equals(userId)) {
 				int result = rService.deleteReview(review);
 				if(result > 0) {
 					mv.setViewName("redirect:/review/relist");
@@ -284,5 +284,31 @@ public class ReviewController {
 			delFile.delete();
 		}
 		
+	}
+	@RequestMapping(value="/review/research", method=RequestMethod.GET)
+	public String searchReviewList(
+			@RequestParam("searchCondition") String searchCondition
+			, @RequestParam("searchKeyword") String searchKeyword
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage
+			, Model model) {
+				Map<String, String> paramMap = new HashMap<String, String>();
+				paramMap.put("searchCondition", searchCondition);
+				paramMap.put("searchKeyword", searchKeyword);
+				int totalCount = rService.getListCount();
+				RePageInfo pInfo = this.getRePageInfo(currentPage, totalCount);
+		List<Review> searchList = rService.searchReviewByKeyword(pInfo, paramMap);
+		if(!searchList.isEmpty()) {
+			model.addAttribute("searchCondition", searchCondition);
+			model.addAttribute("searchKeyword", searchKeyword);
+			model.addAttribute("pInfo", pInfo);
+			model.addAttribute("sList", searchList);
+			return "review/relist";
+		} else {
+			model.addAttribute("msg", "데이터 조회가 완료되지 않았습니다.");
+			model.addAttribute("error", "공지사항 제목으로 조회 실패");
+			model.addAttribute("url", "/review/relist");
+			return "common/serviceFailed";
+		}
+			
 	}
 }

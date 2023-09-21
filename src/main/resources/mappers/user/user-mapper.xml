@@ -27,5 +27,20 @@
 		SELECT * FROM USER_TBL WHERE USER_ID = #{userId } AND USER_PW = #{userPw }
 	</select>	
 
+	<select id="selectUserList" resultMap="userResultMap">
+		SELECT * FROM USER_TBL ORDER BY USER_NO DESC
+	</select>
+	
+	<select id="selectUserByNo" resultMap="userResultMap">
+		SELECT * FROM USER_TBL WHERE USER_NO = #{userNo }
+	</select>
+	
+	<update id="updateUser">
+		UPDATE USER_TBL SET USER_NAME = #{userName}, USER_ADDRESS = #{userAddress}, D_LICENSE = #{dLicense}  WHERE USER_NO = #{userNo}
+	</update>
+	
+	<delete id="deleteUser">
+		DELETE FROM USER_TBL WHERE USER_NO = #{userNo} AND USER_ID = #{userId}
+	</delete>
 	
 </mapper>

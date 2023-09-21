@@ -10,10 +10,10 @@
 		<result property="rNo" 	column="R_NO"/>
 	</resultMap>
 	<insert id="insertReReply">
-		INSERT INTO REPLY_REV VALUES(SEQ_R_REPLY_NO.NEXTVAL, #{rrNo }, #{userId}, #{rrContent}, #{R_NO})
+		INSERT INTO REPLY_REV VALUES(SEQ_R_REPLY_NO.NEXTVAL, #{userId}, #{rrContent}, #{rNo})
 	</insert>
 	
-	<select id="selectReplyList" resultMap="rereplyResultMap">
+	<select id="selectReReplyList" resultMap="rereplyResultMap">
 		SELECT * FROM REPLY_REV WHERE R_NO = #{rNo } 
 	</select>
 	
@@ -21,7 +21,7 @@
 		UPDATE REPLY_REV SET R_REPLY_CONTENT = #{rrContent}  WHERE R_REPLY_NO = #{rrNo}
 	</update>
 	
-	<update id="deleteReply">
-		UPDATE REPLY_REV SET WHERE R_REPLY_NO = #{rrNo} AND USER_ID = #{userId}
+	<update id="deleteReReply">
+		DELETE FROM REPLY_REV WHERE R_REPLY_NO = #{rrNo} AND USER_ID = #{userId}
 	</update>
 </mapper>

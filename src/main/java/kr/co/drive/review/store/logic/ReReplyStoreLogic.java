@@ -12,7 +12,7 @@ import kr.co.drive.review.store.ReReplyStore;
 public class ReReplyStoreLogic implements ReReplyStore{
 
 	@Override
-	public int insertReReply(SqlSession sqlSession, ReReply rreply) {
+	public int insertReply(SqlSession sqlSession, ReReply rreply) {
 		int result = sqlSession.insert("ReReplyMapper.insertReReply", rreply);
 		return result;
 	}

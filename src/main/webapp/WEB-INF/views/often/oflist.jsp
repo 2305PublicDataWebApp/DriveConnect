@@ -1,87 +1,68 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>공지사항 목록</title>
-		<link rel="stylesheet" href="../resources/css/notice/notice.css">
-	</head>
-	<body>
-		<h1>공지사항 목록</h1>
-		<table>
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성날짜</th>
-					<th>첨부파일</th>
-<!-- 					<th>조회수</th> -->
-				</tr>
-			</thead>
-			<tbody>
-<!-- 			list 데이터는 items에 넣었고 var에서 설정한 변수로 list 데이터에서  -->
-<!-- 			꺼낸 값을 사용하고 값은 varStatus로 사용 -->
-				<c:forEach var="notice" items="${nList }" varStatus="i">
-				<tr>
-					<td>${i.count }</td>
-					<c:url var="detailUrl" value="/notice/detail.kh">
-						<c:param name="noticeNo" value="${notice.noticeNo }"></c:param>
-					</c:url>
-					<td><a href="${detailUrl }">${notice.noticeSubject }</a></td>
-					<td>${notice.noticeWriter }</td>
-					<td>
-						<fmt:formatDate pattern="yyyy-MM-dd" value="${notice.nCreateDate }"/>
-<%-- 						${notice.nCreateDate } --%>
-					</td>
-					<td>
-						<c:if test="${!empty notice.noticeFilename }">0</c:if>
-						<c:if test="${empty notice.noticeFilename }">X</c:if>
-					</td>
-<!-- 					<td> -->
-<%-- 						<fmt:formatNumber pattern="###,###" value="123000"></fmt:formatNumber> --%>
-<!-- 					</td> -->
-				</tr>
-				</c:forEach>
-			</tbody>
-			<tfoot>
-				<tr align="center">
-					<td colspan="5">
-						<c:forEach begin="${pInfo.startNavi }" end="${pInfo.endNavi }" var="p">
-							<c:url var="pageUrl" value="/notice/list.kh">
-								<c:param name="page" value="${p }"></c:param>
-							</c:url>
-							<a href="${pageUrl }">${p }</a>&nbsp;
-						</c:forEach>
-						
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4">
-					<form action="/notice/search.kh" method="get">
-						<select name="searchCondition">
-							<option value="all"<c:if test="${searchCondition == 'all' }">selected</c:if>>전체</option>
-							<option value="writer" <c:if test="${searchCondition == 'writer' }">selected</c:if>>작성자</option>
-							<option value="title" <c:if test="${searchCondition == 'title' }">selected</c:if>>제목</option>
-							<option value="content" <c:if test="${searchCondition == 'content' }">selected</c:if>>내용</option>
-						</select>
-						<input type="text" name="searchKeyword" placeholder="검색어를 입력하세요">
-						<input type="submit" value="검색">
-					</form>
-					</td>
-					<td>
-						<button type="button" onclick="showRegisterForm();">글쓰기</button>
-					</td>
-				</tr>
-			</tfoot>
-		</table>
-		<script>
-			const showRegisterForm = () => {
-				location.href = "/notice/insert.kh";
-			}
-		</script>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항 목록</title>
+    <link rel="stylesheet" href="/resources/css/board/qnalist.css?after">
+</head>
+<body>
+<h1><a href="/index.jsp">HOME</a></h1>
+    <section class="notice">
+        <div class="page-title">
+            <div class="container">
+                <h3>자주 묻는 질문</h3>
+            </div>
+        </div>
+        <div id="often-list">
+            <div class="container">
+                <table class="often-table">
+                    <colgroup>
+                        <col width="10%">
+                        <col width="60%">
+                        <col width="20%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="th-num">번호</th>
+                            <th scope="col" class="th-title">제목</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 여기에 기존 데이터를 반복문으로 출력하는 코드 추가 -->
+                        <!-- 예시: -->
+                        <c:forEach var="often" items="${oList}" varStatus="i">
+                            <tr>
+                                <td>${i.count}</td>
+                                <td>
+                                    <c:url var="detailUrl" value="/often/ofdetail">
+                                        <c:param name="oNo" value="${often.oNo}"></c:param>
+                                    </c:url>
+                                    <a href="${detailUrl}">${often.oSubject}</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+<%--                                 <c:if test="${user.userId == khuser01}"> --%>
+								<c:if test="${sessionScope.userId ne null && String.valueOf(sessionScope.adminYn) eq 'Y' }">
+                                    <button type="button" onclick="showRegisterForm();">글쓰기</button>
+                                </c:if>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </section>
+    <script>
+        const showRegisterForm = () => {
+            location.href = "/often/ofinsert";
+        }
+    </script>
+</body>
 </html>

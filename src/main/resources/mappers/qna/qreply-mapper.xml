@@ -8,10 +8,10 @@
 		<result property="userId" 	column="USER_ID"/>
  		<result property="qnaReplyContent" column="Q_REPLY_CONTENT"/> 
  		<result property="rUpdate" column="R_UPDATE"/> 
-		<result property="qnaNo" 	column="Q_NO"/>
+		<result property="qNo" 	column="Q_NO"/>
 	</resultMap>
 	<insert id="insertQReply">
-		INSERT INTO REPLY_QNA VALUES(SEQ_Q_REPLY_NO.NEXTVAL, #{qnaReplyNo }, #{userId}, #{qnaReplyContent}, #{rUpdate}, #{qnaNO})
+		INSERT INTO REPLY_QNA VALUES(SEQ_Q_REPLY_NO.NEXTVAL, #{userId}, #{qnaReplyContent}, #{rUpdate}, #{qNo})
 	</insert>
 	
 	<select id="selectQReplyList" resultMap="qreplyResultMap">
@@ -19,10 +19,10 @@
 	</select>
 	
 	<update id="updateQReply">
-		UPDATE REPLY_QNA SET Q_REPLY_CONTENT = #{qnaReplyContent}  WHERE Q_REPLY_NO = #{qnaReplyNo}
+		UPDATE REPLY_QNA SET Q_REPLY_CONTENT = #{qnaReplyContent} WHERE Q_REPLY_NO = #{qnaReplyNo} AND USER_ID = #{userId}
 	</update>
 	
 	<update id="deleteQReply">
-		UPDATE REPLY_QNA SET WHERE Q_REPLY_NO = #{qnaReplyNo} AND USER_ID = #{userId}
+		DELETE FROM REPLY_QNA WHERE Q_REPLY_NO = #{qnaReplyNo} AND USER_ID = #{userId}
 	</update>
 </mapper>

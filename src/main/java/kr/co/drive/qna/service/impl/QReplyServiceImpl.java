@@ -6,7 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import kr.co.drive.qna.domain.QReply;
+import kr.co.drive.qna.domain.Qna;
 import kr.co.drive.qna.service.QReplyService;
 import kr.co.drive.qna.store.QReplyStore;
 import kr.co.drive.review.domain.ReReply;
@@ -26,20 +28,26 @@ public class QReplyServiceImpl implements QReplyService{
 		return qrList;
 	}
 	@Override
-	public int insertReply(QReply qreply) {
+	public int insertQReply(QReply qreply) {
 		int result = qrStore.insertQReply(sqlSession, qreply);
 		return result;
 	}
 	@Override
-	public int updateReply(QReply qreply) {
-		int result = qrStore.updateReply(sqlSession, qreply);
+	public int updateQReply(QReply qreply) {
+		int result = qrStore.updateQReply(sqlSession, qreply);
 		return result;
 	}
 	@Override
-	public int deleteReply(QReply qreply) {
-		int result = qrStore.deleteReply(sqlSession, qreply);
+	public int deleteQReply(QReply qreply) {
+		int result = qrStore.deleteQReply(sqlSession, qreply);
 		return result;
 	}
+	@Override
+	public List<QReply> selectQReplyList(Integer qNo) {
+		List<QReply> qrList = qrStore.selectQReplyList(sqlSession, qNo);
+		return qrList;
+	}
+	
 
 	
 }

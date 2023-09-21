@@ -1,6 +1,7 @@
 package kr.co.drive.review.store;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -20,5 +21,7 @@ public interface ReviewStore {
 	int deleteReview(SqlSession sqlSession, Review review);
 
 	int updateReview(SqlSession sqlSession, Review review);
+
+	List<Review> selectReviewByKeyword(SqlSession sqlSession, RePageInfo pInfo, Map<String, String> paramMap);
 
 }

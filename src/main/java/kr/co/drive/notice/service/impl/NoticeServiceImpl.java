@@ -41,6 +41,18 @@ public class NoticeServiceImpl implements NoticeService{
 		int result = nStore.updateNotice(session, notice);
 		return result;
 	}
+
+	@Override
+	public List<Notice> getAllNotices() {
+		List<Notice> nList = nStore.getAllNotices(session);
+		return nList;
+	}
+
+	@Override
+	public int deleteNotice(Integer nNo) {
+		int result = nStore.deleteNotice(session, nNo);
+		return result;
+	}
 	
 	
 

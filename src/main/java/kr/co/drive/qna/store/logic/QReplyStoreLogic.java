@@ -24,13 +24,13 @@ public class QReplyStoreLogic implements QReplyStore{
 	}
 
 	@Override
-	public int updateReply(SqlSession sqlSession, QReply qreply) {
+	public int updateQReply(SqlSession sqlSession, QReply qreply) {
 		int result = sqlSession.update("QReplyMapper.updateQReply", qreply);
 		return result;
 	}
 
 	@Override
-	public int deleteReply(SqlSession sqlSession, QReply qreply) {
+	public int deleteQReply(SqlSession sqlSession, QReply qreply) {
 		int result = sqlSession.delete("QReplyMapper.deleteQReply", qreply);
 		return result;
 	}

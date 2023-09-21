@@ -21,7 +21,7 @@ public class QReplyController {
 	@Autowired
 	private QReplyService qrService;
 
-	@RequestMapping(value="/qnaadd", method=RequestMethod.POST)
+	@RequestMapping(value="/qreply/qnaadd", method=RequestMethod.POST)
 	public ModelAndView insertQReply(ModelAndView mv
 			, @ModelAttribute QReply qreply
 			, HttpSession session) {
@@ -29,8 +29,8 @@ public class QReplyController {
 		try {
 			String qreplyWriter = (String)session.getAttribute("userId");
 			qreply.setUserId(qreplyWriter);
-			int result = qrService.insertReply(qreply);
-			url = "/qna/qnadetail?qNo="+qreply.getQnaReplyNo();
+			int result = qrService.insertQReply(qreply);
+			url = "/qna/qnadetail?qNo="+qreply.getQNo();
 			if(result > 0) {
 				mv.setViewName("redirect:"+url);
 			} else {
@@ -49,19 +49,24 @@ public class QReplyController {
 		
 		return mv;
 	}
-	@RequestMapping(value="/qnaupdate", method=RequestMethod.POST)
-	public ModelAndView updateReply(ModelAndView mv
+	@RequestMapping(value="/qreply/qnaupdate", method=RequestMethod.POST)
+	public ModelAndView updateQReply(ModelAndView mv
 			, @ModelAttribute QReply qreply
 			, HttpSession session) {
 		String url ="";
 		try {
-			String qnareplyWriter = (String)session.getAttribute("userId");
-			if(qnareplyWriter != null && !qnareplyWriter.equals("")) {
-				qreply.setUserId(qnareplyWriter);
-				int result = qrService.updateReply(qreply);
-				url= "/qna/detail?No="+qreply.getQnaReplyNo();
+			String qreplyWriter = (String)session.getAttribute("userId");
+			if(qreplyWriter != null && !qreplyWriter.equals("")) {
+				qreply.setUserId(qreplyWriter);
+				int result = qrService.updateQReply(qreply);
+				url= "/qna/qnadetail?qNo="+qreply.getQNo();
 				if(result > 0) {
 					mv.setViewName("redirect:"+url);
+				}else {
+					mv.addObject("msg", "수정이 되지 않았습니다.");
+					mv.addObject("error", "정보 수정 실패");
+					mv.addObject("url", "/index.jsp");
+					mv.setViewName("common/serviceFailed");
 				}
 			} else {
 				mv.addObject("msg", "로그인이 되지 않았습니다.");
@@ -79,17 +84,17 @@ public class QReplyController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/qnadelete", method=RequestMethod.GET)
-	public ModelAndView deleteReply(ModelAndView mv
+	@RequestMapping(value="/qreply/qnadelete", method=RequestMethod.GET)
+	public ModelAndView deleteQReply(ModelAndView mv
 			, @ModelAttribute QReply qreply
 			, HttpSession session ) {
 		String url = "";
 		try {
 			String userId = (String)session.getAttribute("userId");
-			String qnareplyWriter = qreply.getUserId();
-			url = "/qna/qnadetail?qNo="+qreply.getQnaReplyNo();
-			if(qnareplyWriter != null && qnareplyWriter.equals(userId)) {
-				int result = qrService.deleteReply(qreply);
+			String qreplyWriter = qreply.getUserId();
+			url = "/qna/qnadetail?qNo="+qreply.getQNo();
+			if(qreplyWriter != null && qreplyWriter.equals(userId)) {
+				int result = qrService.deleteQReply(qreply);
 				if(result > 0) {
 					mv.setViewName("redirect:"+url);
 				} else {

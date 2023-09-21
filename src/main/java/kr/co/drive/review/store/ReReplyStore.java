@@ -8,12 +8,13 @@ import kr.co.drive.review.domain.ReReply;
 
 public interface ReReplyStore {
 
-	int insertReReply(SqlSession sqlSession, ReReply rreply);
 
 	int updateReply(SqlSession sqlSession, ReReply rreply);
 
 	int deleteReply(SqlSession sqlSession, ReReply rreply);
 
 	List<ReReply> selectReReplyList(SqlSession sqlSession, Integer rNo);
+
+	int insertReply(SqlSession sqlSession, ReReply rreply);
 
 }

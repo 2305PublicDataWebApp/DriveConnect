@@ -8,17 +8,17 @@ public class Notice {
 	private String nSubject;
 	private String nContent;
 	private Timestamp nDate;
-	private String userNo;
+	private String userId;
 	
 	
-	public Notice(int nNo, String nSubject, String nContent, Timestamp nDate, String userNo) {
-		super();
-		this.nNo = nNo;
-		this.nSubject = nSubject;
-		this.nContent = nContent;
-		this.nDate = nDate;
-		this.userNo = userNo;
-	}
+//	public Notice(int nNo, String nSubject, String nContent, Timestamp nDate, String userNo) {
+//		super();
+//		this.nNo = nNo;
+//		this.nSubject = nSubject;
+//		this.nContent = nContent;
+//		this.nDate = nDate;
+//		this.userNo = userNo;
+//	}
 	
 	public int getnNo() {
 		return nNo;
@@ -44,16 +44,16 @@ public class Notice {
 	public void setnDate(Timestamp nDate) {
 		this.nDate = nDate;
 	}
-	public String getUserNo() {
-		return userNo;
+	public String getUserId() {
+		return userId;
 	}
-	public void setUserNo(String userNo) {
-		this.userNo = userNo;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	@Override
 	public String toString() {
 		return "공지사항 [공지번호=" + nNo + ", 제목=" + nSubject + ", 내용=" + nContent + ", 작성날짜=" + nDate
-				+ ", 회원번호=" + userNo + "]";
+				+ ", 회원번호=" + userId + "]";
 	}
 
 	

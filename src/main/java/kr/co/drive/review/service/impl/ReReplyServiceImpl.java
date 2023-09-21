@@ -20,7 +20,7 @@ public class ReReplyServiceImpl implements ReReplyService{
 	
 	@Override
 	public int insertReply(ReReply rreply) {
-		int result = rrStore.insertReReply(sqlSession, rreply);
+		int result = rrStore.insertReply(sqlSession, rreply);
 		return result;
 	}
 

@@ -13,25 +13,26 @@ public class Qna {
 	private Timestamp rCreate;
 	private String rYn;
 	private int userNo;
+	private int qnaReplyNo;
 	
 	
 	public Qna() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Qna(int qNo, String userId, String userName, String qSubject, String qContent, Timestamp qCreate,
-			Timestamp rCreate, String rYn, int userNo) {
-		super();
-		this.qNo = qNo;
-		this.userId = userId;
-		this.userName = userName;
-		this.qSubject = qSubject;
-		this.qContent = qContent;
-		this.qCreate = qCreate;
-		this.rCreate = rCreate;
-		this.rYn = rYn;
-		this.userNo = userNo;
-	}
+//	public Qna(int qNo, String userId, String userName, String qSubject, String qContent, Timestamp qCreate,
+//			Timestamp rCreate, String rYn, int userNo) {
+//		super();
+//		this.qNo = qNo;
+//		this.userId = userId;
+//		this.userName = userName;
+//		this.qSubject = qSubject;
+//		this.qContent = qContent;
+//		this.qCreate = qCreate;
+//		this.rCreate = rCreate;
+//		this.rYn = rYn;
+//		this.userNo = userNo;
+//	}
 	public int getqNo() {
 		return qNo;
 	}
@@ -86,10 +87,19 @@ public class Qna {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
+	
+	public int getQnaReplyNo() {
+		return qnaReplyNo;
+	}
+
+	public void setQnaReplyNo(int qnaReplyNo) {
+		this.qnaReplyNo = qnaReplyNo;
+	}
+
 	@Override
 	public String toString() {
 		return "문의 [문의글 번호=" + qNo + ", 회원 아이디=" + userId + ", 회원이름=" + userName + ", 문의 제목=" + qSubject
 				+ ", 문의 내용=" + qContent + ", 작성날짜=" + qCreate + ", 답변수정=" + rCreate + ", 답변여부=" + rYn
-				+ ", 회원번호=" + userNo + "]";
+				+ ", 회원번호=" + userNo + ", 댓글번호=" + qnaReplyNo + "]";
 	}
 }

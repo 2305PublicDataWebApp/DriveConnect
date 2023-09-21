@@ -1,8 +1,11 @@
 package kr.co.drive.user.store.logic;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.co.drive.notice.domain.Notice;
 import kr.co.drive.user.domain.User;
 import kr.co.drive.user.store.UserStore;
 
@@ -21,6 +24,31 @@ public class UserStoreLogic implements UserStore {
 		// TODO Auto-generated method stub
 		User uOne = session.selectOne("UserMapper.checkUserLogin", user);
 		return uOne;
+	}
+
+	@Override
+	public List<User> selectUserList(SqlSession session, User user) {
+		List<User> uList = session.selectList("UserMapper.selectUserList", user);
+		return uList;
+	}
+
+	@Override
+	public User selectUserByNo(SqlSession session, Integer userNo) {
+		User userOne = session.selectOne("UserMapper.selectUserByNo", userNo);
+		return userOne;
+	}
+
+	@Override
+	public int updateUser(SqlSession session, User user) {
+		int result = session.update("UserMapper.updateUser", user);
+		return result;
+	}
+
+
+	@Override
+	public int deleteUser(SqlSession session, User user) {
+		int result = session.delete("UserMapper.deleteUser", user);
+		return result;
 	}
 
 }

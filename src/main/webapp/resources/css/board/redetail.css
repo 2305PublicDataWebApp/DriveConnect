@@ -1,0 +1,92 @@
+@charset "UTF-8";
+/* board/redetail.css */
+/* 기본 스타일 리셋 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 전체 페이지 컨테이너 가운데 정렬 및 스타일 설정 */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 리뷰 내용 스타일 설정 */
+.review-details ul {
+    list-style-type: none;
+}
+
+.review-details li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.review-details label {
+    flex: 0 0 100px;
+}
+
+.review-details input[type="text"],
+.review-details input[type="number"],
+.review-details input[type="datetime"],
+.review-details p {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.review-details img {
+    max-width: 100%;
+    max-height: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 버튼 스타일 설정 */
+.buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.buttons button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttons button:last-child {
+    margin-right: 0;
+}
+
+.buttons button:hover {
+    background-color: #0056b3;
+}
+
+/* 이미지 미리보기 스타일 설정 */
+.image-preview {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

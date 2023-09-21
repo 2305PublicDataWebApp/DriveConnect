@@ -1,0 +1,52 @@
+@charset "UTF-8";
+/* notice-register.css */
+
+.register-title {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    margin: 0;
+}
+
+.register-list {
+    list-style: none;
+    padding: 0;
+}
+
+.register-item {
+    margin-bottom: 20px;
+}
+
+.register-label {
+    font-weight: bold;
+}
+
+.register-input,
+.register-textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.register-textarea {
+    resize: vertical;
+}
+
+.register-buttons {
+    margin-top: 20px;
+}
+
+.register-submit {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.register-submit:hover {
+    background-color: #0056b3;
+}

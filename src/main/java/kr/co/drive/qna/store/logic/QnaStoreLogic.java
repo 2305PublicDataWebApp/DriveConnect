@@ -13,14 +13,14 @@ import kr.co.drive.review.domain.Review;
 public class QnaStoreLogic implements QnaStore{
 
 	@Override
-	public int insertqna(SqlSession sqlSession, Qna qna) {
+	public int insertQna(SqlSession sqlSession, Qna qna) {
 		int result = sqlSession.insert("QnaMapper.insertQna", qna);
 		return result;
 	}
 
 	@Override
 	public List<Qna> selectQnaList(SqlSession sqlSession) {
-		List<Qna> qList = sqlSession.selectList("QnaMapper.selectQnalList");
+		List<Qna> qList = sqlSession.selectList("QnaMapper.selectQnaList");
 		return qList;
 	}
 

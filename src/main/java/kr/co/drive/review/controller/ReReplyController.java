@@ -19,16 +19,16 @@ public class ReReplyController {
 	@Autowired
 	private ReReplyService rrService;
 	
-	@RequestMapping(value="/readd", method=RequestMethod.POST)
+	@RequestMapping(value="/rreply/readd", method=RequestMethod.POST)
 	public ModelAndView insertReReply(ModelAndView mv
 			, @ModelAttribute ReReply rreply
 			, HttpSession session) {
 		String url ="";
 		try {
-			String rereplyWriter = (String)session.getAttribute("userId");
-			rreply.setUserId(rereplyWriter);
+			String rreplyWriter = (String)session.getAttribute("userId");
+			rreply.setUserId(rreplyWriter);
 			int result = rrService.insertReply(rreply);
-			url = "/review/redetail?rNo="+rreply.getRrNo();
+			url = "/review/redetail?rNo="+rreply.getrNo();
 			if(result > 0) {
 				mv.setViewName("redirect:"+url);
 			} else {
@@ -47,26 +47,32 @@ public class ReReplyController {
 		
 		return mv;
 	}
-	@RequestMapping(value="/update", method=RequestMethod.POST)
+	@RequestMapping(value="/rreply/update", method=RequestMethod.POST)
 	public ModelAndView updateReply(ModelAndView mv
 			, @ModelAttribute ReReply rreply
 			, HttpSession session) {
 		String url ="";
 		try {
-			String rereplyWriter = (String)session.getAttribute("userId");
-			if(rereplyWriter != null && !rereplyWriter.equals("")) {
-				rreply.setUserId(rereplyWriter);
+			String rreplyWriter = (String)session.getAttribute("userId");
+			if(rreplyWriter != null && !rreplyWriter.equals("")) {
+				rreply.setUserId(rreplyWriter);
 				int result = rrService.updateReply(rreply);
-				url= "/review/detail?No="+rreply.getRrNo();
+				url= "/review/redetail?rNo="+rreply.getrNo();
 				if(result > 0) {
 					mv.setViewName("redirect:"+url);
-				}
+				
 			} else {
-				mv.addObject("msg", "로그인이 되지 않았습니다.");
-				mv.addObject("error", "로그인 정보확인 실패");
+				mv.addObject("msg", "수정이 되지 않았습니다.");
+				mv.addObject("error", "정보 수정 실패");
 				mv.addObject("url", "/index.jsp");
 				mv.setViewName("common/serviceFailed");
 			}
+		} else {
+			mv.addObject("msg", "로그인이 되지 않았습니다.");
+			mv.addObject("error", "로그인 정보확인 실패");
+			mv.addObject("url", "/index.jsp");
+			mv.setViewName("common/serviceFailed");
+		}
 		} catch (Exception e) {
 			mv.addObject("msg", "관리자에게 문의 바랍니다.");
 			mv.addObject("error", e.getMessage());
@@ -77,16 +83,16 @@ public class ReReplyController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/delete", method=RequestMethod.GET)
+	@RequestMapping(value="/rreply/delete", method=RequestMethod.GET)
 	public ModelAndView deleteReply(ModelAndView mv
 			, @ModelAttribute ReReply rreply
 			, HttpSession session ) {
 		String url = "";
 		try {
 			String userId = (String)session.getAttribute("userId");
-			String rereplyWriter = rreply.getUserId();
-			url = "/review/redetail?rNo="+rreply.getRrNo();
-			if(rereplyWriter != null && rereplyWriter.equals(userId)) {
+			String rreplyWriter = rreply.getUserId(); 
+			url = "/review/redetail?rNo="+rreply.getrNo();
+			if(rreplyWriter != null && rreplyWriter.equals(userId)) {
 				int result = rrService.deleteReply(rreply);
 				if(result > 0) {
 					mv.setViewName("redirect:"+url);
