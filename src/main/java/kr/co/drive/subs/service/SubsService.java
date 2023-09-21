@@ -1,6 +1,7 @@
 package kr.co.drive.subs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.drive.subs.domain.PageInfo;
 import kr.co.drive.subs.domain.Subs;
@@ -62,6 +63,14 @@ public interface SubsService {
 	 * @return
 	 */
 	int updateBoardFiles(SubsFiles subsFiles);
+
+	/**
+	 * 공지사항 조건에 따라 키워드로 검색 Service
+	 * @param pInfo
+	 * @param paramMap
+	 * @return
+	 */
+	List<Subs> searchSubsByKeyword(PageInfo pInfo, Map<String, String> paramMap);
 
 
 }

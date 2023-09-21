@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Noto+Sans+KR:wght@300&display=swap');
 
 #footer {
-    padding : 25px 44px 30px;
+    padding : 25px 0;
 }
 
 footer {
@@ -11,6 +11,10 @@ footer {
 
 #footer > .wrap-footer {
     width: 100%;
+    display: flex;
+    flex-wrap: wrap; /* 이 부분 추가 */
+    justify-content: space-between; /* 이 부분 추가 */
+    align-items: center; /* 이 부분 추가 */
 }
 
 #footer * {
@@ -34,7 +38,8 @@ a {
     line-height: 1.08;
     letter-spacing: -0.48px;
     color: #414141;
-    border-bottom: 1px solid #d8d8d8;
+    border-bottom: none; /* 기존의 하단 테두리 제거 */
+    margin-bottom: 20px; /* 하단 간격 추가 */
 }
 
 #footer > .wrap-footer > .nav > .nav__item {
@@ -66,10 +71,14 @@ a {
     padding-top: 29px;
     padding-bottom: 29px;
     border-bottom: 1px solid #d8d8d8;
+    flex: 1; /* 이 부분 추가 */
+    margin-right: 20px; /* 원하는 간격으로 조절 */
 }
 
 #footer > .wrap-footer > .content > div + div {
-    margin-left: 168px;
+    margin-left: 0;
+	flex: 1; /* 이 부분 추가 */
+    
 }
 
 #footer > .wrap-footer > .content > div > .info-list {

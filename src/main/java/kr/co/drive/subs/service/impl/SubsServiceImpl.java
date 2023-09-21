@@ -2,6 +2,7 @@ package kr.co.drive.subs.service.impl;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,13 @@ public class SubsServiceImpl implements SubsService {
 		// TODO Auto-generated method stub
 		int result = sStore.updateBoardFiles(sqlsession, subsFiles);
 		return result;
+	}
+
+	@Override
+	public List<Subs> searchSubsByKeyword(PageInfo pInfo, Map<String, String> paramMap) {
+		// TODO Auto-generated method stub
+		List<Subs> searchList = sStore.searchSubsByKeyword(sqlsession, pInfo, paramMap);
+		return searchList;
 	}
 
 

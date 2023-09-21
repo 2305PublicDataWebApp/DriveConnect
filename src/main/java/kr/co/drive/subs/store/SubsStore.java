@@ -1,6 +1,7 @@
 package kr.co.drive.subs.store;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -72,5 +73,14 @@ public interface SubsStore {
 	 * @return
 	 */
 	int updateBoardFiles(SqlSession sqlsession, SubsFiles subsFiles);
+
+	/**
+	 * 공지사항 조건에 따라 키워드로 조회 Store
+	 * @param sqlsession
+	 * @param pInfo
+	 * @param paramMap
+	 * @return
+	 */
+	List<Subs> searchSubsByKeyword(SqlSession sqlsession, PageInfo pInfo, Map<String, String> paramMap);
 
 }

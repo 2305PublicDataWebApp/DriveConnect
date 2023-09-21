@@ -1,6 +1,7 @@
 package kr.co.drive.subs.store.logic;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -75,6 +76,19 @@ public class SubsStoreLogic implements SubsStore {
 		// TODO Auto-generated method stub
 		int result = sqlsession.update("SubsMapper.updateBoardFiles", SubsFiles);
 		return result;
+	}
+
+
+
+	@Override
+	public List<Subs> searchSubsByKeyword(SqlSession sqlsession, PageInfo pInfo, Map<String, String> paramMap) {
+		// TODO Auto-generated method stub	
+		int limit = pInfo.getRecordCountPerPage();
+		int offset = (pInfo.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Subs> searchList
+			= sqlsession.selectList("SubsMapper.searchSubsByKeyword", paramMap, rowBounds);
+		return searchList;
 	}
 
 }

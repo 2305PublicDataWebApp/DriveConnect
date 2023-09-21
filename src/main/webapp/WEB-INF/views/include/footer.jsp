@@ -60,7 +60,6 @@
                 <div></div>
                 <div></div>
                 <div></div>
-                <div></div>
                 <div>
                     <ul class="info-list">
                         <li class="info-list__item">
