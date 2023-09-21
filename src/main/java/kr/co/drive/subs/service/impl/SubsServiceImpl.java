@@ -15,7 +15,7 @@ import kr.co.drive.subs.store.SubsStore;
 
 @Service
 public class SubsServiceImpl implements SubsService {
-
+    
 	@Autowired
 	private SubsStore sStore;
 	

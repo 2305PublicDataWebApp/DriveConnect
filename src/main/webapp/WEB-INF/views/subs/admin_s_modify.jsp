@@ -20,12 +20,20 @@
 		<input type="hidden" name="Filelength" value="${subs.subsFiles.fileLength }">
 		<ul>
 			<li>
+				<label>작성자</label>
+				<span>${userName }</span>
+			</li>
+			<li>
 				<label>차량명</label>
 				<input type="text" name="scName" value="${subs.scName }">
 			</li>
 			<li>
-				<label>작성자</label>
-				<span>${userName }</span>
+				<label>차량브랜드</label>
+				<input type="text" name="scBrand" value="${subs.scBrand }">
+			</li>
+			<li>
+				<label>차량색</label>
+				<input type="text" name="scColor" value="${subs.scColor }">
 			</li>
 			<li>
 				<label>내용</label>

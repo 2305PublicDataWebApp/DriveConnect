@@ -51,14 +51,21 @@
 	<select id="selectBoardByNo" resultMap="subsResultMap">
 		SELECT * FROM SUBS_CAR LEFT JOIN SUBS_CAR_FILES USING(SC_NO) WHERE SC_NO = #{scNo }
 	</select>
-	
+
 	<delete id="deleteBoard">
-	    DELETE FROM SUBS_CAR WHERE SC_NO = #{scNo}
+	    DELETE FROM SUBS_CAR SC
+	        WHERE SC.SC_NO = #{scNo}
 	</delete>
+
+	
+<!-- 	<delete id="deleteBoard"> -->
+<!-- 	    DELETE FROM SUBS_CAR WHERE SC_NO = #{scNo} -->
+<!-- 	</delete> -->
 	
 	<update id="updateBoard">
 		UPDATE SUBS_CAR SET 
-		SC_NAME = #{scName }, SC_SPEC = #{scSpec }
+		SC_NAME = #{scName }, SC_BRAND = #{scBrand }
+		, SC_COLOR = #{scColor }, SC_SPEC = #{scSpec }
 		, SUPDATEDATE = SYSDATE WHERE SC_NO = #{scNo } 
 	</update>
 	

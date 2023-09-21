@@ -9,8 +9,8 @@
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Noto+Sans+KR&family=Roboto&display=swap');
     img {
-        max-width: 100%;
-        max-height: 100px;
+        max-width: 800%;
+        max-height: 800%;
     }
 	</style>
 	<link rel="stylesheet" href="/resources/css/register.css?after">
@@ -19,12 +19,11 @@
 		<jsp:include page="/WEB-INF/views/include/nav.jsp"></jsp:include>
 		
 	<main>
-	<h1>게시글 상세 </h1>
+	<h1>차량 상세 조회 </h1>
 	<link rel="stylesheet" href="../resources/css/main.css">
 		<ul>
 			<li>
-				<label>제목</label>
-				<span>${subs.scName }</span>
+				<img art="첨부파일" src="../resources/buploadFiles/${subs.subsFiles.fileRename }">
 			</li>
 			<li>
 				<label>작성자</label>
@@ -40,14 +39,33 @@
 				</span>
 			</li>
 			<li>
+				<div>
+				<label>차량명</label>
+				<input type="text" name="scName" value="${subs.scName }">
+				</div>
+			</li>
+			<li>
+				<div>
+				<label>브랜드</label>
+				<input type="text" name="scBrand" value="${subs.scBrand }">
+				</div>
+			</li>
+			<li>
+				<div>
+				<label>차량색</label>
+				<input type="text" name="scColor" value="${subs.scColor }">
+				</div>
+			</li>
+			<li>
+				<div>
 				<label>내용</label>
-				<p>${subs.scSpec }</p>
+				<textarea rows="7" cols="50" name="scSpec">${subs.scSpec }</textarea>
+				</div>
 			</li>
 			<li>
 				<lable>첨부파일</lable>
 				<!-- spring으로 받을 수 없고 변환작업이 필요함 -->
-				<img art="첨부파일" src="../resources/buploadFiles/${subs.subsFiles.fileRename }">
-<%-- 				<a href="../resources/nuploadFiles/${subs.subsFiles.fileRename }" download>${subs.subsFiles.fileName }</a> --%>
+				<a href="../resources/nuploadFiles/${subs.subsFiles.fileRename }" download>${subs.subsFiles.fileName }</a>
 				<c:if test="${not empty subs.subsFiles.fileName }">
 				<a href="#">삭제하기</a>
 				</c:if>

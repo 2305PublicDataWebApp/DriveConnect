@@ -12,13 +12,21 @@
 	<input type="hidden" name="userId" value="${sessionScope.userId }">
 		<ul>
 			<li>
+				<label>작성자</label>
+<%-- 				<input type="text" name="boardWriter" value="${sessionScope.memberId }" readonly> --%>
+				<span>${userName }</span>
+			</li>
+			<li>
 				<label>차량명</label>
 				<input type="text" name="scName" value="${subs.scName }">
 			</li>
 			<li>
-				<label>작성자</label>
-<%-- 				<input type="text" name="boardWriter" value="${sessionScope.memberId }" readonly> --%>
-				<span>${userName }</span>
+				<label>차량브랜드</label>
+				<input type="text" name="scBrand" value="${subs.scBrand }">
+			</li>
+			<li>
+				<label>차량색</label>
+				<input type="text" name="scColor" value="${subs.scColor }">
 			</li>
 			<li>
 				<label>내용</label>
@@ -30,7 +38,7 @@
 <!-- 				첨부파일은 String으로 받을 수 없어서 변환작업(파싱)이 필요함  -->
 				<input type="file" name="uploadFile">
 			</li>
-		</ul>
+		</ul> 
 		<div>
 		<input type="submit" value="등록하기">			
 		</div>
