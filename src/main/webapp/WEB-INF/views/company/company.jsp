@@ -7,6 +7,41 @@
 <title>DriveConnect</title>
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Noto+Sans+KR&family=Roboto&display=swap');
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #ffffff;
+  }
+
+  .title {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .title h1 {
+    font-size: 36px;
+    color: #333;
+  }
+
+  h3 {
+    font-size: 24px;
+    color: #333;
+    margin-top: 20px;
+  }
+
+  p {
+    font-size: 18px;
+    color: #666;
+    margin-top: 10px;
+  }
+  
+  main {
+  background-image: url('/resources/img/company.jpg');
+  background-size: cover; /* 배경 이미지를 화면에 꽉 차도록 조절 */
+  background-repeat: no-repeat; /* 배경 이미지 반복 없음 */
+  background-position: center center; /* 배경 이미지를 중앙에 위치 */
+  /* 다른 스타일 속성도 추가 가능 */
+  }
+  		
 	</style>
 	<link rel="stylesheet" href="/resources/css/register.css?after">
 </head>
