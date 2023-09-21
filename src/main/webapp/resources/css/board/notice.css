@@ -1,0 +1,59 @@
+@charset "UTF-8";
+/* detail.css */
+
+.detail-title {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    margin: 0;
+}
+
+.detail-list {
+    list-style: none;
+    padding: 0;
+}
+
+.detail-list li {
+    margin-bottom: 20px;
+}
+
+.detail-label {
+    font-weight: bold;
+}
+
+.detail-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.detail-content {
+    white-space: pre-line;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+}
+
+.detail-date {
+    font-weight: bold;
+}
+
+.detail-buttons {
+    margin-top: 20px;
+}
+
+.detail-button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.detail-button:hover {
+    background-color: #0056b3;
+}

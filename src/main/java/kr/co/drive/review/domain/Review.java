@@ -1,5 +1,6 @@
 package kr.co.drive.review.domain;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Review {
@@ -9,12 +10,12 @@ public class Review {
 	private String scName;
 	private String rSubject;
 	private String rContent;
-	private Timestamp rCreate;
+	private Date rCreate;
 	private String fileName;
 	private String fileRename;
 	private String filePath;
 	private double fileLength;
-	private int user_No;
+	private int resNo;
 	
 	
 	
@@ -27,6 +28,7 @@ public class Review {
 	public void setrNo(int rNo) {
 		this.rNo = rNo;
 	}
+	
 
 
 
@@ -39,6 +41,8 @@ public class Review {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
+
 
 
 
@@ -78,13 +82,13 @@ public class Review {
 
 
 
-	public Timestamp getrCreate() {
+	public Date getrCreate() {
 		return rCreate;
 	}
 
 
 
-	public void setrCreate(Timestamp rCreate) {
+	public void setrCreate(Date rCreate) {
 		this.rCreate = rCreate;
 	}
 
@@ -136,25 +140,25 @@ public class Review {
 		this.fileLength = fileLength;
 	}
 
-
-
-	public int getUser_No() {
-		return user_No;
+	public int getResNo() {
+		return resNo;
 	}
 
 
 
-	public void setUser_No(int user_No) {
-		this.user_No = user_No;
+	public void setResNo(int resNo) {
+		this.resNo = resNo;
 	}
+
+
 
 
 
 	@Override
 	public String toString() {
-		return "후기 [후기글번호=" + rNo + ", 회원 아이디=" + userId + ", 차량명=" + scName + ", 후기 제목=" + rSubject
+		return "후기 [후기글번호=" + rNo + ", 회원 아이디=" + userId + ",  차량명=" + scName + ",후기 제목=" + rSubject
 				+ ", 후기 내용=" + rContent + ", 후기 작성날짜=" + rCreate + ", 파일이름=" + fileName + ", 파일리네임="
-				+ fileRename + ", 파일경로=" + filePath + ", 파일크기=" + fileLength + ", 회원 번호=" + user_No + "]";
+				+ fileRename + ", 파일경로=" + filePath + ", 파일크기=" + fileLength + ", 구독 번호=" + resNo + "]";
 	}
 	
 	

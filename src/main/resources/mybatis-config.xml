@@ -7,14 +7,28 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		<typeAlias type="kr.co.drive.user.domain.User" alias="User" />
-		<typeAlias type="kr.co.drive.subs.domain.Subs" alias="Subs" />
-		<typeAlias type="kr.co.drive.subs.domain.SubsFiles" alias="SubsFiles" />
-		<typeAlias type="kr.co.drive.reserve.domain.Reserve" alias="Reserve" />
+		<typeAlias type="kr.co.drive.review.domain.Review" alias="Review"/>
+		<typeAlias type="kr.co.drive.review.domain.ReReply" alias="ReReply"/>
+		<typeAlias type="kr.co.drive.qna.domain.Qna" alias="QNA"/>
+		<typeAlias type="kr.co.drive.qna.domain.QReply" alias="QReply"/>
+		<typeAlias type="kr.co.drive.notice.domain.Notice" alias="Notice"/>
+		<typeAlias type="kr.co.drive.user.domain.User" alias="User"/>
+		<typeAlias type="kr.co.drive.often.domain.Often" alias="Often"/>
+		<typeAlias type="kr.co.drive.reserve.domain.Reserve" alias="Reserve"/>
+		<typeAlias type="kr.co.drive.subs.domain.Subs" alias="Subs"/>
+		<typeAlias type="kr.co.drive.subs.domain.SubsFiles" alias="SubsFiles"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/user-mapper.xml"></mapper>
 		<mapper resource="mappers/subs-mapper.xml"></mapper>
-		<mapper resource="mappers/reserve/reserve-mapper.xml"></mapper>
+		<mapper resource="mappers/review/review-mapper.xml"/>
+		<mapper resource="mappers/review/rereply-mapper.xml"/>
+		<mapper resource="mappers/qna/qna-mapper.xml"/>
+		<mapper resource="mappers/qna/qreply-mapper.xml"/>
+		<mapper resource="mappers/notice/notice-mapper.xml"/>
+		<mapper resource="mappers/user/user-mapper.xml"/>
+		<mapper resource="mappers/often/often-mapper.xml"/>
+		<mapper resource="mappers/reserve/reserve-mapper.xml"/>
+		<mapper resource="mappers/subs/subsFiles-mapper.xml"/>
 	</mappers>
 </configuration>

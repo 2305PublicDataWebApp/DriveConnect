@@ -16,7 +16,6 @@ public class ReserveServiceImpl implements ReserveService{
 	@Autowired
 	private SqlSession sqlSession;
 
-
 	@Override
 	public int insertReserve(Reserve reserve) {
 		int result = rStore.insertReserve(sqlSession, reserve);

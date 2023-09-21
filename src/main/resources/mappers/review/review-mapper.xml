@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReviewMapper">
+	<resultMap type="Review" id="reviewResultMap">
+		<id property="rNo" column="R_NO"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="scName" column="SC_NAME"/>
+		<result property="rSubject" column="R_SUBJECT"/>
+		<result property="rContent" column="R_CONTENT"/>
+		<result property="rCreate" column="R_CREATE"/>
+		<result property="fileName" column="FILENAME"/>
+		<result property="fileRename" column="FILERENAME"/>
+		<result property="filePath" 	column="FILEPATH"/>
+		<result property="fileLength" column="FILELENGTH"/>
+		<result property="resNo" column="RES_NO"/>
+	</resultMap>
+	<insert id="insertReview">
+		INSERT INTO REVIEW VALUES(SEQ_R_NO.NEXTVAL, #{userId }, #{scName }, #{rSubject}, #{rContent},DEFAULT, #{fileName}, #{fileRename},  #{filePath}, #{fileLength}, #{resNo })
+	</insert>
+
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT (*) FROM REVIEW
+	</select>
+	
+	<select id="selectReviewList" resultMap="reviewResultMap">
+		SELECT * FROM REVIEW ORDER BY R_CREATE DESC
+	</select>
+
+	<select id="selectReviewByNo" resultMap="reviewResultMap">
+		SELECT * FROM REVIEW WHERE R_NO = #{rNo }
+	</select>
+	
+	<delete id="deleteReview">
+    DELETE FROM REVIEW WHERE R_NO = #{rNo} AND USER_ID = #{userId}
+</delete>
+	
+	
+	<update id="updateReview">
+    UPDATE REVIEW SET R_SUBJECT = #{rSubject}, R_CONTENT = #{rContent}, 
+    FILENAME = #{fileName}, FILERENAME = #{fileRename}, 
+    FILEPATH = #{filePath}, FILELENGTH = #{fileLength} 
+    WHERE R_NO = #{rNo}
+</update>
+
+
+<select id="selectReviewByrSubject" resultMap="reviewResultMap">
+		SELECT * FROM REVIEW WHERE R_SUBJECT LIKE '%'||#{searchKeyword}||'%'
+	</select>
+	
+	<select id="selectReviewByWriter" resultMap="reviewResultMap">
+		SELECT * FROM REVIEW WHERE USER_ID LIKE '%'||#{searchKeyword}||'%'
+	</select>
+
+	<select id="selectReviewByContent" resultMap="reviewResultMap">
+		SELECT * FROM REVIEW WHERE R_CONTENT LIKE '%'||#{searchKeyword}||'%'
+	</select>
+	
+	<select id="selectReviewAll" resultMap="reviewResultMap">
+		SELECT * FROM REVIEW WHERE R_CONTENT LIKE '%'||#{searchKeyword}||'%' OR R_SUBJECT LIKE '%'||#{searchKeyword}||'%' OR USER_ID LIKE '%'||#{searchKeyword}||'%' 
+	</select>
+	<select id="selectReviewByKeyword" resultMap="reviewResultMap">
+		SELECT * FROM REVIEW 
+		<if test="searchCondition == 'all'">
+		WHERE R_CONTENT LIKE '%'||#{searchKeyword}||'%' OR R_SUBJECT LIKE '%'||#{searchKeyword}||'%' OR USER_ID LIKE '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchCondition == 'rContent'">
+		WHERE R_CONTENT LIKE '%'||#{searchKeyword}||'%' 
+		</if>
+		<if test="searchCondition == 'rSubject'">
+		WHERE R_SUBJECT LIKE '%'||#{searchKeyword}||'%' 
+		</if>
+		<if test="searchCondition == 'userId'">
+		WHERE USER_ID LIKE '%'||#{searchKeyword}||'%'
+		</if>
+	</select>
+
+	<select id="selectListByKeywordCount" resultType="_int">
+		SELECT COUNT (*) FROM REVIEW
+		<if test="searchCondition == 'all'">
+		WHERE R_CONTENT LIKE '%'||#{searchKeyword}||'%' OR R_SUBJECT LIKE '%'||#{searchKeyword}||'%' OR USER_ID LIKE '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchCondition == 'rContent'">
+		WHERE R_CONTENT LIKE '%'||#{searchKeyword}||'%' 
+		</if>
+		<if test="searchCondition == 'rSubject'">
+		WHERE R_SUBJECT LIKE '%'||#{searchKeyword}||'%' 
+		</if>
+		<if test="searchCondition == 'userId'">
+		WHERE USER_ID LIKE '%'||#{searchKeyword}||'%'
+		</if>
+	</select>
+
+</mapper>

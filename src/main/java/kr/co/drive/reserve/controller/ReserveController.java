@@ -20,9 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.drive.reserve.domain.Reserve;
 import kr.co.drive.reserve.service.ReserveService;
-import kr.co.drive.subs.domain.Subs;
 import kr.co.drive.subs.domain.SubsFiles;
-import kr.co.drive.subs.service.SubsService;
 
 @Controller
 public class ReserveController {
@@ -30,24 +28,18 @@ public class ReserveController {
 	@Autowired
 	private ReserveService rService;
 	
-	@Autowired
-	private SubsService sService;
-
 	@RequestMapping(value="/reserve/resewrite", method=RequestMethod.GET)
-	public ModelAndView showWriteForm(ModelAndView mv
-			,@RequestParam("scNo") int scNo) {
-		Subs sOne = sService.selectBoardByNo(scNo);
-		mv.addObject("sOne", sOne);
+	public ModelAndView showWriteForm(ModelAndView mv) {
+
 		mv.setViewName("reserve/resewrite");
 		return mv;
 	}
-
+	
 	@RequestMapping(value="/reserve/resewrite", method=RequestMethod.POST)
 	public ModelAndView reseRegister(
 			ModelAndView mv
 			, @ModelAttribute Reserve reserve
-			, @ModelAttribute SubsFiles subsFiles
-			, @ModelAttribute Subs subs
+			, @ModelAttribute SubsFiles subsF
 			, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile
 			, HttpSession session
 			, HttpServletRequest request) {
@@ -58,13 +50,12 @@ public class ReserveController {
 				if(uploadFile != null && !uploadFile.getOriginalFilename().equals("")) {
 					// 파일정보(이름, 리네임, 경로, 크기) 및 파일저장
 					Map<String, Object> rMap = this.saveFile(request, uploadFile);
-					subsFiles.setFileName((String)rMap.get("fileName"));
-					subsFiles.setFileRename((String)rMap.get("fileRename"));
-					subsFiles.setFilePath((String)rMap.get("filePath"));
-					subsFiles.setFileLength((long)rMap.get("fileLength"));
+					subsF.setFileName((String)rMap.get("fileName"));
+					subsF.setFileRename((String)rMap.get("fileRename"));
+					subsF.setFilePath((String)rMap.get("filePath"));
+					subsF.setFileLength((long)rMap.get("fileLength"));
 				}
 				int result = rService.insertReserve(reserve);
-				mv.addObject("subs/sOne");
 				mv.setViewName("redirect:/reserve/reselist");
 			} else {
 				mv.addObject("msg", "로그인이 필요합니다.");
@@ -80,7 +71,7 @@ public class ReserveController {
 		}
 		return mv;
 	}
-
+	
 	public Map<String, Object> saveFile(HttpServletRequest request, MultipartFile uploadFile) throws Exception {
 		Map<String, Object> fileMap = new HashMap<String, Object>();
 		// resources 경로 구하기

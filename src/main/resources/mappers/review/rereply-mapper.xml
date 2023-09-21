@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReReplyMapper">
+	<resultMap type="ReReply" id="rereplyResultMap">
+		<id 	property="rrNo" 		column="R_REPLY_NO"/>
+		<result property="userId" 	column="USER_ID"/>
+ 		<result property="rrContent" column="R_REPLY_CONTENT"/> 
+		<result property="rNo" 	column="R_NO"/>
+	</resultMap>
+	<insert id="insertReReply">
+		INSERT INTO REPLY_REV VALUES(SEQ_R_REPLY_NO.NEXTVAL, #{userId}, #{rrContent}, #{rNo})
+	</insert>
+	
+	<select id="selectReReplyList" resultMap="rereplyResultMap">
+		SELECT * FROM REPLY_REV WHERE R_NO = #{rNo } 
+	</select>
+	
+	<update id="updateReReply">
+		UPDATE REPLY_REV SET R_REPLY_CONTENT = #{rrContent}  WHERE R_REPLY_NO = #{rrNo}
+	</update>
+	
+	<update id="deleteReReply">
+		DELETE FROM REPLY_REV WHERE R_REPLY_NO = #{rrNo} AND USER_ID = #{userId}
+	</update>
+</mapper>
