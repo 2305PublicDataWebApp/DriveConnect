@@ -91,4 +91,13 @@ public class SubsStoreLogic implements SubsStore {
 		return searchList;
 	}
 
+
+
+	@Override
+	public int selectListCount(SqlSession sqlsession, Map<String, String> paramMap) {
+		// TODO Auto-generated method stub
+		int result = sqlsession.selectOne("SubsMapper.selectListByKeywordCount", paramMap);
+		return result;
+	}
+
 }

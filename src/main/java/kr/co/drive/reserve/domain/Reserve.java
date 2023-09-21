@@ -3,7 +3,7 @@ package kr.co.drive.reserve.domain;
 import java.sql.Timestamp;
 
 public class Reserve {
-	
+
 	private int resNo;
 	private String userId;
 	private String userName;
@@ -14,13 +14,16 @@ public class Reserve {
 	private char payYn;
 	private Timestamp subsStart;
 	private Timestamp subsFinish;
-	private String userPhone;
-	private String userEmail;
 	private String request;
 	private char subsYn;
 	private String scName;
 	private int userNo;
-	
+	private int scNo;
+	private String fileName;
+	private String fileRename;
+	private String filePath;
+	private int fileLength;
+
 	public int getResNo() {
 		return resNo;
 	}
@@ -81,18 +84,7 @@ public class Reserve {
 	public void setSubsFinish(Timestamp subsFinish) {
 		this.subsFinish = subsFinish;
 	}
-	public String getUserPhone() {
-		return userPhone;
-	}
-	public void setUserPhone(String userPhone) {
-		this.userPhone = userPhone;
-	}
-	public String getUserEmail() {
-		return userEmail;
-	}
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
+
 	public String getRequest() {
 		return request;
 	}
@@ -111,12 +103,55 @@ public class Reserve {
 	public void setScName(String scName) {
 		this.scName = scName;
 	}
+
+
 	public int getUserNo() {
 		return userNo;
 	}
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-	
-	
+	public int getScNo() {
+		return scNo;
+	}
+	public void setScNo(int scNo) {
+		this.scNo = scNo;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getFileRename() {
+		return fileRename;
+	}
+	public void setFileRename(String fileRename) {
+		this.fileRename = fileRename;
+	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	public int getFileLength() {
+		return fileLength;
+	}
+	public void setFileLength(int fileLength) {
+		this.fileLength = fileLength;
+	}
+	@Override
+	public String toString() {
+		return "Reserve [resNo=" + resNo + ", userId=" + userId + ", userName=" + userName + ", userAddress="
+				+ userAddress + ", resDate=" + resDate + ", payment=" + payment + ", payway=" + payway + ", payYn="
+				+ payYn + ", subsStart=" + subsStart + ", subsFinish=" + subsFinish 
+				+ ", request=" + request + ", subsYn=" + subsYn + ", scName=" + scName + ", userNo=" + userNo + ", scNo=" + scNo
+				+ ", fileName=" + fileName + ", fileRename=" + fileRename + ", filePath=" + filePath 
+				+ ", fileLength=" + fileLength + "]";
+	}
+
+
+
+
 }

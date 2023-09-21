@@ -83,4 +83,6 @@ public interface SubsStore {
 	 */
 	List<Subs> searchSubsByKeyword(SqlSession sqlsession, PageInfo pInfo, Map<String, String> paramMap);
 
+	int selectListCount(SqlSession sqlsession, Map<String, String> paramMap);
+
 }

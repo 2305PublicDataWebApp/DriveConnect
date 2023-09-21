@@ -87,6 +87,13 @@ public class SubsServiceImpl implements SubsService {
 		return searchList;
 	}
 
+	@Override
+	public int getListCount(Map<String, String> paramMap) {
+		// TODO Auto-generated method stub
+		int result = sStore.selectListCount(sqlsession, paramMap);
+		return result;
+	}
+
 
 }
 

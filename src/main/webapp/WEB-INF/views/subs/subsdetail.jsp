@@ -91,11 +91,17 @@
 			</form>
 			</c:if>
 			<button type="button" onclick="showNoticeList();">목록으로</button>
-			<button type="button" onclick="javascript:history.go(-1);">뒤로가기</button>			
+			<button type="button" onclick="javascript:history.go(-1);">뒤로가기</button>
+			<br>
+			<button type="button" onclick="showReserveWrite();">차량 예약하기</button>			
 		</div>
 		<script>
 			function showNoticeList() {
 				window.location.href = '/subs/subslist';
+			}
+			function showReserveWrite() {
+				const scNo = "${subs.scNo}";
+				window.location.href = '/reserve/resewrite?scNo='+scNo;
 			}
 		</script>
 

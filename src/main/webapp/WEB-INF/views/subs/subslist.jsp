@@ -250,9 +250,9 @@
 			                <form action="/subs/search" method="get">
 			                    <select name="searchCondition">
 			                       	<option value="all" <c:if test="${searchCondition == 'all' }">selected</c:if>>전체</option>
-									<option value="writer" <c:if test="${searchCondition == 'writer' }">selected</c:if>>작성자</option>
-									<option value="title" <c:if test="${searchCondition == 'title' }">selected</c:if>>제목</option>
-									<option value="content"<c:if test="${searchCondition == 'content' }">selected</c:if>>내용</option>
+									<option value="writer" <c:if test="${searchCondition == 'writer' }">selected</c:if>>차량브랜드</option>
+									<option value="title" <c:if test="${searchCondition == 'title' }">selected</c:if>>차량명</option>
+									<option value="content"<c:if test="${searchCondition == 'content' }">selected</c:if>>내용(스펙)</option>
 			                    </select>
 			                    <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요">
 			                    <input type="submit" value="검색">

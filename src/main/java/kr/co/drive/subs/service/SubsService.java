@@ -72,5 +72,12 @@ public interface SubsService {
 	 */
 	List<Subs> searchSubsByKeyword(PageInfo pInfo, Map<String, String> paramMap);
 
+	/**
+	 * 공지 검색 게시물 전체 갯수 Service
+	 * @param paramMap
+	 * @return
+	 */
+	int getListCount(Map<String, String> paramMap);
+
 
 }

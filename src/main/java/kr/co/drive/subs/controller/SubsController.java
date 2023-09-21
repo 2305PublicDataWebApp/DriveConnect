@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -368,7 +369,58 @@ public class SubsController {
 		}
 	}
 	
-	
+	@RequestMapping(value="/subs/search", method=RequestMethod.GET)
+	public String searchSubsByKeyword(
+			@RequestParam("searchCondition") String searchCondition
+			, @RequestParam("searchKeyword") String searchKeyword
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage
+			, Model model) {
+		// 2개의 값을 하나의 변수로 다루는 방법
+		// 1. VO클래스 만드는 방법(이미 해봄)
+		// 2. HashMap 사용하는 방법(안 해봄)
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("searchCondition", searchCondition);
+		paramMap.put("searchKeyword", searchKeyword);
+		int totalcount = sService.getListCount(paramMap);
+		PageInfo pInfo = this.getPageInfo(currentPage, totalcount);
+		// put() 메소드를 사용해서 key-value 설정을 하는데
+		// key값(파란색)이 mapper.xml에서 사용됨!!
+//		paramMap.get("searchCondition");  // 마이바티스가 알아서 해줌		
+		List<Subs> searchList = sService.searchSubsByKeyword(pInfo, paramMap);
+//		List<Notice> searchList = new ArrayList<Notice>();
+//		switch(searchCondition) {
+//		case "all" :
+//			// (전체) SELECT * FROM NOTICE_TBL WHERE NOTICE_SUBJECT = ? OR NOTICE_CONTENT = ? OR NOTICE_WRITER = ?
+//			searchList = service.searchNoticeByAll(searchKeyword);
+//				break;
+//		case "writer" :
+//			// (작성자) SELECT * FROM NOTICE_TBL WHERE NOTICE_WRITER = ? 
+//			searchList = service.searchNoticeByWriter(searchKeyword);
+//			break;
+//		case "title" :
+//			// (제목) SELECT * FROM NOTICE_TBL WHERE NOTICE_SUBJECT LIKE '%공지사항%';
+//			searchList = service.searchNoticeByTitle(searchKeyword);
+//			break;
+//		case "content" :
+//			// (내용) SELECT * FROM NOTICE_TBL WHERE NOTICE_CONTENT = ?
+//			searchList = service.searchNoticeByContent(searchKeyword);
+//			break;
+//		}
+		
+		if(!searchList.isEmpty()) {			
+			model.addAttribute("searchCondition", searchCondition);
+			model.addAttribute("searchKeyword", searchKeyword);
+			model.addAttribute("pInfo", pInfo);
+			model.addAttribute("sList", searchList);
+			return "subs/subslist";
+		}else {
+			model.addAttribute("msg", "데이터 조회가 완료되지 않았습니다.");
+			model.addAttribute("error", "공지사항 제목으로 조회가 되지 않습니다.");
+			model.addAttribute("url", "/subs/search");
+			return "common/errorPage";
+			
+		}
+	}
 	
 	
 	

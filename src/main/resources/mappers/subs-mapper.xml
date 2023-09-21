@@ -79,18 +79,33 @@
 	<select id="searchSubsByKeyword" resultMap="subsResultMap">
 		SELECT * FROM SUBS_CAR
 		<if test="searchCondition == 'all'">
-		WHERE SC_NAME LIKE '%'||#{searchKeyword }||'%' OR NOTICE_WRITER LIKE '%'||#{searchKeyword }||'%' OR NOTICE_CONTENT LIKE '%'||#{searchKeyword }||'%'		
+		WHERE SC_BRAND LIKE '%'||#{searchKeyword }||'%' OR SC_NAME LIKE '%'||#{searchKeyword }||'%' OR SC_SPEC LIKE '%'||#{searchKeyword }||'%'		
 		</if>
 		<if test="searchCondition == 'writer'">
-		WHERE NOTICE_WRITER LIKE '%'||#{searchKeyword }||'%'
+		WHERE SC_BRAND LIKE '%'||#{searchKeyword }||'%'
 		</if>
 		<if test="searchCondition == 'title'">
-		WHERE NOTICE_SUBJECT LIKE '%'||#{searchKeyword }||'%'
+		WHERE SC_NAME LIKE '%'||#{searchKeyword }||'%'
 		</if>
 		<if test="searchCondition == 'content'">
 		WHERE SC_SPEC LIKE '%'||#{searchKeyword }||'%'
 		</if>
 	</select>
 
+	<select id="selectListByKeywordCount" resultType="_int">
+		SELECT COUNT(*) FROM SUBS_CAR
+		<if test="searchCondition == 'all'">
+		WHERE SC_BRAND LIKE '%'||#{searchKeyword }||'%' OR SC_NAME LIKE '%'||#{searchKeyword }||'%' OR SC_SPEC LIKE '%'||#{searchKeyword }||'%'		
+		</if>
+		<if test="searchCondition == 'writer'">
+		WHERE SC_BRAND LIKE '%'||#{searchKeyword }||'%'
+		</if>
+		<if test="searchCondition == 'title'">
+		WHERE SC_NAME LIKE '%'||#{searchKeyword }||'%'
+		</if>
+		<if test="searchCondition == 'content'">
+		WHERE SC_SPEC LIKE '%'||#{searchKeyword }||'%'
+		</if>		
+	</select>
 	
 </mapper>
