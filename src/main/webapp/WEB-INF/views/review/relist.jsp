@@ -27,7 +27,7 @@
                 <th>제목</th>
                 <th>아이디</th>
                 <th>작성날짜</th>
-                <th>사진</th>
+<!--                 <th>사진</th> -->
             </tr>
         </thead>
         <tbody>
@@ -89,22 +89,22 @@
         </tfoot>
     </table>
     <script>
-    const imageUpload = document.getElementById("imageUpload");
+//     const imageUpload = document.getElementById("imageUpload");
 
-    const imagePreview = document.getElementById("imagePreview");
-    imageUpload.addEventListener("change", function () {
-        const file = this.files[0];
+//     const imagePreview = document.getElementById("imagePreview");
+//     imageUpload.addEventListener("change", function () {
+//         const file = this.files[0];
 
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                imagePreview.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        } else {
-            imagePreview.src = "#";
-        }
-    });
+//         if (file) {
+//             const reader = new FileReader();
+//             reader.onload = function (e) {
+//                 imagePreview.src = e.target.result;
+//             };
+//             reader.readAsDataURL(file);
+//         } else {
+//             imagePreview.src = "#";
+//         }
+//     });
     
     
         const showRegisterForm = () => {
