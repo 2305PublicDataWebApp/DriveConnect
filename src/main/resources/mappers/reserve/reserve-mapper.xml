@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReserveMapper">
+	<resultMap type="Reserve" id="reserveResultMap">
+		<id 	property="resNo" 		column="RES_NO" />
+		<result property="userId" 		column="USER_ID" />
+		<result property="userName" 		column="USER_NAME" />
+		<result property="userAddress" 	column="USER_ADDRESS" />
+		<result property="resDate" 	column="RES_DATE" />
+		<result property="payment" 	column="PAYMENT" />
+		<result property="payway" 	column="PAYWAY" />
+		<result property="payYn" 		column="PAY_YN" />
+		<result property="subsStart" 		column="SUBS_START" />
+		<result property="subsFinish" 	column="SUBS_FINISH" />
+		<result property="request" 		column="REQUEST" />
+		<result property="subsYn" 		column="SUBS_YN" />
+		<result property="scName" 		column="SC_NAME" />
+		<result property="userNo" 		column="USER_NO" />
+		<result property="scNo" 		column="SC_NO" />
+		<result property="fileName" 		column="FILENAME" />
+		<result property="fileRename" 		column="FILERENAME" />
+		<result property="filePath" 		column="FILEPATH" />
+		<result property="fileLength" 		column="FILELENGTH" />
+	</resultMap>
+
+	<insert id="insertReserve">
+ 		INSERT INTO RESERVE VALUES(SEQ_RES_NO.NEXTVAL, #{userId},#{userName}
+ 		,#{userAddress},DEFALUT,#{payment},#{payway},'Y',#{subsStart},#{subsFinish}
+ 		,#{request},Y,#{scName}),#{userNo},#{scNo},#{fileName},#{fileRename}
+ 		,#{filePath}, #{fileLength}
+	</insert>
+	
+	
+<!-- 	<select id="checkUserLogin" resultMap="userResultMap"> -->
+<!-- 		SELECT * FROM USER_TBL WHERE USER_ID = #{userId } AND USER_PW = #{userPw } -->
+<!-- 	</select>	 -->
+
+<!-- 	<select id="selectUserList" resultMap="userResultMap"> -->
+<!-- 		SELECT * FROM USER_TBL ORDER BY USER_NO DESC -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectUserByNo" resultMap="userResultMap"> -->
+<!-- 		SELECT * FROM USER_TBL WHERE USER_NO = #{userNo } -->
+<!-- 	</select> -->
+	
+<!-- 	<update id="updateUser"> -->
+<!-- 		UPDATE USER_TBL SET USER_NAME = #{userName}, USER_ADDRESS = #{userAddress}, D_LICENSE = #{dLicense}  WHERE USER_NO = #{userNo} -->
+<!-- 	</update> -->
+	
+<!-- 	<delete id="deleteUser"> -->
+<!-- 		DELETE FROM USER_TBL WHERE USER_NO = #{userNo} AND USER_ID = #{userId} -->
+<!-- 	</delete> -->
+	
+</mapper>
