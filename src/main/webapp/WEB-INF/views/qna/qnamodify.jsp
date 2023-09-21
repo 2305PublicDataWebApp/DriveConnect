@@ -1,52 +1,48 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>게시글 수정</title>
-		<link rel="stylesheet" href="../resources/css/main.css">
-	</head>
-	<body>
-		<h1>게시글 수정</h1>
-		<form action="/board/modify.kh" method="post" enctype="multipart/form-data">
-<!-- 		수정할 때, 리다이렉트 될 때 사용 -->
-		<input type="hidden" name="boardNo" value="${board.boardNo }" >
-<!-- 		기존 업로드 파일 체크할 때 사용 -->
-		<input type="hidden" name="boardFilename" value="${board.boardFilename }" >
-		<input type="hidden" name="boardFileRename" value="${board.boardFileRename }" >
-		<input type="hidden" name="boardFilepath" value="${board.boardFilepath }" >
-		<input type="hidden" name="boardFileLength" value="${board.boardFileLength }" >
-			<ul>
-				<li>
-					<label>제목</label>
-					<input type="text" name="boardTitle" value="${board.boardTitle }" >
-				</li>
-				<li>
-					<label>작성자</label>
-					<input type="text" name="boardWriter" value="${board.boardWriter }">
-				</li>
-				<li>
-					<label>내용</label>
-					<textarea rows="4" cols="50" name="boardContent">${board.boardContent}</textarea>
-				</li>
-				<li>
-					<label>첨부파일</label>
-<!-- 					String으로 받을 수 없고 변환작업이 필요함 -->
-					<a href="../resources/buploadFiles/${board.boardFilename }"download>${board.boardFilename }</a>
-					<input type="file" name="uploadFile">
-				</li>
-			</ul>
-			<div>
-				<input type="submit" value="수정완료">
-				<button type="button" onclick="showboardList();">목록으로</button>
-				<button type="button" onclick="javascript:history.go(-1);">뒤로가기</button>
-			</div>
-		</form>
-		<script>
-			function showboardList() {
-				location.href="/board/list.kh";
-			}
-		</script>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 수정</title>
+    <link rel="stylesheet" href="../resources/css/main.css">
+</head>
+<body>
+    <h1>게시글 수정</h1>
+    <form action="/qna/qnamodify" method="post">
+        <input type="hidden" name="qNo" value="${qna.qNo}">
+        <ul>
+            <li>
+                <label>작성자</label>
+                <input type="text" name="userId" value="${qna.userId}" readonly>
+            </li>
+            <li>
+                <label>제목</label>
+                <input type="text" name="qSubject" value="${qna.qSubject}">
+            </li>
+            <li>
+                <label>내용</label>
+                <textarea rows="4" cols="50" name="qContent">${qna.qContent}</textarea>
+            </li>
+        </ul>
+        <div>
+            <c:choose>
+                <c:when test="${qna.userId eq userId}">
+                    <input type="submit" value="수정완료">
+                </c:when>
+                <c:otherwise>
+                    <p>게시글 수정 권한이 없습니다.</p>
+                </c:otherwise>
+            </c:choose>
+            <button type="button" onclick="showQnaList();">목록으로</button>
+            <button type="button" onclick="javascript:history.go(-1);">뒤로가기</button>
+        </div>
+    </form>
+    <script>
+        function showQnaList() {
+            location.href="/qna/qnalist";
+        }
+    </script>
+</body>
 </html>

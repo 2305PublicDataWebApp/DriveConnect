@@ -81,12 +81,12 @@
 		<div>
 			<c:if test="${userId eq 'admin'}">
 <%-- 			<button type="button" onclick="showModifyPage('${modifyUrl }');">수정하기</button> --%>
-			<button type="button" onclick="window.location.href='${modifyUrl}';">수정하기</button>
+			<button type="button" onclick="window.location.href='${modifyUrl}';">차량 수정하기</button>
 			<form action="/subs/delete" method="post">
 			    <input type="hidden" name="_method" value="delete"> <!-- HTTP DELETE 메서드 설정 -->
 			    <input type="hidden" name="scNo" value="${subs.scNo}">
 			    <c:if test="${userId eq 'admin'}">
-			        <button type="submit" onclick="return confirm('삭제하시겠습니까?')">삭제하기</button>
+			        <button type="submit" onclick="return confirm('삭제하시겠습니까?')">차량 삭제하기</button>
 			    </c:if>
 			</form>
 			</c:if>

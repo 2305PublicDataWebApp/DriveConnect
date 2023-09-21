@@ -30,10 +30,10 @@
                     <a href="/company/company">커넥트드라이브란?</a>
                 </div>
                 <div class="list__item">
-                    <a href="">이용후기</a>
+                    <a href="/review/relist">이용후기</a>
                 </div>
                 <div class="list__item">
-                    <a href="">고객센터</a>
+                    <a href="/center/center">고객센터</a>
                 </div>                
                 </c:if>
                 <c:if test="${sessionScope.userId ne null && String.valueOf(sessionScope.adminYn) eq 'N'}">
@@ -44,10 +44,10 @@
                     <a href="/company/company">커넥트드라이브란?</a>
                 </div>
                 <div class="list__item">
-                    <a href="">이용후기</a>
+                    <a href="/review/relist">이용후기</a>
                 </div>
                 <div class="list__item">
-                    <a href="">고객센터</a>
+                    <a href="/center/center">고객센터</a>
                 </div>
                 <div class="list__item">
                     <a href=""></a>
@@ -71,7 +71,7 @@
                 	
                 <c:if test="${sessionScope.userId ne null && String.valueOf(sessionScope.adminYn) eq 'Y'}">	                	
                 <div class="list__item">
-                    <a href="">회원 관리</a>
+                    <a href="/user/admin_m_list">회원 관리</a>
                 </div>
                 <div class="list__item">
                     <a href="/subs/subslist">차량 관리</a>
@@ -85,16 +85,16 @@
 	               	</div>
 	                	<ul class="submenu" id="dropdown-content">
 			                <div class="list__item" id="search">
-			                    <a href="">공지 관리</a>
+			                    <a href="/notice/list">공지 관리</a>
 			                </div>
 			                <div class="list__item" id="search">
-			                    <a href="">문의 관리</a>
+			                    <a href="/qna/qnalist">문의 관리</a>
 			                </div>
 			                <div class="list__item" id="search">
-			                    <a href="">후기 관리</a>
+			                    <a href="/review/relist">후기 관리</a>
 			                </div>
 			                <div class="list__item" id="search">
-			                    <a href="">자주 묻는 질문 관리</a>
+			                    <a href="/often/oflist">자주 묻는 질문 관리</a>
 			                </div>
 		                </ul>
                	</li>

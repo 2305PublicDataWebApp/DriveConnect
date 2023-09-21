@@ -1,6 +1,7 @@
 package kr.co.drive.review.store.logic;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -33,6 +34,33 @@ public class ReviewStoreLogic implements ReviewStore{
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		List<Review> rList = sqlSession.selectList("ReviewMapper.selectReviewList", null, rowBounds);
 		return rList;
+	}
+
+	@Override
+	public Review selectReviewByNo(SqlSession sqlSession, Integer rNo) {
+		Review review = sqlSession.selectOne("ReviewMapper.selectReviewByNo", rNo);
+		return review;
+	}
+
+	@Override
+	public int deleteReview(SqlSession sqlSession, Review review) {
+		int result = sqlSession.delete("ReviewMapper.deleteReview", review);
+		return result;
+	}
+
+	@Override
+	public int updateReview(SqlSession sqlSession, Review review) {
+		int result = sqlSession.update("ReviewMapper.updateReview", review);
+		return result;
+	}
+
+	@Override
+	public List<Review> selectReviewByKeyword(SqlSession sqlSession, RePageInfo pInfo, Map<String, String> paramMap) {
+		int limit = pInfo.getRecordCountPerPage();
+		int offset = (pInfo.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Review> searchList = sqlSession.selectList("ReviewMapper.selectReviewByKeyword", paramMap, rowBounds);
+		return searchList;
 	}
 
 }

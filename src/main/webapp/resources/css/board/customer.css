@@ -1,0 +1,29 @@
+@charset "UTF-8";
+/* Reset styles and global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Customer Center styles */
+.customer-center {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.customer-slide {
+    flex-basis: calc(50% - 20px); /* 2개의 슬라이드, 여백 제외 */
+    margin: 10px;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+

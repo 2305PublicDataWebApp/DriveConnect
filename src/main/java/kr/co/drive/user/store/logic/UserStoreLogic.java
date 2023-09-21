@@ -1,5 +1,7 @@
 package kr.co.drive.user.store.logic;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -44,5 +46,23 @@ public class UserStoreLogic implements UserStore {
 		return result;
 	}
 
+	@Override
+	public int deleteUser(SqlSession session, User user) {
+		int result = session.delete("UserMapper.deleteUser4", user);
+		return result;
+	}
+	
+	@Override
+	public List<User> selectUserList(SqlSession session, User user) {
+		List<User> uList = session.selectList("UserMapper.selectUserList", user);
+		return uList;
+	}
+
+	@Override
+	public User selectUserByNo(SqlSession session, Integer userNo) {
+		User userOne = session.selectOne("UserMapper.selectUserByNo", userNo);
+		return userOne;
+
+	}
 
 }

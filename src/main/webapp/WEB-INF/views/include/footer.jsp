@@ -56,10 +56,6 @@
                         </li> 
                     </ul>
                 </div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
                 <div>
                     <ul class="info-list">
                         <li class="info-list__item">
@@ -78,9 +74,9 @@
                     </ul>
                 </div>
             </div>
+        </div>
             <div class="cap">
                 <span>© DriveConnect All Rights Reserved.</span>
                 <div id="middle"></div>
             </div>
-        </div>
     </footer>

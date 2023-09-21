@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OftenMapper">
+	<resultMap type="Often" id="oftenResultMap">
+		<id property="oNo" column="O_NO"/>
+		<result property="oSubject" column="O_SUBJECT"/>
+		<result property="oContent" column="O_CONTENT"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="userNo" column="USER_NO"/>
+	</resultMap>
+	<insert id="insertOften">
+		INSERT INTO OFTEN VALUES(SEQ_O_NO.NEXTVAL, #{oSubject }, #{oContent }, #{userId}, #{userNo} )
+	</insert>
+	
+	<select id="selectOftenList" resultMap="oftenResultMap">
+		SELECT * FROM OFTEN ORDER BY O_NO DESC
+	</select>
+	
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT (*) FROM OFTEN
+	</select>
+	
+	<select id="selectOftenByNo" resultMap="oftenResultMap">
+		SELECT * FROM OFTEN WHERE O_NO = #{oNo }
+	</select>
+	
+	<update id="updateOften">
+		UPDATE OFTEN SET O_SUBJECT = #{oSubject}, O_CONTENT = #{oContent} WHERE O_NO = #{oNo}
+	</update>
+	
+	<delete id="deleteOften">
+		DELETE FROM OFTEN WHERE O_NO = #{oNo} AND USER_ID = #{userId}
+	</delete>
+	
+
+</mapper>

@@ -40,7 +40,7 @@
 			</li>
 		</ul> 
 		<div>
-		<input type="submit" value="등록하기">			
+		<input type="submit" value="차량등록하기">			
 		</div>
 	</form>
 </body>

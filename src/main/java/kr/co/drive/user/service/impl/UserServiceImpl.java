@@ -1,5 +1,7 @@
 package kr.co.drive.user.service.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,7 +54,24 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
-
+	@Override
+	public int deleteUser(User user) {
+		int result = uStore.deleteUser(session, user);
+		return result;
+	}
+	
+	@Override
+	public User selectUserByNo(Integer userNo) {
+		User userOne = uStore.selectUserByNo(session, userNo);
+		return userOne;
+	}
+	
+	@Override
+	public List<User> selectUserList(User user) {
+		List<User> uList = uStore.selectUserList(session, user);
+		return uList;
+	}
+	
 
 
 }
