@@ -22,6 +22,8 @@ public interface UserStore {
 	
 	List<User> selectUserList(SqlSession session, User user);
 
-	User selectUserByNo(SqlSession session, Integer userNo);	
+	User selectUserByNo(SqlSession session, Integer userNo);
+
+	int updateAdmin(SqlSession session, User user);	
 
 }

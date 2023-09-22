@@ -234,7 +234,7 @@ public class UserController {
 			, HttpSession session
 			, HttpServletRequest request) {
 		try {
-			int result = service.updateUser(user);
+			int result = service.updateAdmin(user);
 			if(result > 0) {
 				return "redirect:/user/admin_m_detail?userNo="+user.getUserNo();
 			} else {

@@ -21,6 +21,16 @@ public class User {
 	
 	
 	
+	public User(int userNo, String userName, String dLicense, String userAddress) {
+		super();
+		this.userNo = userNo;
+		this.userName = userName;
+		this.dLicense = dLicense;
+		this.userAddress = userAddress;
+	}
+
+
+
 	public User(String userId) {
 		super();
 		this.userId = userId;

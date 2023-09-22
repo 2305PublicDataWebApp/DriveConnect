@@ -72,6 +72,11 @@ public class UserServiceImpl implements UserService {
 		return uList;
 	}
 	
+	@Override
+	public int updateAdmin(User user) {
+		int result = uStore.updateAdmin(session, user);
+		return result;
+	}
 
 
 }

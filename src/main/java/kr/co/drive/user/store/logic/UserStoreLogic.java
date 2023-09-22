@@ -64,5 +64,11 @@ public class UserStoreLogic implements UserStore {
 		return userOne;
 
 	}
+	
+	@Override
+	public int updateAdmin(SqlSession session, User user) {
+		int result = session.update("UserMapper.updateAdmin", user);
+		return result;
+	}
 
 }

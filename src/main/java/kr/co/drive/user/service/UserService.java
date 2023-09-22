@@ -50,5 +50,7 @@ public interface UserService {
 
 	int deleteUser(User user);
 
+	int updateAdmin(User user);
+
 
 }

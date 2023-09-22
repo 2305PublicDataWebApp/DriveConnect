@@ -170,6 +170,67 @@
 		    max-width: 300px; /* 썸네일의 최대 너비 */
 		    max-height: 300px; /* 썸네일의 최대 높이 */
 		}
+		
+		
+			/* 버튼 스타일 */
+	.button-link {
+	    display: block;
+	    padding: 5px 10px;
+	    background-color: #000000; /* 원하는 배경색으로 변경 */
+	    color: #fff; /* 텍스트 색상 */
+	    text-decoration: none; /* 밑줄 제거 */
+	    border: none; /* 테두리 제거 */
+	    cursor: pointer;
+	    border-radius: 5px; /* 둥근 모서리 */
+	    font-size: 13px;
+	    margin: 0 auto; /* 가로 중앙 정렬 */
+    	text-align: center; /* 텍스트 가로 중앙 정렬 */
+    	width: 200px; /* 버튼의 너비 지정 (원하는 크기로 조절) */
+	}
+	
+	/* 버튼 호버 효과 (선택 사항) */
+	.button-link:hover {
+	    background-color: #0056b3; /* 호버 시 배경색 변경 */
+	}		
+	
+/* 검색 폼 스타일 */
+.search-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px; /* 위 여백 설정 (원하는 여백으로 조절) */
+}
+
+.search-form select,
+.search-form input[type="text"],
+.search-form input[type="submit"] {
+    padding: 10px; /* 패딩 설정 (원하는 패딩으로 조절) */
+    font-size: 16px; /* 폰트 크기 설정 (원하는 크기로 조절) */
+    border: 1px solid #ccc; /* 테두리 스타일 설정 */
+    border-radius: 5px; /* 둥근 모서리 설정 */
+}
+
+.search-form select {
+    flex: 1; /* 화면 가로 중앙 정렬을 위한 flex 설정 */
+    margin-right: 10px; /* 입력 요소 사이 여백 설정 (원하는 여백으로 조절) */
+}
+
+.search-form input[type="text"] {
+    flex: 2; /* 화면 가로 중앙 정렬을 위한 flex 설정 */
+    width: 100px; /* 가로 길이 조절 (원하는 크기로 조절) */
+}
+
+.search-form input[type="submit"] {
+    background-color: #000; /* 배경색을 검정색으로 변경 */
+    color: #fff; /* 텍스트 색상 설정 */
+    cursor: pointer;
+    transition: background-color 0.3s; /* 호버 효과를 위한 트랜지션 설정 */
+}
+
+.search-form input[type="submit"]:hover {
+    background-color: #333; /* 호버 시 배경색 변경 (원하는 색상으로 조절) */
+}
+
 	</style>
 	<link rel="stylesheet" href="/resources/css/register.css?after">
     
@@ -247,7 +308,7 @@
 			        </tr>
 			        <tr>
 			            <td colspan="4">
-			                <form action="/subs/search" method="get">
+			                <form action="/subs/search" method="get" class="search-form">
 			                    <select name="searchCondition">
 			                       	<option value="all" <c:if test="${searchCondition == 'all' }">selected</c:if>>전체</option>
 									<option value="writer" <c:if test="${searchCondition == 'writer' }">selected</c:if>>차량브랜드</option>
@@ -261,7 +322,7 @@
 			            <td>
 			                <c:choose>
 			                    <c:when test="${sessionScope.userId eq 'admin'}">
-			                        <button type="button" onclick="showWriteForm();">글쓰기</button>
+			                        <button type="button" class="button-link" onclick="showWriteForm();">글쓰기</button>
 			                    </c:when>
 			                    <c:otherwise>
 			                        <!--관리자가 아닌 경우 버튼을 숨깁니다.  -->
