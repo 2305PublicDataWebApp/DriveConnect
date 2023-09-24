@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Noto+Sans+KR&family=Roboto&display=swap');
+
+/* 공통 스타일 */
+.custom-main {
+    text-align: center;
+}
+
+/* 가맹점 지역 선택 */
+.uk-select.sarea-select {
+    width: 100%;
+}
+
+/* 가맹점 지점 선택 */
+.uk-select.snum-select {
+    width: 100%;
+}
+
+/* 방문 예정 일시 입력 */
+.uk-input.date-time-input {
+    width: 100%;
+}
+
+/* 카드 선택 */
+.uk-select.card-select {
+    width: 100%;
+}
+
+/* 카드 번호 입력 */
+.uk-input.card-number-input {
+    width: 100%;
+}
+
+/* CVC 번호 입력 */
+.uk-input.cvc-input {
+    width: 100%;
+    placeholder: "카드 뒷면 숫자 3자리";
+}
+
+/* 카드 비밀번호 입력 */
+.uk-input.card-password-input {
+    width: 100%;
+    placeholder: "카드 비밀번호 앞 2자리";
+}
+
+/* 결제 버튼 스타일 */
+.uk-button.payment-button {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* 계산 영수증 박스 */
+.totalBoxBack {
+    background-color: #444;
+    color: white;
+    font-size: 20pt;
+    margin-left: 130px;
+    border: 0px white solid;
+}
+
+/* 장바구니 항목 스타일 */
+.cartBtag {
+    color: white;
+    font-weight: bold;
+}
+
+/* 장바구니 버튼 스타일 */
+.cartBtn {
+    width: 50%;
+    margin-right: 10px;
+}

@@ -32,7 +32,21 @@
  		,#{filePath}, #{fileLength}
 	</insert>
 
-
+	<select id="reserveList" resultType="Reserve" parameterType="int">
+	
+		SELECT R.*, SC.SC_NAME, UT.USER_ADDRESS, UT.D_LICENSE
+		FROM RESERVE R
+		JOIN SUBS_CAR SC ON R.SC_NO = SC.SC_NO
+		JOIN USER_TBL UT ON R.USER_NO = UT.USER_NO
+		WHERE R.SC_NO = SC.SC_NO
+	</select>
+	
+	<select id="getmyTotalPrice" resultType="int" parameterType="int">
+		SELECT PAYMENT 
+		FROM RESERVE 
+		WHERE unum = #{scNo}
+	</select>	
+	
 <!-- 	<select id="checkUserLogin" resultMap="userResultMap"> -->
 <!-- 		SELECT * FROM USER_TBL WHERE USER_ID = #{userId } AND USER_PW = #{userPw } -->
 <!-- 	</select>	 -->

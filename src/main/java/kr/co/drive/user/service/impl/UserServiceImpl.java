@@ -78,5 +78,12 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	@Override
+	public int idCheck(String userId) {
+		// TODO Auto-generated method stub
+		int result= uStore.idCheck(session, userId);
+		return result;
+	}
+
 
 }

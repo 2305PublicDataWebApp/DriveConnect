@@ -76,9 +76,9 @@
                 <div class="list__item">
                     <a href="/subs/subslist">차량 관리</a>
                 </div>
-                <div class="list__item">
-                    <a href="">구독 관리</a>
-                </div>                	
+<!--                 <div class="list__item"> -->
+<!--                     <a href="">구독 관리</a> -->
+<!--                 </div>                	 -->
                	<li id="dropdown">
 	               	<div class="list__item">
 	                    <a href="">게시판 관리</a>

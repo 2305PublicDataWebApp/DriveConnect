@@ -71,4 +71,14 @@ public class UserStoreLogic implements UserStore {
 		return result;
 	}
 
+	@Override
+	public int idCheck(SqlSession session, String userId) {
+		// TODO Auto-generated method stub
+		int result = session.selectOne("UserMapper.idCheck", userId);
+		return result;
+	}
+
+
+
+
 }

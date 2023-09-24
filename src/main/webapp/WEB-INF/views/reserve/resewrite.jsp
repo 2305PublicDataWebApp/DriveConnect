@@ -5,102 +5,234 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>게시글 등록</title>
-		<link rel="stylesheet" href="/resources/css/board/rewrite.css">
+<!-- 		<link rel="stylesheet" href="/resources/css/board/rewrite.css"> -->
 		<style>
+		@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Noto+Sans+KR&family=Roboto&display=swap');
+		
+		.custom-main {
+	    height: auto;
+        text-align: center;
+	    
+	    }
+	    
+	    	    		 /* common */
+        .container {
+            width: 1160px;
+            margin: 0 auto;
+            padding: 0 20px;
+            /* background-color: rgba(0, 0, 0, 0.1); */
+        }
+        .nexon {
+            font-family: 'NexonLv1Gothic';
+            font-weight: 400;
+        }
+        .section {
+            padding: 30px 0;
+        }
+        .section.center {
+            text-align: center;
+        }
+        .section__small {
+            font-size: 14px;
+            border-radius: 50px;
+            background-color: #0083FD;
+            color: #fff;
+            padding: 1px 23px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .section__h2 {
+            font-size: 50px;
+            font-weight: 400;
+            margin-bottom: 30px;
+            line-height: 1;
+        }
+        .section__desc {
+            font-size: 22px;
+            color: #666;
+            margin-bottom: 70px;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+        		
         td {
             width: 50px;
             height: 50px;
         }
-        .Calendar { 
-            text-align: center;
-            margin: 0 auto; 
-        }
-        .Calendar>thead>tr:first-child>td { font-weight: bold; }
-        .Calendar>thead>tr:last-child>td {
-            background-color: gray;
-            color: white;
-        }        
-        .pastDay{ background-color: lightgray; }
-        .today{            
-            background-color: #FFCA64;            
-            cursor: pointer;
-        }
-        .futureDay{            
-            background-color: #FFFFFF;
-            cursor: pointer;
-        }
-        .futureDay.choiceDay, .today.choiceDay{            
-            background-color: #3E85EF;            
-            color: #fff;
-            cursor: pointer;
-        }
+
+.modify-submit {
+    display: block;
+    padding: 5px 10px;
+    background-color: #000000; /* 원하는 배경색으로 변경 */
+    color: #fff; 
+    text-decoration: none; 
+    border: none; 
+    cursor: pointer;
+    border-radius: 5px; 
+    font-size: 13px;
+    margin: 0 auto; 
+    text-align: center; 
+    width: 200px;
+    margin-top: 30px;
+}
+.modify-submit1 {
+    display: block;
+    padding: 5px 10px;
+    background-color: #ff6969; 
+    color: #fff; 
+    text-decoration: none; 
+    border: none; 
+    cursor: pointer;
+    border-radius: 5px; 
+    font-size: 13px;
+    margin: 0 auto; 
+    text-align: center; 
+    width: 200px;
+    margin-top: 30px;
+}
+
+.modify-submit:hover {
+    background-color: #0056b3; /* 호버 시 배경색 변경 */
+}
+
+.modify-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modify-buttons br {
+    display: none; /* <br> 태그 숨김 */
+}
+
+.write-container {
+    max-width: 500px; /* 원하는 최대 너비로 조절 */
+    margin: 0 auto; /* 가로 중앙 정렬 */
+    padding: 20px; /* 좌우 여백 추가 (선택 사항) */
+    border: 1px solid #ddd; /* 테두리 스타일 추가 (선택 사항) */
+    border-radius: 5px; /* 테두리 모서리 둥글게 (선택 사항) */
+}        
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+
+label {
+    display: inline-block;
+    width: 150px; 
+    font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9; 
+}
+.modify-list li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px; 
+}
+a {
+    color: inherit; 
+    text-decoration: none; 
+}
+img {
+    display: block;
+    margin: 0 auto;
+}
+.detail-label {
+    text-align: left; /* 왼쪽 정렬로 변경 */
+}
     </style>
 	</head>
-	<body>
-		<h1>구독 등록</h1>
+<body>
+<jsp:include page="/WEB-INF/views/include/nav.jsp"></jsp:include>
+<main class="custom-main">
+ 		<section class="text__wrap section center nexon">
+	        <div class="container">
+	            <span class="section__small">차량 관리</span>
+	            <h2 class="section__h2 mb70">차량 예약하기</h2>
+        </section>
 		<form action="/review/rewrite" method="post" enctype="multipart/form-data">
 			<div>
+			<div class="write-container">
 			<ul>
 				<li>
-					    <img alt="첨부파일"  src="../resources/buploadFiles/${sOne.subsFiles.fileRename }">
+					<img alt="첨부파일"  src="../resources/buploadFiles/${sOne.subsFiles.fileRename }">
 				</li>
 				<li>
 		            <label class="detail-label">차량명</label>
-		           <input type="text" name=scName value="${sOne.scName }" readonly>
+		           <input type="text" name=scName value="${sOne.scName }" style="width: 80%;" readonly>
 		        </li>
 				<li>
 		            <label class="detail-label">브랜드</label>
-		            <input type="text" name="scBrand" value="${sOne.scBrand }" readonly>
+		            <input type="text" name="scBrand" value="${sOne.scBrand }"  style="width: 80%;" readonly>
 		        </li>
 				<li>
 		            <label class="detail-label">색상</label>
-		            <input type="text" name="scColor" value="${sOne.scColor }" readonly>
+		            <input type="text" name="scColor" value="${sOne.scColor }"  style="width: 80%;" readonly>
 		        </li>
 				<li>
 		            <label class="detail-label">차량 정보</label>
-		            <input type="text" name="scSpec" value="${sOne.scSpec }" readonly>
+					<textarea rows="6" cols="40" name="scSpec"  style="width: 80%;" readonly>${sOne.scSpec }</textarea>
 		        </li>
 			</ul>
-			</div>
 			<div>
 				<ul>
 				<li>
-					<label>배송지 입력</label>
-						<input type="text" id="sample6_postcode" placeholder="우편번호">
-						<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-						<input type="text" id="sample6_address" placeholder="주소"><br>
-						<input type="text" id="sample6_detailAddress" placeholder="상세주소">
-						<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+					 <label style="display: inline-block; width: 100px; text-align: left;">배송지 입력</label>
+						<input type="text" id="sample6_postcode" placeholder="우편번호" style="width: 50%;" >
+						<input type="button" class="modify-submit" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+						<input type="text" id="sample6_address" placeholder="주소" style="width: 50%;" ><br>
+						<input type="text" id="sample6_detailAddress" placeholder="상세주소" style="width: 50%;" ><br>
+						<input type="text" id="sample6_extraAddress" placeholder="참고항목" style="width: 30%;" >
 				</li>
 				</ul>
+			</div>
 
-        <table class="Calendar">
-            <thead>
-                <tr>
-                    <td onClick="prevCalendar();" style="cursor:pointer;">&#60;</td>
-                    <td colspan="5">
-                        <span id="calYear"></span>년
-                        <span id="calMonth"></span>월
-                    </td>
-                    <td onClick="nextCalendar();" style="cursor:pointer;">&#62;</td>
-                </tr>
-                <tr>
-                    <td>일</td>
-                    <td>월</td>
-                    <td>화</td>
-                    <td>수</td>
-                    <td>목</td>
-                    <td>금</td>
-                    <td>토</td>
-                </tr>
-            </thead>
+<!--         <table class="Calendar"> -->
+<!--             <thead> -->
+<!--                 <tr> -->
+<!--                     <td onClick="prevCalendar();" style="cursor:pointer;">&#60;</td> -->
+<!--                     <td colspan="5"> -->
+<!--                         <span id="calYear"></span>년 -->
+<!--                         <span id="calMonth"></span>월 -->
+<!--                     </td> -->
+<!--                     <td onClick="nextCalendar();" style="cursor:pointer;">&#62;</td> -->
+<!--                 </tr> -->
+<!--                 <tr> -->
+<!--                     <td>일</td> -->
+<!--                     <td>월</td> -->
+<!--                     <td>화</td> -->
+<!--                     <td>수</td> -->
+<!--                     <td>목</td> -->
+<!--                     <td>금</td> -->
+<!--                     <td>토</td> -->
+<!--                 </tr> -->
+<!--             </thead> -->
 
-            <tbody>
-            </tbody>
-        </table>
+<!--             <tbody> -->
+<!--             </tbody> -->
+<!--         </table> -->
 			</div>
 			<div>
-				<input type="submit" value="등록">
+<!-- 				<input type="submit" value="결제하기"> -->
+				<button type="button" class="modify-submit1" onclick="location.href='/reserve/reserve2'">결제하러가기</button>
 			</div>
 		</form>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>		
@@ -165,13 +297,8 @@ function sample6_execDaumPostcode() {
         }
     }).open();
 }
-// function leftPad(value) {
-//     if (value < 10) {
-//         value = "0" + value;
-//         return value;
-//     }
-//     return value;
-// }
 </script>
+	</main>
+			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 	</body>
 </html>

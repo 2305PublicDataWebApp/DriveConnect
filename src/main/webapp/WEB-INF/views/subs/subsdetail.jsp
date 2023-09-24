@@ -207,6 +207,7 @@ img {
 				<label>내용</label>
 				<textarea rows="7" cols="50" name="scSpec">${subs.scSpec }</textarea>
 			</li>
+			<c:if test="${sessionScope.user.id eq 'admin'}">
 			<li>
 				<lable>첨부파일</lable>
 				<!-- spring으로 받을 수 없고 변환작업이 필요함 -->
@@ -215,6 +216,7 @@ img {
 				<a href="#">삭제하기</a>
 				</c:if>
 			</li>
+			</c:if>
 		</ul>
 		</div>
 		<br><br>
@@ -242,9 +244,11 @@ img {
 			<div>
 			<button class="modify-submit" type="button" onclick="javascript:history.go(-1);">뒤로가기</button>
 			</div>
+			<c:if test="${not empty userId and userId ne 'admin'}">
 			<div>
 			<button class="modify-submit1" type="button" onclick="showReserveWrite();">차량 예약하기</button>
-			</div>			
+			</div>
+			</c:if>			
 		</div>
 		<script>
 			function showNoticeList() {
@@ -260,3 +264,23 @@ img {
 			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 	</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

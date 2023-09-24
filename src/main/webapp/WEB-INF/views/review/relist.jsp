@@ -7,11 +7,67 @@
 <head>
     <meta charset="UTF-8">
     <title>후기 목록</title>
-    <link rel="stylesheet" href="/resources/css/board/relist.css">
+<!--     <link rel="stylesheet" href="/resources/css/board/relist.css"> -->
+<style>
+		@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Noto+Sans+KR&family=Roboto&display=swap');
+		
+		.custom-main {
+	    height: auto;
+        text-align: center;
+	    
+	    }
+	    
+	    	    		 /* common */
+        .container {
+            width: 1160px;
+            margin: 0 auto;
+            padding: 0 20px;
+            /* background-color: rgba(0, 0, 0, 0.1); */
+        }
+        .nexon {
+            font-family: 'NexonLv1Gothic';
+            font-weight: 400;
+        }
+        .section {
+            padding: 30px 0;
+        }
+        .section.center {
+            text-align: center;
+        }
+        .section__small {
+            font-size: 14px;
+            border-radius: 50px;
+            background-color: #0083FD;
+            color: #fff;
+            padding: 1px 23px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .section__h2 {
+            font-size: 50px;
+            font-weight: 400;
+            margin-bottom: 30px;
+            line-height: 1;
+        }
+        .section__desc {
+            font-size: 22px;
+            color: #666;
+            margin-bottom: 70px;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+</style>
 </head>
-<body>
-<h1><a href="/index.jsp">HOME</a></h1>
-    <h1>후기 목록</h1>
+	<body>
+		<jsp:include page="/WEB-INF/views/include/nav.jsp"></jsp:include>	
+	<main class="custom-main">
+	    <section class="text__wrap section center nexon">
+	        <div class="container">
+	            <span class="section__small">Review</span>
+	            <h2 class="section__h2 mb70">후기 목록</h2>
+	        </div>
+        </section>
     <table class="review-table">
         <colgroup>
             <col width="5%"></col>
@@ -111,5 +167,7 @@
             location.href = "/review/rewrite";
         }
     </script>
-</body>
+	</main>
+			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+	</body>
 </html>

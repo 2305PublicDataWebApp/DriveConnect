@@ -52,5 +52,7 @@ public interface UserService {
 
 	int updateAdmin(User user);
 
+	int idCheck(String userId);
+
 
 }

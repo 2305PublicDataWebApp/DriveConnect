@@ -24,6 +24,10 @@ public interface UserStore {
 
 	User selectUserByNo(SqlSession session, Integer userNo);
 
-	int updateAdmin(SqlSession session, User user);	
+	int updateAdmin(SqlSession session, User user);
+
+	int idCheck(SqlSession session, String userId);
+
+
 
 }

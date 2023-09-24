@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 import kr.co.drive.user.domain.User;
 import kr.co.drive.user.service.UserService;
 
@@ -33,7 +36,7 @@ public class UserController {
 		try {
 			int result = service.insertUser(user);
 			if(result > 0) {
-				return "redirect:/index.jsp";
+				return "user/signupsuccess";
 			}else {
 				model.addAttribute("msg", "회원가입이 완료되지 않았습니다.");
 				model.addAttribute("error", "회원가입 실패");
@@ -48,6 +51,21 @@ public class UserController {
 			return "common/serviceFailed";
 			} 
 		}
+	
+	//아이디 중복확인
+	@RequestMapping(value = "/user/idCheck", method = RequestMethod.GET)
+	public @ResponseBody String postIdCheck(HttpServletRequest req,@RequestParam("userId") String userId){
+		int n = service.idCheck(userId);
+		int result = 0;
+		if(n >= 1) {
+			result = 1;
+		}
+		System.out.println("idresult:"+result);
+		return "{\"exist\":"+result+"}";
+		
+	}
+
+	
 
 	@RequestMapping(value="/user/login", method=RequestMethod.GET)
 	public String showLoginView() {
@@ -69,17 +87,17 @@ public class UserController {
 				return "redirect:/index.jsp";
 			}else {
 				// 실패하면 에러페이지로 이동
-				model.addAttribute("msg", "로그인이 완료되지 않았습니다.");
-				model.addAttribute("error", "로그인 실패");
-				model.addAttribute("url", "/index.jsp");
-				return "common/serviceFailed";
+				model.addAttribute("msg", "failure");
+//				model.addAttribute("error", "로그인 실패");
+//				model.addAttribute("url", "/index.jsp");
+				return "user/login";
 			}			
 		} catch (Exception e) {
 			// TODO: handle exception
-			model.addAttribute("msg", "관리자에게 문의바랍니다.");
-			model.addAttribute("error", e.getMessage());
-			model.addAttribute("url", "/index.jsp");
-			return "common/serviceFailed";
+			model.addAttribute("msg", "failure");
+//			model.addAttribute("error", e.getMessage());
+//			model.addAttribute("url", "/index.jsp");
+			return "user/login";
 		}
 	}
 	
