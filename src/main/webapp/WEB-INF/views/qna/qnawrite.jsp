@@ -5,9 +5,20 @@
 <head>
     <meta charset="UTF-8">
     <title>문의 등록</title>
+        <style>
+		@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Noto+Sans+KR&family=Roboto&display=swap');
+		
+		.custom-main {
+	    height: auto;
+        text-align: center;
+	    
+	    }
+	    </style>
     <link rel="stylesheet" href="/resources/css/board/qnawrite.css?after">
 </head>
-<body>
+	<body>
+		<jsp:include page="/WEB-INF/views/include/nav.jsp"></jsp:include>	
+	<main class="custom-main">
     <div class="container">
         <h1 class="title">문의 등록</h1>
         <form action="/qna/qnawrite" method="post" class="qna-form">
@@ -28,5 +39,7 @@
             </div>
         </form>
     </div>
-</body>
+	</main>
+			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+	</body>
 </html>

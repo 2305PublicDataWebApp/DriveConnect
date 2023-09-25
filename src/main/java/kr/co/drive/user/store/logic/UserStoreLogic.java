@@ -10,7 +10,7 @@ import kr.co.drive.user.store.UserStore;
 
 @Repository
 public class UserStoreLogic implements UserStore {
-//	ljh
+
 	@Override
 	public int insertMember(SqlSession session, User user) {
 		// TODO Auto-generated method stub
@@ -18,13 +18,6 @@ public class UserStoreLogic implements UserStore {
 		return result;
 	}
 
-	@Override
-	public int deleteUser(SqlSession session, String userId) {
-		// TODO Auto-generated method stub
-		int result = session.delete("UserMapper.deleteUser", userId);
-		return result;
-	}
-	
 	@Override
 	public User checkUserLogin(SqlSession session, User user) {
 		// TODO Auto-generated method stub
@@ -38,10 +31,24 @@ public class UserStoreLogic implements UserStore {
 		User user = session.selectOne("UserMapper.getUserById", userId);
 		return user;
 	}
-//	ogh
+
+	@Override
+	public int deleteUser(SqlSession session, String userId) {
+		// TODO Auto-generated method stub
+		int result = session.delete("UserMapper.deleteUser", userId);
+		return result;
+	}
+
 	@Override
 	public int updateUser(SqlSession session, User user) {
+		// TODO Auto-generated method stub
 		int result = session.update("UserMapper.updateUser", user);
+		return result;
+	}
+
+	@Override
+	public int deleteUser(SqlSession session, User user) {
+		int result = session.delete("UserMapper.deleteUser4", user);
 		return result;
 	}
 	
@@ -55,14 +62,23 @@ public class UserStoreLogic implements UserStore {
 	public User selectUserByNo(SqlSession session, Integer userNo) {
 		User userOne = session.selectOne("UserMapper.selectUserByNo", userNo);
 		return userOne;
+
 	}
-
-
+	
 	@Override
-	public int deleteUser(SqlSession session, User user) {
-		int result = session.delete("UserMapper.deleteUser", user);
+	public int updateAdmin(SqlSession session, User user) {
+		int result = session.update("UserMapper.updateAdmin", user);
 		return result;
 	}
+
+	@Override
+	public int idCheck(SqlSession session, String userId) {
+		// TODO Auto-generated method stub
+		int result = session.selectOne("UserMapper.idCheck", userId);
+		return result;
+	}
+
+
 
 
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,16 +12,20 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.drive.reserve.domain.Reserve;
 import kr.co.drive.reserve.service.ReserveService;
+import kr.co.drive.subs.domain.Subs;
 import kr.co.drive.subs.domain.SubsFiles;
+import kr.co.drive.subs.service.SubsService;
 
 @Controller
 public class ReserveController {
@@ -28,18 +33,24 @@ public class ReserveController {
 	@Autowired
 	private ReserveService rService;
 	
-	@RequestMapping(value="/reserve/resewrite", method=RequestMethod.GET)
-	public ModelAndView showWriteForm(ModelAndView mv) {
+	@Autowired
+	private SubsService sService;
 
+	@RequestMapping(value="/reserve/resewrite", method=RequestMethod.GET)
+	public ModelAndView showWriteForm(ModelAndView mv
+			,@RequestParam("scNo") int scNo) {
+		Subs sOne = sService.selectBoardByNo(scNo);
+		mv.addObject("sOne", sOne);
 		mv.setViewName("reserve/resewrite");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="/reserve/resewrite", method=RequestMethod.POST)
 	public ModelAndView reseRegister(
 			ModelAndView mv
 			, @ModelAttribute Reserve reserve
-			, @ModelAttribute SubsFiles subsF
+			, @ModelAttribute SubsFiles subsFiles
+			, @ModelAttribute Subs subs
 			, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile
 			, HttpSession session
 			, HttpServletRequest request) {
@@ -50,12 +61,13 @@ public class ReserveController {
 				if(uploadFile != null && !uploadFile.getOriginalFilename().equals("")) {
 					// 파일정보(이름, 리네임, 경로, 크기) 및 파일저장
 					Map<String, Object> rMap = this.saveFile(request, uploadFile);
-					subsF.setFileName((String)rMap.get("fileName"));
-					subsF.setFileRename((String)rMap.get("fileRename"));
-					subsF.setFilePath((String)rMap.get("filePath"));
-					subsF.setFileLength((long)rMap.get("fileLength"));
+					subsFiles.setFileName((String)rMap.get("fileName"));
+					subsFiles.setFileRename((String)rMap.get("fileRename"));
+					subsFiles.setFilePath((String)rMap.get("filePath"));
+					subsFiles.setFileLength((long)rMap.get("fileLength"));
 				}
 				int result = rService.insertReserve(reserve);
+				mv.addObject("subs/sOne");
 				mv.setViewName("redirect:/reserve/reselist");
 			} else {
 				mv.addObject("msg", "로그인이 필요합니다.");
@@ -71,7 +83,7 @@ public class ReserveController {
 		}
 		return mv;
 	}
-	
+
 	public Map<String, Object> saveFile(HttpServletRequest request, MultipartFile uploadFile) throws Exception {
 		Map<String, Object> fileMap = new HashMap<String, Object>();
 		// resources 경로 구하기
@@ -102,4 +114,75 @@ public class ReserveController {
 		fileMap.put("fileLength", fileLength);
 		return fileMap;
 	}
+	
+	
+	
+	@RequestMapping(value="/reserve/getRname",produces="application/json;charset=utf8",method=RequestMethod.GET)
+	public @ResponseBody String getSname(HttpServletRequest req, @RequestParam("sarea") String sarea){
+		List<Reserve> list = rService.getStoreNameList(sarea);
+		
+//		String strJson="{\"result\":["
+//				+ "{\"name\":\"name1\",\"num\":\"num1\"},"
+//				+ "{\"name\":\"name2\",\"num\":\"num2\"},"
+//				+ "{\"name\":\"name3\",\"num\":\"num3\"}]}";
+		
+		String strJson="{\"result\":[";
+		for(Reserve reserve : list){
+			strJson += "{\"num\":\""+ reserve.getScNo() +"\",\"name\":\""+ reserve.getUserName() +"\"},";
+		}
+		
+		strJson=strJson.substring(0,strJson.length()-1); // 마지막 쉼표 제거
+		strJson+="]}";
+		
+		return strJson;
+	}
+	
+	
+	
+	// 장바구니에서 결제페이지로
+	@RequestMapping("/reserve/reserve2")
+	public ModelAndView reserve2(HttpSession session
+			, @ModelAttribute Subs subs
+			){
+		ModelAndView model = new ModelAndView();
+		
+		Reserve reserve = (Reserve) session.getAttribute("loginInfo"); 
+		if (reserve != null) {
+			int unum = reserve.getScNo();			
+			try {
+				List<Reserve> list = rService.getList(unum);
+				int mytotalPrice = rService.getmyTotalPrice(unum);
+				
+	            // 여기에서 Subs 객체를 가져와서 모델에 추가
+	            Subs sOne = sService.selectBoardByNo(unum);
+				
+				model.addObject("list",list);
+				model.addObject("mytotalPrice", mytotalPrice);			
+				model.addObject("sOne", sOne); // Subs 객체를 모델에 추가
+
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else {
+			
+		}
+		
+		model.setViewName("/reserve/reserve2");
+		return model;
+		
+		
+	}
+	
+	
+    @GetMapping("/reserve/ordersuccess")
+    public String showOrderSuccessPage() {
+        // 여기에 필요한 로직을 추가하세요.
+        // 예를 들어 데이터를 가공하거나 필요한 작업을 수행할 수 있습니다.
+        
+        return "reserve/ordersuccess"; // 뷰 이름 (ordersuccess.jsp)
+    }
+    
+    
 }
+	
+	

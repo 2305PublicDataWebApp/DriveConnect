@@ -23,12 +23,36 @@ public interface UserService {
 	 */
 	User checkUserLogin(User user);
 
-	List<User> selectUserList(User user);
+	/**
+	 * 마이페이지 Service
+	 * @param userId
+	 * @return
+	 */
+	User getUserById(String userId);
+
+	/**
+	 * 회원탈퇴 Service
+	 * @param userId
+	 * @return
+	 */
+	int deleteUser(String userId);
+
+	/**
+	 * 회원 정보 수정 Service
+	 * @param user
+	 * @return
+	 */
+	int updateUser(User user);
 
 	User selectUserByNo(Integer userNo);
 
-	int updateUser(User user);
+	List<User> selectUserList(User user);
 
 	int deleteUser(User user);
+
+	int updateAdmin(User user);
+
+	int idCheck(String userId);
+
 
 }

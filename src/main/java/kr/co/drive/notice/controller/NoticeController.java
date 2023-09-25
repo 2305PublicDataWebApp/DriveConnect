@@ -156,6 +156,39 @@ public class NoticeController {
 		        return "common/serviceFailed";
 		    }
 		}
+//		@RequestMapping(value="/notice/delete", method=RequestMethod.POST)
+//		public String deleteNotice(@RequestParam("nNo") Integer nNo
+//				, @RequestParam("userId") String userId
+//				, HttpSession session
+//				, Model model) {
+//			try {
+//				String memberId = (String)session.getAttribute("userId");
+//				Notice notice = new Notice();
+//				notice.setnNo(nNo);
+//				notice.setUserId(memberId);
+//				if(memberId != null && memberId.equals(userId)) {
+//					int result = service.deleteNotice(notice);
+//					if (result > 0) {
+//						return "redirect:/notice/list";
+//				} else {
+//					model.addAttribute("msg", "공지사항 삭제가 완료되지 않았습니다.");
+//					model.addAttribute("error", "공지사항 삭제 실패");
+//					model.addAttribute("url", "/notice/detail?nNo=" + nNo);
+//					return "common/serviceFailed";
+//				}
+//				} else {
+//					model.addAttribute("msg", "본인이 작성한 글만 삭제할 수 있습니다.");
+//					model.addAttribute("error", "게시글 삭제 불가");
+//					model.addAttribute("url", "/notice/list");
+//					model.addAttribute("common/serviceFailed");
+//				}
+//			} catch (Exception e) {
+//				model.addAttribute("msg", "관리자에게 문의해주세요.");
+//				model.addAttribute("error", e.getMessage());
+//				model.addAttribute("url", "/notice/detail?nNo=" + nNo);
+//				return "common/serviceFailed";
+//			}
+//		}
 		@RequestMapping(value="/center/center", method=RequestMethod.GET)
 		public String showCenterList(@ModelAttribute Notice notice
 				, @ModelAttribute Qna qna

@@ -34,28 +34,56 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> selectUserList(User user) {
-		List<User> uList = uStore.selectUserList(session, user);
-		return uList;
+	public User getUserById(String userId) {
+		// TODO Auto-generated method stub
+		User user = uStore.getUserById(session, userId);
+		return user;
 	}
 
 	@Override
-	public User selectUserByNo(Integer userNo) {
-		User userOne = uStore.selectUserByNo(session, userNo);
-		return userOne;
+	public int deleteUser(String userId) {
+		// TODO Auto-generated method stub
+		int result = uStore.deleteUser(session, userId);
+		return result;
 	}
 
 	@Override
 	public int updateUser(User user) {
+		// TODO Auto-generated method stub
 		int result = uStore.updateUser(session, user);
 		return result;
 	}
-
 
 	@Override
 	public int deleteUser(User user) {
 		int result = uStore.deleteUser(session, user);
 		return result;
 	}
+	
+	@Override
+	public User selectUserByNo(Integer userNo) {
+		User userOne = uStore.selectUserByNo(session, userNo);
+		return userOne;
+	}
+	
+	@Override
+	public List<User> selectUserList(User user) {
+		List<User> uList = uStore.selectUserList(session, user);
+		return uList;
+	}
+	
+	@Override
+	public int updateAdmin(User user) {
+		int result = uStore.updateAdmin(session, user);
+		return result;
+	}
+
+	@Override
+	public int idCheck(String userId) {
+		// TODO Auto-generated method stub
+		int result= uStore.idCheck(session, userId);
+		return result;
+	}
+
 
 }

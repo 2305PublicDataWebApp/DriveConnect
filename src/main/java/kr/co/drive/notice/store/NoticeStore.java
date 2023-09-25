@@ -20,4 +20,7 @@ public interface NoticeStore {
 
 	int deleteNotice(SqlSession session, Integer nNo);
 
+//	int deleteNotice(SqlSession session, Notice notice);
+
+
 }

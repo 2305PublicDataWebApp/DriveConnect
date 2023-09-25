@@ -5,219 +5,300 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>게시글 등록</title>
-		<link rel="stylesheet" href="/resources/css/board/rewrite.css">
-    <link href="https://checkout.paystax.com/v1/checkout.css" rel="stylesheet">
+<!-- 		<link rel="stylesheet" href="/resources/css/board/rewrite.css"> -->
 		<style>
+		@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Noto+Sans+KR&family=Roboto&display=swap');
+		
+		.custom-main {
+	    height: auto;
+        text-align: center;
+	    
+	    }
+	    
+	    	    		 /* common */
+        .container {
+            width: 1160px;
+            margin: 0 auto;
+            padding: 0 20px;
+            /* background-color: rgba(0, 0, 0, 0.1); */
+        }
+        .nexon {
+            font-family: 'NexonLv1Gothic';
+            font-weight: 400;
+        }
+        .section {
+            padding: 30px 0;
+        }
+        .section.center {
+            text-align: center;
+        }
+        .section__small {
+            font-size: 14px;
+            border-radius: 50px;
+            background-color: #0083FD;
+            color: #fff;
+            padding: 1px 23px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .section__h2 {
+            font-size: 50px;
+            font-weight: 400;
+            margin-bottom: 30px;
+            line-height: 1;
+        }
+        .section__desc {
+            font-size: 22px;
+            color: #666;
+            margin-bottom: 70px;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+        		
         td {
             width: 50px;
             height: 50px;
         }
 
-        .Calendar { 
-            text-align: center;
-            margin: 0 auto; 
-        }
+.modify-submit {
+    display: block;
+    padding: 5px 10px;
+    background-color: #000000; /* 원하는 배경색으로 변경 */
+    color: #fff; 
+    text-decoration: none; 
+    border: none; 
+    cursor: pointer;
+    border-radius: 5px; 
+    font-size: 13px;
+    margin: 0 auto; 
+    text-align: center; 
+    width: 200px;
+    margin-top: 30px;
+}
+.modify-submit1 {
+    display: block;
+    padding: 5px 10px;
+    background-color: #ff6969; 
+    color: #fff; 
+    text-decoration: none; 
+    border: none; 
+    cursor: pointer;
+    border-radius: 5px; 
+    font-size: 13px;
+    margin: 0 auto; 
+    text-align: center; 
+    width: 200px;
+    margin-top: 30px;
+}
 
-        .Calendar>thead>tr:first-child>td { font-weight: bold; }
+.modify-submit:hover {
+    background-color: #0056b3; /* 호버 시 배경색 변경 */
+}
 
-        .Calendar>thead>tr:last-child>td {
-            background-color: gray;
-            color: white;
-        }        
+.modify-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
 
-        .pastDay{ background-color: lightgray; }
+.modify-buttons br {
+    display: none; /* <br> 태그 숨김 */
+}
 
-        .today{            
-            background-color: #FFCA64;            
-            cursor: pointer;
-        }
+.write-container {
+    max-width: 500px; /* 원하는 최대 너비로 조절 */
+    margin: 0 auto; /* 가로 중앙 정렬 */
+    padding: 20px; /* 좌우 여백 추가 (선택 사항) */
+    border: 1px solid #ddd; /* 테두리 스타일 추가 (선택 사항) */
+    border-radius: 5px; /* 테두리 모서리 둥글게 (선택 사항) */
+}        
 
-        .futureDay{            
-            background-color: #FFFFFF;
-            cursor: pointer;
-        }
+ul {
+    list-style: none;
+    padding: 0;
+}
 
-        .futureDay.choiceDay, .today.choiceDay{            
-            background-color: #3E85EF;            
-            color: #fff;
-            cursor: pointer;
-        }
+
+label {
+    display: inline-block;
+    width: 150px; 
+    font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9; 
+}
+.modify-list li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px; 
+}
+a {
+    color: inherit; 
+    text-decoration: none; 
+}
+img {
+    display: block;
+    margin: 0 auto;
+}
+.detail-label {
+    text-align: left; /* 왼쪽 정렬로 변경 */
+}
     </style>
 	</head>
-	<body>
-		<h1>구독 등록</h1>
+<body>
+<jsp:include page="/WEB-INF/views/include/nav.jsp"></jsp:include>
+<main class="custom-main">
+ 		<section class="text__wrap section center nexon">
+	        <div class="container">
+	            <span class="section__small">차량 관리</span>
+	            <h2 class="section__h2 mb70">차량 예약하기</h2>
+        </section>
 		<form action="/review/rewrite" method="post" enctype="multipart/form-data">
 			<div>
+			<div class="write-container">
 			<ul>
 				<li>
-					    <img alt="첨부파일"  src="../resources/ruploadFiles/${review.fileRename }">
+					<img alt="첨부파일"  src="../resources/buploadFiles/${sOne.subsFiles.fileRename }">
 				</li>
 				<li>
 		            <label class="detail-label">차량명</label>
-		           <input type="text" name=scName value="${subs.scName }" readonly>
+		           <input type="text" name=scName value="${sOne.scName }" style="width: 80%;" readonly>
 		        </li>
 				<li>
 		            <label class="detail-label">브랜드</label>
-		            <input type="text" name="scBrand" value="${subs.scBrand }" readonly>
+		            <input type="text" name="scBrand" value="${sOne.scBrand }"  style="width: 80%;" readonly>
 		        </li>
 				<li>
 		            <label class="detail-label">색상</label>
-		            <input type="text" name="scColor" value="${subs.scColor }" readonly>
+		            <input type="text" name="scColor" value="${sOne.scColor }"  style="width: 80%;" readonly>
 		        </li>
 				<li>
 		            <label class="detail-label">차량 정보</label>
-		            <input type="text" name="scSpec" value="${subs.scSpec }" readonly>
+					<textarea rows="6" cols="40" name="scSpec"  style="width: 80%;" readonly>${sOne.scSpec }</textarea>
 		        </li>
 			</ul>
-			</div>
 			<div>
 				<ul>
 				<li>
-					<label>배송지 입력</label>
-					<input type="text" id="userAddress" name="userAddress"> 
-						<input type="button" onclick="sample4_emecDaumPostcode();" value="우편번호 찾기">
+					 <label style="display: inline-block; width: 100px; text-align: left;">배송지 입력</label>
+						<input type="text" id="sample6_postcode" placeholder="우편번호" style="width: 50%;" >
+						<input type="button" class="modify-submit" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+						<input type="text" id="sample6_address" placeholder="주소" style="width: 50%;" ><br>
+						<input type="text" id="sample6_detailAddress" placeholder="상세주소" style="width: 50%;" ><br>
+						<input type="text" id="sample6_extraAddress" placeholder="참고항목" style="width: 30%;" >
 				</li>
 				</ul>
+			</div>
 
-        <table class="Calendar">
-            <thead>
-                <tr>
-                    <td onClick="prevCalendar();" style="cursor:pointer;">&#60;</td>
-                    <td colspan="5">
-                        <span id="calYear"></span>년
-                        <span id="calMonth"></span>월
-                    </td>
-                    <td onClick="nextCalendar();" style="cursor:pointer;">&#62;</td>
-                </tr>
-                <tr>
-                    <td>일</td>
-                    <td>월</td>
-                    <td>화</td>
-                    <td>수</td>
-                    <td>목</td>
-                    <td>금</td>
-                    <td>토</td>
-                </tr>
-            </thead>
-    
-            <tbody>
-            </tbody>
-        </table>
+<!--         <table class="Calendar"> -->
+<!--             <thead> -->
+<!--                 <tr> -->
+<!--                     <td onClick="prevCalendar();" style="cursor:pointer;">&#60;</td> -->
+<!--                     <td colspan="5"> -->
+<!--                         <span id="calYear"></span>년 -->
+<!--                         <span id="calMonth"></span>월 -->
+<!--                     </td> -->
+<!--                     <td onClick="nextCalendar();" style="cursor:pointer;">&#62;</td> -->
+<!--                 </tr> -->
+<!--                 <tr> -->
+<!--                     <td>일</td> -->
+<!--                     <td>월</td> -->
+<!--                     <td>화</td> -->
+<!--                     <td>수</td> -->
+<!--                     <td>목</td> -->
+<!--                     <td>금</td> -->
+<!--                     <td>토</td> -->
+<!--                 </tr> -->
+<!--             </thead> -->
+
+<!--             <tbody> -->
+<!--             </tbody> -->
+<!--         </table> -->
 			</div>
 			<div>
-				<input type="submit" value="등록">
+<!-- 				<input type="submit" value="결제하기"> -->
+				<button type="button" class="modify-submit1" onclick="location.href='/reserve/reserve2'">결제하러가기</button>
 			</div>
 		</form>
-    <script src="https://checkout.paystax.com/v1/checkout.js"></script>
-		<script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>		
+	<script>
 function previewImage() {
     const uploadFile = document.getElementById('uploadFile');
     const imagePreview = document.getElementById('imagePreview');
-
     if (uploadFile.files && uploadFile.files[0]) {
         const reader = new FileReader();
-
         reader.onload = function (e) {
             imagePreview.src = e.target.result;
             imagePreview.style.display = 'block';
         }
-
         reader.readAsDataURL(uploadFile.files[0]);
     }
     
 }
+function sample6_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-function sample4_emecDaumPostcode() {
-	new daum.Postcode({
-		oncomplete : function(data) {
-			document.querySelector("#userAddress")
-			.value = "("+data.zonecode +") "+data.autoJibunAddress+", "+data.buildingName;
-		}
-	}).open();
-}
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ''; // 주소 변수
+            var extraAddr = ''; // 참고항목 변수
 
-window.onload = function () { buildCalendar(); }    // 웹 페이지가 로드되면 buildCalendar 실행
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
+            }
 
-let nowMonth = new Date();  // 현재 달을 페이지를 로드한 날의 달로 초기화
-let today = new Date();     // 페이지를 로드한 날짜를 저장
-today.setHours(0,0,0,0);    // 비교 편의를 위해 today의 시간을 초기화
+            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+            if(data.userSelectedType === 'R'){
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraAddr !== ''){
+                    extraAddr = ' (' + extraAddr + ')';
+                }
+                // 조합된 참고항목을 해당 필드에 넣는다.
+                document.getElementById("sample6_extraAddress").value = extraAddr;
+            
+            } else {
+                document.getElementById("sample6_extraAddress").value = '';
+            }
 
-// 달력 생성 : 해당 달에 맞춰 테이블을 만들고, 날짜를 채워 넣는다.
-function buildCalendar() {
-
-    let firstDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), 1);     // 이번달 1일
-    let lastDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, 0);  // 이번달 마지막날
-
-    let tbody_Calendar = document.querySelector(".Calendar > tbody");
-    document.getElementById("calYear").innerText = nowMonth.getFullYear();             // 연도 숫자 갱신
-    document.getElementById("calMonth").innerText = leftPad(nowMonth.getMonth() + 1);  // 월 숫자 갱신
-
-    while (tbody_Calendar.rows.length > 0) {                        // 이전 출력결과가 남아있는 경우 초기화
-        tbody_Calendar.deleteRow(tbody_Calendar.rows.length - 1);
-    }
-
-    let nowRow = tbody_Calendar.insertRow();        // 첫번째 행 추가           
-
-    for (let j = 0; j < firstDate.getDay(); j++) {  // 이번달 1일의 요일만큼
-        let nowColumn = nowRow.insertCell();        // 열 추가
-    }
-
-    for (let nowDay = firstDate; nowDay <= lastDate; nowDay.setDate(nowDay.getDate() + 1)) {   // day는 날짜를 저장하는 변수, 이번달 마지막날까지 증가시키며 반복  
-
-        let nowColumn = nowRow.insertCell();        // 새 열을 추가하고
-        nowColumn.innerText = leftPad(nowDay.getDate());      // 추가한 열에 날짜 입력
-
-        let resDate = new Date(nowDay);
-        if (nowDay.getDay() == 0) {                 // 일요일인 경우 글자색 빨강으로
-            nowColumn.style.color = "#DC143C";
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('sample6_postcode').value = data.zonecode;
+            document.getElementById("sample6_address").value = addr;
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById("sample6_detailAddress").focus();
         }
-        if (nowDay.getDay() == 6) {                 // 토요일인 경우 글자색 파랑으로 하고
-            nowColumn.style.color = "#0000CD";
-            nowRow = tbody_Calendar.insertRow();    // 새로운 행 추가
-        }
-
-
-        if (nowDay < today) {                       // 지난날인 경우
-            nowColumn.className = "pastDay";
-        }
-        else if (nowDay.getFullYear() == today.getFullYear() && nowDay.getMonth() == today.getMonth() && nowDay.getDate() == today.getDate()) { // 오늘인 경우           
-            nowColumn.className = "today";
-            nowColumn.onclick = function () { choiceDate(this); }
-        }
-        else {                                      // 미래인 경우
-            nowColumn.className = "futureDay";
-            nowColumn.onclick = function () { choiceDate(this); }
-        }
-    }
-}
-
-// 날짜 선택
-function choiceDate(nowColumn) {
-    if (document.getElementsByClassName("choiceDay")[0]) {                              // 기존에 선택한 날짜가 있으면
-        document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");  // 해당 날짜의 "choiceDay" class 제거
-    }
-    nowColumn.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
-}
-
-// 이전달 버튼 클릭
-function prevCalendar() {
-    nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() - 1, nowMonth.getDate());   // 현재 달을 1 감소
-    buildCalendar();    // 달력 다시 생성
-}
-// 다음달 버튼 클릭
-function nextCalendar() {
-    nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, nowMonth.getDate());   // 현재 달을 1 증가
-    buildCalendar();    // 달력 다시 생성
-}
-
-// input값이 한자리 숫자인 경우 앞에 '0' 붙혀주는 함수
-function leftPad(value) {
-    if (value < 10) {
-        value = "0" + value;
-        return value;
-    }
-    return value;
+    }).open();
 }
 </script>
+	</main>
+			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 	</body>
 </html>

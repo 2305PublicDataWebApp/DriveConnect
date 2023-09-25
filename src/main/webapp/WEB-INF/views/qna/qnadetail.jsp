@@ -6,10 +6,29 @@
 <head>
     <meta charset="UTF-8">
     <title>문의 상세</title>
+            <style>
+		@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Noto+Sans+KR&family=Roboto&display=swap');
+		
+		.custom-main {
+	    height: auto;
+        text-align: center;
+	    }
+	    
+	            .container {
+            width: 700px; /* 적절한 너비 설정 */
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+	    </style>
     <link rel="stylesheet" href="/resources/css/board/detail.css?after">
 </head>
-<body>
-    <h1>문의 상세</h1>
+</head>
+	<body>
+		<jsp:include page="/WEB-INF/views/include/nav.jsp"></jsp:include>	
+	<main class="custom-main">
+	        <div class="container">
+	<h1>문의 상세</h1>
     <ul>
         <li>
             <label>작성자</label>
@@ -86,6 +105,8 @@
             </tr>
         </c:forEach>
     </table>
+  </div>
+    
     <script>
 //         function showModifyPage(modifyUrl) {
 //             location.href = modifyUrl;
@@ -164,5 +185,7 @@ const deleteQna = (url) => {
 					}
 				}
     </script>
-</body>
+	</main>
+			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+	</body>
 </html>

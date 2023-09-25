@@ -48,6 +48,13 @@ public class NoticeServiceImpl implements NoticeService{
 		return nList;
 	}
 
+
+//	@Override
+//	public int deleteNotice(Notice notice) {
+//		int result = nStore.deleteNotice(session, notice);
+//		return 0;
+//	}
+
 	@Override
 	public int deleteNotice(Integer nNo) {
 		int result = nStore.deleteNotice(session, nNo);

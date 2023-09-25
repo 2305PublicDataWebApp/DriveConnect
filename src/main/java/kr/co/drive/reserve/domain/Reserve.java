@@ -3,6 +3,7 @@ package kr.co.drive.reserve.domain;
 import java.sql.Timestamp;
 
 public class Reserve {
+
 	private int resNo;
 	private String userId;
 	private String userName;
@@ -22,7 +23,7 @@ public class Reserve {
 	private String fileRename;
 	private String filePath;
 	private int fileLength;
-	
+
 	public int getResNo() {
 		return resNo;
 	}
@@ -102,8 +103,8 @@ public class Reserve {
 	public void setScName(String scName) {
 		this.scName = scName;
 	}
-	
-	
+
+
 	public int getUserNo() {
 		return userNo;
 	}
@@ -149,4 +150,8 @@ public class Reserve {
 				+ ", fileName=" + fileName + ", fileRename=" + fileRename + ", filePath=" + filePath 
 				+ ", fileLength=" + fileLength + "]";
 	}
+
+
+
+
 }

@@ -18,4 +18,7 @@ public interface NoticeService {
 
 	int deleteNotice(Integer nNo);
 
+//	int deleteNotice(Notice notice);
+
+
 }

@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>     
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>DriveConnect</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Noto+Sans+KR&family=Roboto&display=swap');
 	body {
@@ -62,17 +65,22 @@
   button[type="submit"]:hover {
     background-color: #555;
   }
+  
+  .sub-title {
+    text-align: left; /* 텍스트를 왼쪽으로 정렬 */
+}
 	</style>
 	<link rel="stylesheet" href="/resources/css/register.css?after">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/include/nav.jsp"></jsp:include>
+	<c:set var="root" value="<%=request.getContextPath()%>"/>
 <main>
         <div class="title">
             <h1>로그인</h1>
         </div>
         <div>
-        	<form method="post" action="/user/login">
+        	<form method="post" action="/user/login" name="form1" id="form1">
 	                <div class="row">
 	                    <div class="sub-title-box">
 	                        <div class="sub-title">
@@ -80,14 +88,19 @@
 	                        </div>
 	                    </div>
 	                    <div>
-	                        <input type="text" name="userId" placeholder="아이디*" required>
+	                        <input type="text" name="userId" id="userId" placeholder="아이디*" required>
 	                    </div>
 	                    <div>
-                        	<input type="Password" name="userPw" placeholder="비밀번호*" required>
+                        	<input type="Password" name="userPw" id="userPw" placeholder="비밀번호*" required>
                    		</div>
 	                    <div>
-	                    	<button class="c-btn c-btn-black c-btn-bold" type="submit">로그인</button>
+	                    	<button class="c-btn c-btn-black c-btn-bold" type="submit" id="login_btn">로그인</button>
 	                    </div>
+	                    <br>
+	                    <br>
+                        <c:if test="${msg == 'failure'}">
+							<span class="uk-label uk-label-danger loginFail_span"  style="color: red;">로그인에 실패했습니다. 다시 로그인해주세요.</span>
+						</c:if>
                 </div>
         	</form>
         </div>
@@ -95,5 +108,28 @@
 
 </main>
 	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+// 	$("footer_wrapper").attr("style","display:none !important");
+	
+	$("#login_btn").click(function(){
+        var id = $("#userId").val();
+        var pass = $("#userPw").val();
+        if(id == ""){
+            alert("아이디를 입력해주세요");
+            $("#userId").focus();
+            return;
+        }
+        if(pass == ""){
+            alert("비밀번호를 입력하세요");
+            $("#userPw").focus();
+            return;
+        }
+        document.form1.action="/user/login";
+        document.form1.submit();
+	});
+});
+</script>	
 </body>
 </html>

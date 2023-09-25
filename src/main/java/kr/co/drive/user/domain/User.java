@@ -16,13 +16,28 @@ public class User {
 	private Timestamp uDate;
 	private char adminYn;
 	
+	
 	public User() {}
 	
+	
+	
+	public User(int userNo, String userName, String dLicense, String userAddress) {
+		super();
+		this.userNo = userNo;
+		this.userName = userName;
+		this.dLicense = dLicense;
+		this.userAddress = userAddress;
+	}
+
+
+
 	public User(String userId) {
 		super();
 		this.userId = userId;
 	}
-	
+
+
+
 	public User(String userId, String userPw, String userName, String userEmail, String userPhone, String dLicense) {
 		super();
 		this.userId = userId;
@@ -168,5 +183,7 @@ public class User {
 				+ ", 이메일=" + userEmail + ", 전화번호=" + userPhone + ", 운전면허=" + dLicense + ", 구독여부="
 				+ subsYn + ", 회원여부=" + userYn + ", 배송주소=" + userAddress + ", 가입날짜=" + uDate + ", 관리자여부=" + adminYn + "]";
 	}
+	
+	
 	
 }

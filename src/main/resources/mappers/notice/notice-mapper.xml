@@ -35,6 +35,6 @@
     </select>
 <!-- resultType="noticeResultMap" -->
 	<delete id="deleteNotice">
-		DELETE FROM NOTICE WHERE N_NO = #{nNo} AND USER_ID = #{userId}
+		DELETE FROM NOTICE WHERE N_NO = #{nNo}
 	</delete>
 </mapper>
